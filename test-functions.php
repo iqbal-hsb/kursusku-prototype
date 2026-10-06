@@ -2,37 +2,118 @@
 
 require_once __DIR__ . '/helpers.php';
 
-function test(string $name, bool $condition): void
-{
-    echo ($condition ? 'PASS' : 'FAIL') . ' - ' . $name . '<br>';
-}
+$tests = [
+    [
+        'nama' => 'rupiah(250000)',
+        'hasil' => rupiah(250000),
+        'harapan' => 'Rp 250.000'
+    ],
+    [
+        'nama' => 'statusKursus(25, 25)',
+        'hasil' => statusKursus(25, 25),
+        'harapan' => 'Penuh'
+    ],
+    [
+        'nama' => 'statusKursus(30, 29)',
+        'hasil' => statusKursus(30, 29),
+        'harapan' => 'Tersedia'
+    ],
+    [
+        'nama' => 'sisaKursi(20, 0)',
+        'hasil' => sisaKursi(20, 0),
+        'harapan' => 20
+    ],
+    [
+        'nama' => 'sisaKursi(25, 25)',
+        'hasil' => sisaKursi(25, 25),
+        'harapan' => 0
+    ],
+    [
+        'nama' => 'formatTanggal(2026-09-15)',
+        'hasil' => formatTanggal('2026-09-15'),
+        'harapan' => '15-09-2026'
+    ]
+];
 
-test(
-    'rupiah format',
-    rupiah(150000) === 'Rp 150.000'
-);
+?>
 
-test(
-    'status tersedia',
-    statusKursus(30, 12) === 'Tersedia'
-);
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Functions - KursusKu</title>
 
-test(
-    'status penuh',
-    statusKursus(25, 25) === 'Penuh'
-);
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f8f4;
+            padding: 30px;
+        }
 
-test(
-    'sisa kursi',
-    sisaKursi(30, 12) === 18
-);
+        h1 {
+            color: #176b35;
+        }
 
-test(
-    'sisa kursi tidak negatif',
-    sisaKursi(10, 15) === 0
-);
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
 
-test(
-    'format tanggal',
-    formatTanggal('2026-09-21') === '21-09-2026'
-);
+        th {
+            background: #176b35;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .pass {
+            color: green;
+            font-weight: bold;
+        }
+
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Test Functions KursusKu</h1>
+
+<table>
+    <tr>
+        <th>Test</th>
+        <th>Hasil</th>
+        <th>Harapan</th>
+        <th>Status</th>
+    </tr>
+
+    <?php foreach ($tests as $test): ?>
+
+        <?php
+        $status = $test['hasil'] === $test['harapan'];
+        ?>
+
+        <tr>
+            <td><?= htmlspecialchars($test['nama']) ?></td>
+            <td><?= htmlspecialchars((string) $test['hasil']) ?></td>
+            <td><?= htmlspecialchars((string) $test['harapan']) ?></td>
+
+            <td class="<?= $status ? 'pass' : 'fail' ?>">
+                <?= $status ? 'PASS' : 'FAIL' ?>
+            </td>
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+</body>
+</html>
