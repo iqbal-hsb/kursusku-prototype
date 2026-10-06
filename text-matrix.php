@@ -1,31 +1,36 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Matrix</title>
+<table>
+    <tr>
+        <th>Komponen</th>
+        <th>Nilai</th>
+    </tr>
 
-    <style>
-        body {
-            background-color: black;
-            color: #00ff00;
-            font-family: monospace;
-            text-align: center;
-            padding-top: 100px;
-        }
+    <tr>
+        <td>Biaya per peserta</td>
+        <td>Rp <?= number_format($fee, 0, ',', '.') ?></td>
+    </tr>
 
-        .matrix {
-            font-size: 50px;
-            font-weight: bold;
-            text-shadow: 0 0 10px #00ff00;
-        }
-    </style>
-</head>
+    <tr>
+        <td>Jumlah peserta</td>
+        <td><?= $participantCount ?></td>
+    </tr>
 
-<body>
+    <tr>
+        <td>Subtotal</td>
+        <td>Rp <?= number_format($subtotal, 0, ',', '.') ?></td>
+    </tr>
 
-    <div class="matrix">
-        MATRIX
-    </div>
+    <tr>
+        <td>Diskon (<?= $discountPercent ?>%)</td>
+        <td>- Rp <?= number_format($discount, 0, ',', '.') ?></td>
+    </tr>
 
-</body>
-</html>
+    <tr>
+        <td>Biaya admin</td>
+        <td>Rp <?= number_format($adminFee, 0, ',', '.') ?></td>
+    </tr>
+
+    <tr>
+        <td><strong>Total akhir</strong></td>
+        <td><strong>Rp <?= number_format($total, 0, ',', '.') ?></strong></td>
+    </tr>
+</table>
