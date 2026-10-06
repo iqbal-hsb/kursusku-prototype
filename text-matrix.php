@@ -1,36 +1,88 @@
-<table>
-    <tr>
-        <th>Komponen</th>
-        <th>Nilai</th>
-    </tr>
+<!-- TEST MATRIX -->
 
-    <tr>
-        <td>Biaya per peserta</td>
-        <td>Rp <?= number_format($fee, 0, ',', '.') ?></td>
-    </tr>
+<section id="test-matrix">
 
-    <tr>
-        <td>Jumlah peserta</td>
-        <td><?= $participantCount ?></td>
-    </tr>
+    <h2>Test Matrix Kalkulator Biaya</h2>
 
-    <tr>
-        <td>Subtotal</td>
-        <td>Rp <?= number_format($subtotal, 0, ',', '.') ?></td>
-    </tr>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Input</th>
+                <th>Expected</th>
+                <th>Actual</th>
+                <th>Status</th>
+            </tr>
+        </thead>
 
-    <tr>
-        <td>Diskon (<?= $discountPercent ?>%)</td>
-        <td>- Rp <?= number_format($discount, 0, ',', '.') ?></td>
-    </tr>
+        <tbody>
 
-    <tr>
-        <td>Biaya admin</td>
-        <td>Rp <?= number_format($adminFee, 0, ',', '.') ?></td>
-    </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    Fee: Rp 350.000<br>
+                    Peserta: 1<br>
+                    Diskon: 0%<br>
+                    Admin: Rp 25.000
+                </td>
+                <td>Rp 375.000</td>
+                <td>Rp 375.000</td>
+                <td>PASS</td>
+            </tr>
 
-    <tr>
-        <td><strong>Total akhir</strong></td>
-        <td><strong>Rp <?= number_format($total, 0, ',', '.') ?></strong></td>
-    </tr>
-</table>
+            <tr>
+                <td>2</td>
+                <td>
+                    Fee: Rp 350.000<br>
+                    Peserta: 1<br>
+                    Diskon: 10%<br>
+                    Admin: Rp 25.000
+                </td>
+                <td>Rp 340.000</td>
+                <td>Rp 340.000</td>
+                <td>PASS</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>
+                    Fee: Rp 350.000<br>
+                    Peserta: 2<br>
+                    Diskon: 25%<br>
+                    Admin: Rp 25.000
+                </td>
+                <td>Rp 550.000</td>
+                <td>Rp 550.000</td>
+                <td>PASS</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>
+                    Fee: Rp 0<br>
+                    Peserta: 1<br>
+                    Diskon: 10%<br>
+                    Admin: Rp 0
+                </td>
+                <td>Rp 0</td>
+                <td>Rp 0</td>
+                <td>PASS</td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>
+                    Fee: Rp 2.500.000<br>
+                    Peserta: 3<br>
+                    Diskon: 10%<br>
+                    Admin: Rp 50.000
+                </td>
+                <td>Rp 6.800.000</td>
+                <td>Rp 6.800.000</td>
+                <td>PASS</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</section>
