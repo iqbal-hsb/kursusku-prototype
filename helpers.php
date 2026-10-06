@@ -1,12 +1,10 @@
 <?php
 
-// Format harga ke Rupiah
 function rupiah(int $amount): string
 {
     return 'Rp ' . number_format($amount, 0, ',', '.');
 }
 
-// Menentukan status kursus
 function statusKursus(int $quota, int $registered): string
 {
     if ($registered >= $quota) {
@@ -16,7 +14,6 @@ function statusKursus(int $quota, int $registered): string
     return 'Tersedia';
 }
 
-// Menghitung jumlah kursi yang masih tersedia
 function sisaKursi(int $quota, int $registered): int
 {
     $sisa = $quota - $registered;
@@ -28,7 +25,6 @@ function sisaKursi(int $quota, int $registered): int
     return $sisa;
 }
 
-// Mengubah format tanggal
 function formatTanggal(string $date): string
 {
     $tanggal = new DateTimeImmutable($date);
