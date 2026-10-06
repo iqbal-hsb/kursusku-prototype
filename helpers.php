@@ -1,33 +1,26 @@
 <?php
 
+// Function 1: Format Rupiah
 function rupiah(int $amount): string
 {
     return 'Rp ' . number_format($amount, 0, ',', '.');
 }
 
+// Function 2: Penentuan Status Kursus (Penuh / Tersedia)
 function statusKursus(int $quota, int $registered): string
 {
-    if ($registered >= $quota) {
-        return 'Penuh';
-    }
-
-    return 'Tersedia';
+    return $registered >= $quota ? 'Penuh' : 'Tersedia';
 }
 
+// Function 3: Menghitung Sisa Kursi
 function sisaKursi(int $quota, int $registered): int
 {
-    $sisa = $quota - $registered;
-
-    if ($sisa < 0) {
-        return 0;
-    }
-
-    return $sisa;
+    return max(0, $quota - $registered);
 }
 
+// Function 4: Format Tanggal ke d-m-Y
 function formatTanggal(string $date): string
 {
-    $tanggal = new DateTimeImmutable($date);
-
-    return $tanggal->format('d-m-Y');
+    $value = new DateTimeImmutable($date);
+    return $value->format('d-m-Y');
 }
