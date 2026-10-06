@@ -22,17 +22,17 @@ $year     = date('Y');
 <body>
 <body>
 
-    <!-- Header & Navigasi -->
     <header>
-        <nav aria-label="Navigasi utama">
-            <a href="index.php"><strong><?= htmlspecialchars($siteName) ?></strong></a>
-            <a href="#keunggulan">Keunggulan</a>
-            <a href="#katalog">Katalog</a>
-            <a href="#alur">Cara Daftar</a>
-            <a href="#kontak">Kontak</a>
-        </nav>
-    </header>
-
+    <nav aria-label="Navigasi utama">
+        <a href="index.php" style="display: flex; align-items: center; gap: 8px;">
+            <img src="assets/images/logo.svg" alt="Logo KursusKu" height="36">
+        </a>
+        <a href="#keunggulan">Keunggulan</a>
+        <a href="#katalog">Katalog</a>
+        <a href="#alur">Cara Daftar</a>
+        <a href="#kontak">Kontak</a>
+    </nav>
+</header>
     <main>
         <!-- Section Hero -->
         <section id="hero">
