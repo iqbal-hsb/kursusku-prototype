@@ -1,20 +1,32 @@
+/* =========================
+   VARIABLES & THEME
+   ========================= */
 :root {
-    --primary-color: #0066cc;
-    --primary-dark: #004499;
-    --secondary-color: #eaf4ff;
-    --bg-color: #f8f9fa;
-    --text-color: #333333;
-    --text-light: #718096;
+    /* Brand & Primary Colors */
+    --primary-color: #0f766e;
+    --primary-dark: #0b5f55;
+    --secondary-color: #eef8f5;
+    
+    /* Layout & Surface Colors */
+    --bg-color: #f6f9f8;
     --card-bg: #ffffff;
-    --border-color: #e2e8f0;
-    --success-bg: #e8f7ef;
-    --success-color: #176b3a;
+    --text-color: #14231f;
+    --text-light: #60756e;
+    --border-color: #d9e6e2;
+    --input-border: #b8ccc6;
+    
+    /* Status Colors */
+    --success-bg: #eaf8f1;
+    --success-color: #17824f;
+    --badge-full-bg: #fee2e2;
+    --badge-full-color: #dc2626;
+    --badge-avail-bg: #d1fae5;
+    --badge-avail-color: #059669;
 }
 
 /* =========================
-   RESET
+   RESET & BASE STYLES
    ========================= */
-
 * {
     box-sizing: border-box;
 }
@@ -24,7 +36,7 @@ html {
 }
 
 body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
@@ -32,17 +44,34 @@ body {
     padding: 0;
 }
 
+.container {
+    width: min(1080px, 92%);
+    margin-inline: auto;
+}
+
+a {
+    color: var(--primary-dark);
+}
+
 /* =========================
    HEADER & NAVIGASI
    ========================= */
-
-header {
-    background-color: #ffffff;
+header,
+.site-header {
+    background-color: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
     padding: 1rem 2rem;
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.nav-wrap {
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
 nav {
@@ -65,10 +94,15 @@ nav a:hover {
     color: var(--primary-color);
 }
 
-/* =========================
-   MAIN
-   ========================= */
+.brand {
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--primary-dark);
+}
 
+/* =========================
+   MAIN & SECTIONS
+   ========================= */
 main {
     max-width: 1000px;
     margin: 2rem auto;
@@ -88,17 +122,28 @@ section h2 {
     color: #1f2937;
 }
 
-/* =========================
-   HERO
-   ========================= */
+.page-intro {
+    max-width: 720px;
+    margin: 2.5rem auto 1.25rem;
+}
 
+.eyebrow {
+    color: var(--primary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+/* =========================
+   HERO SECTION
+   ========================= */
 #hero {
     background: linear-gradient(
         135deg,
         var(--primary-color),
         var(--primary-dark)
     );
-    color: white;
+    color: #ffffff;
     text-align: center;
     padding: 3.5rem 2rem;
 }
@@ -126,14 +171,13 @@ section h2 {
 }
 
 #hero a:hover {
-    background-color: #eaf4ff;
+    background-color: var(--secondary-color);
     transform: translateY(-2px);
 }
 
 /* =========================
-   ARTICLE / CARD
+   ARTICLE / CARD & SUMMARY
    ========================= */
-
 article {
     background: #f1f5f9;
     border-left: 4px solid var(--primary-color);
@@ -157,12 +201,101 @@ article a:hover {
     text-decoration: underline;
 }
 
-/* =========================
-   KALKULATOR PERTEMUAN 3
-   ========================= */
+.summary-card {
+    max-width: 760px;
+    margin: 0 auto 2rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+}
 
-.calculator-card {
+.summary-list {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 0.65rem 1rem;
+}
+
+.summary-list dt { 
+    font-weight: 700; 
+}
+
+.summary-list dd { 
+    margin: 0; 
+}
+
+/* =========================
+   FORM & INPUTS
+   ========================= */
+.form-card {
+    max-width: 760px;
+    margin: 0 auto 2rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.form-group { 
+    margin-bottom: 1rem; 
+}
+
+label,
+legend {
+    display: block;
+    font-weight: 700;
+    margin-bottom: .35rem;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--input-border);
+    border-radius: .65rem;
     background: #ffffff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid rgba(15, 118, 110, 0.18);
+    border-color: var(--primary-color);
+}
+
+.choice {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    margin-right: 1rem;
+    font-weight: 400;
+}
+
+.help { 
+    color: var(--text-light); 
+}
+
+/* =========================
+   TABEL BIAYA & STATUS
+   ========================= */
+.calculator-card {
+    background: var(--card-bg);
     border-radius: 14px;
     padding: 2rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
@@ -181,25 +314,39 @@ article a:hover {
     margin-bottom: 1.5rem;
 }
 
-/* Tabel biaya */
+.table-container {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    overflow-x: auto;
+}
 
+table,
 .cost-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
     background: #ffffff;
+    font-size: 14px;
+    text-align: left;
 }
 
+th,
 .cost-table th {
     background: var(--primary-color);
     color: #ffffff;
     padding: 14px;
-    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
 }
 
+td,
 .cost-table td {
     padding: 14px;
     border-bottom: 1px solid var(--border-color);
+    color: #4b5563;
 }
 
 .cost-table tr:nth-child(even) {
@@ -207,10 +354,8 @@ article a:hover {
 }
 
 .cost-table tr:hover {
-    background-color: #eef6ff;
+    background-color: var(--secondary-color);
 }
-
-/* Total akhir */
 
 .cost-table .total {
     background-color: var(--success-bg);
@@ -219,27 +364,47 @@ article a:hover {
     font-size: 1.1rem;
 }
 
-/* Tombol kalkulator */
+/* Badge Status Kuota */
+.badge-full {
+    color: var(--badge-full-color);
+    font-weight: 600;
+    background-color: var(--badge-full-bg);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
 
+.badge-available {
+    color: var(--badge-avail-color);
+    font-weight: 600;
+    background-color: var(--badge-avail-bg);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* =========================
+   BUTTONS & ALERTS
+   ========================= */
+.btn-primary,
 .btn-calculator {
     display: inline-block;
     background-color: var(--primary-color);
     color: #ffffff;
     padding: 0.75rem 1.3rem;
-    border-radius: 8px;
+    border: 0;
+    border-radius: .7rem;
     text-decoration: none;
     font-weight: bold;
-    margin-top: 1rem;
+    cursor: pointer;
     transition: 0.2s;
 }
 
+.btn-primary:hover,
 .btn-calculator:hover {
     background-color: var(--primary-dark);
     transform: translateY(-2px);
 }
 
-/* Tombol kembali */
-
+.btn-link,
 .btn-back {
     display: inline-block;
     margin-top: 1.5rem;
@@ -248,14 +413,22 @@ article a:hover {
     font-weight: bold;
 }
 
+.btn-link:hover,
 .btn-back:hover {
     text-decoration: underline;
 }
 
-/* =========================
-   MEDIA
-   ========================= */
+.alert-success {
+    max-width: 760px;
+    margin: 2rem auto 1rem;
+    padding: 1.2rem;
+    background: var(--success-bg);
+    border-left: 4px solid var(--success-color);
+}
 
+/* =========================
+   MEDIA ELEMENTS
+   ========================= */
 img,
 video {
     max-width: 100%;
@@ -271,7 +444,6 @@ video {
 /* =========================
    FOOTER
    ========================= */
-
 footer {
     text-align: center;
     padding: 1.5rem;
@@ -280,13 +452,16 @@ footer {
 }
 
 /* =========================
-   RESPONSIVE / HP
+   RESPONSIVE / MOBILE
    ========================= */
-
 @media (max-width: 700px) {
-
     header {
         padding: 1rem;
+    }
+
+    .nav-wrap { 
+        align-items: flex-start; 
+        padding-block: .8rem; 
     }
 
     nav {
@@ -314,6 +489,20 @@ footer {
         font-size: 1.7rem;
     }
 
+    .form-grid { 
+        grid-template-columns: 1fr; 
+    }
+
+    .form-card,
+    .summary-card { 
+        padding: 1rem; 
+    }
+
+    .summary-list { 
+        grid-template-columns: 1fr; 
+    }
+
+    th, td,
     .cost-table th,
     .cost-table td {
         padding: 10px;
