@@ -14,6 +14,8 @@
     --text-light: #60756e;
     --border-color: #d9e6e2;
     --input-border: #b8ccc6;
+    --muted: #e2e8f0;
+    --line: #d9e6e2;
     
     /* Status Colors */
     --success-bg: #eaf8f1;
@@ -146,10 +148,11 @@ section h2 {
     color: #ffffff;
     text-align: center;
     padding: 3.5rem 2rem;
+    border-radius: 12px;
 }
 
 #hero h1 {
-    margin-top: 0;
+    margin-top: 0.5rem;
     font-size: 2.2rem;
 }
 
@@ -158,21 +161,8 @@ section h2 {
     margin: 0 auto;
 }
 
-#hero a {
-    display: inline-block;
-    background-color: #ffffff;
-    color: var(--primary-color);
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 1.2rem;
-    transition: 0.2s;
-}
-
-#hero a:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px);
+#hero .eyebrow {
+    color: #a7f3d0;
 }
 
 /* =========================
@@ -201,32 +191,7 @@ article a:hover {
     text-decoration: underline;
 }
 
-.summary-card {
-    max-width: 760px;
-    margin: 0 auto 2rem;
-    padding: 1.5rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 1rem;
-}
-
-.summary-list {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    gap: 0.65rem 1rem;
-}
-
-.summary-list dt { 
-    font-weight: 700; 
-}
-
-.summary-list dd { 
-    margin: 0; 
-}
-
-/* =========================
-   FORM & INPUTS
-   ========================= */
+.summary-card,
 .form-card {
     max-width: 760px;
     margin: 0 auto 2rem;
@@ -236,84 +201,9 @@ article a:hover {
     border-radius: 1rem;
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-}
-
-.form-group { 
-    margin-bottom: 1rem; 
-}
-
-label,
-legend {
-    display: block;
-    font-weight: 700;
-    margin-bottom: .35rem;
-}
-
-input,
-select,
-textarea,
-button {
-    font: inherit;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-select,
-textarea {
-    width: 100%;
-    padding: 0.8rem 0.9rem;
-    border: 1px solid var(--input-border);
-    border-radius: .65rem;
-    background: #ffffff;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    outline: 3px solid rgba(15, 118, 110, 0.18);
-    border-color: var(--primary-color);
-}
-
-.choice {
-    display: inline-flex;
-    align-items: center;
-    gap: .45rem;
-    margin-right: 1rem;
-    font-weight: 400;
-}
-
-.help { 
-    color: var(--text-light); 
-}
-
 /* =========================
    TABEL BIAYA & STATUS
    ========================= */
-.calculator-card {
-    background: var(--card-bg);
-    border-radius: 14px;
-    padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-}
-
-.calculator-card h2 {
-    color: var(--primary-color);
-    margin-top: 0;
-}
-
-.course-info {
-    background: var(--secondary-color);
-    border-left: 4px solid var(--primary-color);
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-}
-
 .table-container {
     background-color: var(--card-bg);
     border-radius: 12px;
@@ -323,8 +213,7 @@ textarea:focus {
     overflow-x: auto;
 }
 
-table,
-.cost-table {
+table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
@@ -333,8 +222,7 @@ table,
     text-align: left;
 }
 
-th,
-.cost-table th {
+th {
     background: var(--primary-color);
     color: #ffffff;
     padding: 14px;
@@ -342,29 +230,20 @@ th,
     border-bottom: 2px solid var(--border-color);
 }
 
-td,
-.cost-table td {
+td {
     padding: 14px;
     border-bottom: 1px solid var(--border-color);
     color: #4b5563;
 }
 
-.cost-table tr:nth-child(even) {
+tr:nth-child(even) {
     background-color: #f8fafc;
 }
 
-.cost-table tr:hover {
+tr:hover {
     background-color: var(--secondary-color);
 }
 
-.cost-table .total {
-    background-color: var(--success-bg);
-    color: var(--success-color);
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-/* Badge Status Kuota */
 .badge-full {
     color: var(--badge-full-color);
     font-weight: 600;
@@ -384,11 +263,10 @@ td,
 /* =========================
    BUTTONS & ALERTS
    ========================= */
-.btn-primary,
-.btn-calculator {
+.btn-primary {
     display: inline-block;
     background-color: var(--primary-color);
-    color: #ffffff;
+    color: #ffffff !important;
     padding: 0.75rem 1.3rem;
     border: 0;
     border-radius: .7rem;
@@ -398,114 +276,46 @@ td,
     transition: 0.2s;
 }
 
-.btn-primary:hover,
-.btn-calculator:hover {
+.btn-primary:hover {
     background-color: var(--primary-dark);
     transform: translateY(-2px);
 }
 
-.btn-link,
-.btn-back {
+.btn-link {
     display: inline-block;
-    margin-top: 1.5rem;
-    color: var(--primary-color);
+    padding: 0.75rem 1.3rem;
+    color: var(--text-color);
+    border-radius: .7rem;
     text-decoration: none;
     font-weight: bold;
+    transition: 0.2s;
 }
 
-.btn-link:hover,
-.btn-back:hover {
-    text-decoration: underline;
-}
-
-.alert-success {
-    max-width: 760px;
-    margin: 2rem auto 1rem;
-    padding: 1.2rem;
-    background: var(--success-bg);
-    border-left: 4px solid var(--success-color);
+.btn-link:hover {
+    background-color: #cbd5e1 !important;
 }
 
 /* =========================
-   MEDIA ELEMENTS
+   FOOTER & MEDIA
    ========================= */
-img,
-video {
+img, video {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
 }
 
-video {
-    display: block;
-    margin-top: 1rem;
-}
-
-/* =========================
-   FOOTER
-   ========================= */
 footer {
     text-align: center;
-    padding: 1.5rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--line);
+    margin-top: 2rem;
     color: var(--text-light);
     font-size: 0.9rem;
 }
 
-/* =========================
-   RESPONSIVE / MOBILE
-   ========================= */
 @media (max-width: 700px) {
-    header {
-        padding: 1rem;
-    }
-
-    .nav-wrap { 
-        align-items: flex-start; 
-        padding-block: .8rem; 
-    }
-
-    nav {
-        gap: 0.8rem;
-    }
-
-    nav a {
-        font-size: 14px;
-    }
-
-    main {
-        margin: 1rem auto;
-        padding: 0 1rem;
-    }
-
-    section {
-        padding: 1.3rem;
-    }
-
-    #hero {
-        padding: 2.5rem 1.2rem;
-    }
-
-    #hero h1 {
-        font-size: 1.7rem;
-    }
-
-    .form-grid { 
-        grid-template-columns: 1fr; 
-    }
-
-    .form-card,
-    .summary-card { 
-        padding: 1rem; 
-    }
-
-    .summary-list { 
-        grid-template-columns: 1fr; 
-    }
-
-    th, td,
-    .cost-table th,
-    .cost-table td {
-        padding: 10px;
-        font-size: 14px;
-    }
+    header { padding: 1rem; }
+    main { margin: 1rem auto; padding: 0 1rem; }
+    #hero { padding: 2.5rem 1.2rem; }
+    #hero h1 { font-size: 1.7rem; }
 }
