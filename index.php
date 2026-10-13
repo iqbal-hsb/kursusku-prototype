@@ -62,46 +62,15 @@ $courses = [
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= htmlspecialchars($siteName) ?> - Platform Belajar Kursus Online</title>
 
-    <title><?= htmlspecialchars($siteName) ?></title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Pemanggilan File CSS Eksternal -->
-    <!-- Jika style.css sejajar dengan index.php, ubah href menjadi "style.css" -->
+    <!-- CSS Utama -->
     <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- CSS Latar Belakang Kustom -->
-    <style>
-        /* Menjamin latar belakang utama halaman tampil */
-        body {
-            background-color: #f6f9f8;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Latar Belakang Hero dengan Gradient Overlay & Gambar */
-        #hero.hero-bg {
-            background: linear-gradient(rgba(15, 118, 110, 0.88), rgba(11, 95, 85, 0.92)), 
-                        url('assets/images/hero-kursus.jpg') center/cover no-repeat;
-            color: #ffffff;
-            border-radius: 12px;
-            padding: 4rem 2rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        #hero.hero-bg .eyebrow {
-            color: #a7f3d0;
-        }
-
-        #hero.hero-bg a.btn-primary {
-            background-color: #ffffff;
-            color: #0f766e !important;
-        }
-
-        #hero.hero-bg a.btn-primary:hover {
-            background-color: #eef8f5;
-        }
-    </style>
 </head>
 <body>
 
@@ -110,17 +79,21 @@ $courses = [
 ========================= -->
 <header class="site-header">
     <div class="container nav-wrap">
-        <a class="brand" href="index.php" style="display: flex; align-items: center; gap: 8px;">
-            <img src="assets/images/logo.svg" alt="Logo KursusKu" height="36" onerror="this.style.display='none'">
-            <span><?= htmlspecialchars($siteName) ?></span>
+        <a class="brand" href="index.php">
+            <div class="brand-logo-wrapper">
+                <img src="assets/images/logo.svg" alt="Logo KursusKu" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span class="logo-fallback-icon" style="display:none;">🎓</span>
+            </div>
+            <span class="brand-title"><?= htmlspecialchars($siteName) ?></span>
         </a>
+
         <nav aria-label="Navigasi utama">
-            <a href="index.php">Beranda</a>
+            <a href="index.php" class="active">Beranda</a>
             <a href="#keunggulan">Keunggulan</a>
             <a href="#katalog">Katalog</a>
             <a href="#alur">Cara Daftar</a>
             <a href="fee-calculator.php">Estimasi Biaya</a>
-            <a href="registration.php" class="btn-primary" style="padding: 0.4rem 0.8rem;">Daftar Kursus</a>
+            <a href="registration.php" class="btn-nav-action">Daftar Kursus</a>
         </nav>
     </div>
 </header>
@@ -128,54 +101,103 @@ $courses = [
 <main class="container">
 
     <!-- =========================
-         HERO SECTION (LATAR GAMBAR & GRADIENT)
+         HERO SECTION
     ========================= -->
-    <section id="hero" class="page-intro hero-bg">
-        <p class="eyebrow">Selamat Datang di <?= htmlspecialchars($siteName) ?></p>
-        <h1><?= htmlspecialchars($tagline) ?></h1>
-        <p>
-            Temukan kursus teknologi yang relevan untuk meningkatkan keterampilan Anda.
-        </p>
-        <div style="margin-top: 1.5rem; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <a href="registration.php" class="btn-primary">Daftar Kursus Sekarang</a>
-            <a href="#katalog" class="btn-link" style="background: rgba(255, 255, 255, 0.2); color: #fff;">Lihat Katalog</a>
-            <a href="fee-calculator.php" class="btn-link" style="background: rgba(255, 255, 255, 0.2); color: #fff;">Hitung Estimasi Biaya</a>
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <span class="eyebrow">Selamat Datang di <?= htmlspecialchars($siteName) ?></span>
+            <h1><?= htmlspecialchars($tagline) ?></h1>
+            <p>
+                Temukan kursus teknologi yang relevan dan terstruktur untuk meningkatkan keterampilan pemrograman Anda dari dasar hingga mahir.
+            </p>
+            <div class="hero-buttons">
+                <a href="registration.php" class="btn-primary">Daftar Kursus Sekarang</a>
+                <a href="#katalog" class="btn-secondary">Lihat Katalog</a>
+                <a href="fee-calculator.php" class="btn-outline">Hitung Biaya</a>
+            </div>
         </div>
     </section>
 
     <!-- =========================
          KEUNGGULAN
     ========================= -->
-    <section id="keunggulan" style="margin-top: 3rem;">
-        <h2>Mengapa Memilih KursusKu?</h2>
+    <section id="keunggulan" class="section-block">
+        <div class="section-header">
+            <h2>Mengapa Memilih KursusKu?</h2>
+            <p>Fasilitas dan metode pembelajaran terarah untuk menunjang karier Anda.</p>
+        </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
-            <article style="margin: 0;">
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
                 <h3>Materi Terarah</h3>
-                <p>Materi disusun bertahap dari dasar hingga praktik.</p>
-            </article>
+                <p>Materi disusun secara bertahap dan terstruktur dari tingkat dasar hingga penerapan praktis.</p>
+            </div>
 
-            <article style="margin: 0;">
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
                 <h3>Belajar dengan Proyek</h3>
-                <p>Setiap tahap menghasilkan bagian nyata dari aplikasi.</p>
-            </article>
+                <p>Setiap modul pembelajaran dilengkapi dengan studi kasus nyata untuk portofolio Anda.</p>
+            </div>
 
-            <article style="margin: 0;">
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🏫</div>
                 <h3>Pendampingan Praktik</h3>
-                <p>Mahasiswa belajar melalui demonstrasi, latihan, dan evaluasi.</p>
-            </article>
+                <p>Proses belajar dibimbing melalui demonstrasi, latihan terpandu, dan evaluasi berkala.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         BAGIAN MEDIA (GAMBAR & VIDEO)
+    ========================= -->
+    <section id="media" class="section-block">
+        <div class="section-header">
+            <h2>Kenali Program Kami</h2>
+            <p>Lihat suasana belajar dan video pengenalan singkat mengenai kurikulum kami.</p>
+        </div>
+
+        <div class="media-grid">
+            <!-- Kartu Foto Aktivitas -->
+            <div class="media-card">
+                <div class="media-preview-container">
+                    <img src="assets/images/hero-kursus.jpg" alt="Kegiatan Kursus Komputer KursusKu" class="media-image" onerror="this.src='https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80';">
+                </div>
+                <div class="media-body">
+                    <span class="media-badge">Fasilitas Belajar</span>
+                    <h3>Suasana Kelas Interaktif</h3>
+                    <p>Mahasiswa dan peserta umum dapat mengikuti sesi praktikum dengan fasilitas komputer modern dan nyaman.</p>
+                </div>
+            </div>
+
+            <!-- Kartu Video Pengenalan -->
+            <div class="media-card">
+                <div class="media-preview-container">
+                    <video controls class="media-video" poster="assets/images/hero-kursus.jpg">
+                        <source src="assets/video/intro-kursus.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung pemutar video HTML5.
+                    </video>
+                </div>
+                <div class="media-body">
+                    <span class="media-badge">Video Profil</span>
+                    <h3>Video Singkat Kursus</h3>
+                    <p>Saksikan gambaran singkat mengenai alur praktikum, kurikulum, dan testimoni para peserta KursusKu.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- =========================
          KATALOG KURSUS
     ========================= -->
-    <section id="katalog" style="margin-top: 3rem;">
-        <h2>Katalog Kursus & Status Kuota</h2>
-        <p>Pemeriksaan status ketersediaan kursi dan jadwal kelas terupdate:</p>
+    <section id="katalog" class="section-block">
+        <div class="section-header">
+            <h2>Katalog Kursus & Status Kuota</h2>
+            <p>Pemeriksaan status ketersediaan kursi dan jadwal kelas terupdate:</p>
+        </div>
 
         <div class="table-container">
-            <table>
+            <table class="cost-table">
                 <thead>
                     <tr>
                         <th>Kode</th>
@@ -196,7 +218,7 @@ $courses = [
                             $sisa        = sisaKursi($course['quota'], $course['registered']);
                         ?>
                         <tr>
-                            <td><?= htmlspecialchars($course['code']) ?></td>
+                            <td><strong><?= htmlspecialchars($course['code']) ?></strong></td>
                             <td><?= htmlspecialchars(trim($course['name'])) ?></td>
                             <td>Rp <?= number_format($course['fee'], 0, ',', '.') ?></td>
                             <td><?= $course['quota'] ?></td>
@@ -205,9 +227,9 @@ $courses = [
                             <td><span class="<?= $statusClass ?>"><?= htmlspecialchars($status) ?></span></td>
                             <td>
                                 <?php if ($status !== 'Penuh'): ?>
-                                    <a href="registration.php" style="font-weight: bold; text-decoration: underline;">Daftar</a>
+                                    <a href="registration.php?course=<?= urlencode($course['code']) ?>" class="btn-table-action">Daftar</a>
                                 <?php else: ?>
-                                    <span style="color: #94a3b8;">Penuh</span>
+                                    <span class="text-muted">Penuh</span>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -216,53 +238,73 @@ $courses = [
             </table>
         </div>
 
-        <!-- KALKULATOR BIAYA -->
-        <article class="form-card" style="margin-top: 20px;">
-            <h3>Estimasi Biaya Kursus</h3>
-            <p>
-                Hitung estimasi biaya kursus berdasarkan biaya per peserta, jumlah peserta, diskon, dan biaya administrasi.
-            </p>
+        <!-- KALKULATOR BIAYA BANNER -->
+        <div class="cta-banner">
+            <div class="cta-text">
+                <h3>Estimasi Biaya Kursus</h3>
+                <p>Hitung estimasi total biaya kursus berdasarkan jumlah peserta, diskon khusus, dan biaya administrasi.</p>
+            </div>
             <a href="fee-calculator.php" class="btn-primary">Hitung Estimasi Biaya</a>
-        </article>
+        </div>
     </section>
 
     <!-- =========================
          ALUR PENDAFTARAN
     ========================= -->
-    <section id="alur" style="margin-top: 3rem;">
-        <h2>Cara Mendaftar</h2>
-        <ol style="line-height: 2;">
-            <li>Pilih kursus yang diminati pada katalog di atas.</li>
-            <li>Klik tombol atau menu <strong>Daftar Kursus</strong>.</li>
-            <li>Isi form pendaftaran dengan data latihan Anda.</li>
-            <li>Periksa kembali ringkasan data pendaftaran.</li>
-            <li>Kirim pendaftaran dan simpan bukti konfirmasinya.</li>
+    <section id="alur" class="section-block">
+        <div class="section-header">
+            <h2>Cara Mendaftar</h2>
+            <p>5 langkah mudah untuk memulai kelas pertama Anda di KursusKu:</p>
+        </div>
+
+        <ol class="steps-list">
+            <li>
+                <span class="step-num">1</span>
+                <div class="step-content">
+                    <strong>Pilih Kursus</strong>
+                    <p>Pilih kelas yang diminati pada katalog kursus di atas.</p>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">2</span>
+                <div class="step-content">
+                    <strong>Buka Form Pendaftaran</strong>
+                    <p>Klik tombol <strong>Daftar Kursus</strong> pada menu atau daftar katalog.</p>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">3</span>
+                <div class="step-content">
+                    <strong>Isi Data Diri</strong>
+                    <p>Lengkapi formulir dengan data diri latihan Anda yang valid.</p>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">4</span>
+                <div class="step-content">
+                    <strong>Konfirmasi Data</strong>
+                    <p>Periksa kembali ringkasan data dan program pilihan Anda.</p>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">5</span>
+                <div class="step-content">
+                    <strong>Selesai & Simpan Bukti</strong>
+                    <p>Kirimkan pendaftaran dan simpan konfirmasi bukti pendaftaran Anda.</p>
+                </div>
+            </li>
         </ol>
-    </section>
-
-    <!-- =========================
-         MEDIA
-    ========================= -->
-    <section id="media" style="margin-top: 3rem; margin-bottom: 3rem;">
-        <h2>Kenali Program Kami</h2>
-
-        <div style="margin-bottom: 1.5rem;">
-            <img src="assets/images/hero-kursus.jpg" alt="Mahasiswa sedang mengikuti kegiatan kursus komputer" onerror="this.style.display='none'">
-        </div>
-
-        <h3>Video Singkat</h3>
-        <div>
-            <video controls>
-                <source src="assets/video/intro-kursus.mp4" type="video/mp4">
-                Browser Anda tidak mendukung video HTML5.
-            </video>
-        </div>
     </section>
 
 </main>
 
-<footer>
-    <p>&copy; <?= $year ?> <?= htmlspecialchars($siteName) ?> - Praktikum Pemrograman Web III.</p>
+<!-- =========================
+     FOOTER
+========================= -->
+<footer class="site-footer">
+    <div class="container footer-content">
+        <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>
+    </div>
 </footer>
 
 </body>
