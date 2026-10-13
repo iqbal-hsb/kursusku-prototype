@@ -5,7 +5,7 @@ $siteName = 'KursusKu';
 $tagline  = 'Belajar, daftar, dan kelola kursus dalam satu tempat.';
 $year     = date('Y');
 
-// Array Data 6 Kursus (Milestone 4)
+// Array Data 6 Kursus
 $courses = [
     [
         'code'       => 'WEB-01',
@@ -65,61 +65,48 @@ $courses = [
 
     <title><?= htmlspecialchars($siteName) ?></title>
 
-    <!-- Global CSS Pertemuan 5 -->
+    <!-- Pemanggilan File CSS Eksternal -->
+    <!-- Jika style.css sejajar dengan index.php, ubah href menjadi "style.css" -->
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <!-- CSS Latar Belakang Kustom -->
     <style>
-        .table-container {
-            background-color: #ffffff;
+        /* Menjamin latar belakang utama halaman tampil */
+        body {
+            background-color: #f6f9f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Latar Belakang Hero dengan Gradient Overlay & Gambar */
+        #hero.hero-bg {
+            background: linear-gradient(rgba(15, 118, 110, 0.88), rgba(11, 95, 85, 0.92)), 
+                        url('assets/images/hero-kursus.jpg') center/cover no-repeat;
+            color: #ffffff;
             border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            margin-top: 20px;
-            overflow-x: auto;
+            padding: 4rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 14px;
+        #hero.hero-bg .eyebrow {
+            color: #a7f3d0;
         }
 
-        th {
-            color: #374151;
-            font-weight: 600;
-            padding: 12px 10px;
-            border-bottom: 2px solid #e5e7eb;
-            background-color: #f9fafb;
+        #hero.hero-bg a.btn-primary {
+            background-color: #ffffff;
+            color: #0f766e !important;
         }
 
-        td {
-            padding: 12px 10px;
-            color: #4b5563;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .badge-full {
-            color: #dc2626;
-            font-weight: 600;
-            background-color: #fee2e2;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-
-        .badge-available {
-            color: #059669;
-            font-weight: 600;
-            background-color: #d1fae5;
-            padding: 4px 8px;
-            border-radius: 4px;
+        #hero.hero-bg a.btn-primary:hover {
+            background-color: #eef8f5;
         }
     </style>
 </head>
 <body>
 
 <!-- =========================
-     HEADER & NAVIGASI PERTEMUAN 5
+     HEADER & NAVIGASI
 ========================= -->
 <header class="site-header">
     <div class="container nav-wrap">
@@ -133,7 +120,6 @@ $courses = [
             <a href="#katalog">Katalog</a>
             <a href="#alur">Cara Daftar</a>
             <a href="fee-calculator.php">Estimasi Biaya</a>
-            <!-- Tautan Form Pendaftaran (Pertemuan 5) -->
             <a href="registration.php" class="btn-primary" style="padding: 0.4rem 0.8rem;">Daftar Kursus</a>
         </nav>
     </div>
@@ -142,18 +128,18 @@ $courses = [
 <main class="container">
 
     <!-- =========================
-         HERO
+         HERO SECTION (LATAR GAMBAR & GRADIENT)
     ========================= -->
-    <section id="hero" class="page-intro">
+    <section id="hero" class="page-intro hero-bg">
         <p class="eyebrow">Selamat Datang di <?= htmlspecialchars($siteName) ?></p>
         <h1><?= htmlspecialchars($tagline) ?></h1>
         <p>
             Temukan kursus teknologi yang relevan untuk meningkatkan keterampilan Anda.
         </p>
-        <div style="margin-top: 1rem; display: flex; gap: 10px; flex-wrap: wrap;">
+        <div style="margin-top: 1.5rem; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <a href="registration.php" class="btn-primary">Daftar Kursus Sekarang</a>
-            <a href="#katalog" class="btn-link" style="background: var(--muted);">Lihat Katalog</a>
-            <a href="fee-calculator.php" class="btn-link" style="background: var(--muted);">Hitung Estimasi Biaya</a>
+            <a href="#katalog" class="btn-link" style="background: rgba(255, 255, 255, 0.2); color: #fff;">Lihat Katalog</a>
+            <a href="fee-calculator.php" class="btn-link" style="background: rgba(255, 255, 255, 0.2); color: #fff;">Hitung Estimasi Biaya</a>
         </div>
     </section>
 
@@ -164,17 +150,17 @@ $courses = [
         <h2>Mengapa Memilih KursusKu?</h2>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
-            <article class="form-card" style="margin: 0;">
+            <article style="margin: 0;">
                 <h3>Materi Terarah</h3>
                 <p>Materi disusun bertahap dari dasar hingga praktik.</p>
             </article>
 
-            <article class="form-card" style="margin: 0;">
+            <article style="margin: 0;">
                 <h3>Belajar dengan Proyek</h3>
                 <p>Setiap tahap menghasilkan bagian nyata dari aplikasi.</p>
             </article>
 
-            <article class="form-card" style="margin: 0;">
+            <article style="margin: 0;">
                 <h3>Pendampingan Praktik</h3>
                 <p>Mahasiswa belajar melalui demonstrasi, latihan, dan evaluasi.</p>
             </article>
@@ -182,7 +168,7 @@ $courses = [
     </section>
 
     <!-- =========================
-         KATALOG (INTEGRASI DATA KURSUS)
+         KATALOG KURSUS
     ========================= -->
     <section id="katalog" style="margin-top: 3rem;">
         <h2>Katalog Kursus & Status Kuota</h2>
@@ -221,7 +207,7 @@ $courses = [
                                 <?php if ($status !== 'Penuh'): ?>
                                     <a href="registration.php" style="font-weight: bold; text-decoration: underline;">Daftar</a>
                                 <?php else: ?>
-                                    <span style="color: var(--muted);">Penuh</span>
+                                    <span style="color: #94a3b8;">Penuh</span>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -261,12 +247,12 @@ $courses = [
         <h2>Kenali Program Kami</h2>
 
         <div style="margin-bottom: 1.5rem;">
-            <img src="assets/images/hero-kursus.jpg" alt="Mahasiswa sedang mengikuti kegiatan kursus komputer" style="max-width: 100%; height: auto; border-radius: 8px;" onerror="this.style.display='none'">
+            <img src="assets/images/hero-kursus.jpg" alt="Mahasiswa sedang mengikuti kegiatan kursus komputer" onerror="this.style.display='none'">
         </div>
 
         <h3>Video Singkat</h3>
         <div>
-            <video controls style="max-width: 100%; height: auto; border-radius: 8px;">
+            <video controls>
                 <source src="assets/video/intro-kursus.mp4" type="video/mp4">
                 Browser Anda tidak mendukung video HTML5.
             </video>
@@ -275,7 +261,7 @@ $courses = [
 
 </main>
 
-<footer style="text-align: center; padding: 2rem 0; border-top: 1px solid var(--line); margin-top: 2rem;">
+<footer>
     <p>&copy; <?= $year ?> <?= htmlspecialchars($siteName) ?> - Praktikum Pemrograman Web III.</p>
 </footer>
 
