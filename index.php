@@ -1,7 +1,7 @@
 <?php
 // ============================================================
-//  index.php — Beranda Utama KursusKu (FINAL v4)
-//  Semua file latihan sudah masuk
+//  index.php — Beranda Utama KursusKu (FINAL v5)
+//  + Section Fasilitas dari data.php ($facilities)
 // ============================================================
 require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/helpers.php';
@@ -10,9 +10,10 @@ $siteName = 'KursusKu';
 $year     = date('Y');
 
 // Statistik Hero
-$totalCourses  = count($courses);
-$totalTersedia = 0;
-$totalPeserta  = 0;
+$totalCourses    = count($courses);
+$totalTersedia   = 0;
+$totalPeserta    = 0;
+$totalFasilitas  = count($facilities);
 
 foreach ($courses as $code => $c) {
     if (statusKursus($c['quota'], $c['registered']) === 'Tersedia') {
@@ -53,6 +54,7 @@ foreach ($courses as $code => $c) {
         <nav aria-label="Navigasi utama">
             <a href="index.php" class="active">Beranda</a>
             <a href="#keunggulan">Keunggulan</a>
+            <a href="#fasilitas">Fasilitas</a>
             <a href="#katalog">Katalog</a>
             <a href="#alur">Cara Daftar</a>
             <a href="#latihan">Latihan</a>
@@ -88,6 +90,7 @@ foreach ($courses as $code => $c) {
                 <span>📚 <?= $totalCourses ?> Kursus Tersedia</span>
                 <span>✅ <?= $totalTersedia ?> Kelas Masih Terbuka</span>
                 <span>👥 <?= $totalPeserta ?> Peserta Terdaftar</span>
+                <span>🎁 <?= $totalFasilitas ?> Fasilitas</span>
             </div>
         </div>
     </section>
@@ -119,6 +122,26 @@ foreach ($courses as $code => $c) {
                 <h3>Pendampingan Praktik</h3>
                 <p>Proses belajar dibimbing melalui demonstrasi, latihan terpandu, dan evaluasi berkala.</p>
             </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FASILITAS — Menggunakan data dari $facilities (data.php)
+    ============================================================ -->
+    <section id="fasilitas" class="section-block">
+        <div class="section-header">
+            <h2>🎁 Fasilitas Kursus</h2>
+            <p>Berbagai fasilitas penunjang untuk pengalaman belajar yang optimal.</p>
+        </div>
+
+        <div class="feature-grid">
+            <?php foreach ($facilities as $f): ?>
+                <div class="feature-card">
+                    <div class="feature-icon"><?= $f['icon'] ?></div>
+                    <h3><?= htmlspecialchars($f['title']) ?></h3>
+                    <p><?= htmlspecialchars($f['description']) ?></p>
+                </div>
+            <?php endforeach; ?>
         </div>
     </section>
 
@@ -277,7 +300,7 @@ foreach ($courses as $code => $c) {
     </section>
 
     <!-- ============================================================
-         LATIHAN PRAKTIKUM PHP (LENGKAP)
+         LATIHAN PRAKTIKUM PHP
     ============================================================ -->
     <section id="latihan" class="section-block">
         <div class="section-header">
@@ -286,140 +309,120 @@ foreach ($courses as $code => $c) {
         </div>
 
         <div class="feature-grid">
-            <!-- 1. Loop Lab -->
             <a href="loop-lab.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🔁</div>
                 <h3>Loop Lab</h3>
                 <p>Latihan for, while, do-while, foreach, break, continue.</p>
             </a>
 
-            <!-- 2. History -->
             <a href="history.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">📜</div>
                 <h3>History</h3>
                 <p>Riwayat pendaftaran peserta kursus.</p>
             </a>
 
-            <!-- 3. String Test -->
             <a href="string-test.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🔤</div>
                 <h3>String Test</h3>
                 <p>Latihan manipulasi string di PHP (trim, ucwords, explode, dll).</p>
             </a>
 
-            <!-- 4. Operator Test -->
             <a href="operator-test.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">➕</div>
                 <h3>Operator Test</h3>
                 <p>Latihan operator aritmatika, perbandingan, logika, dll.</p>
             </a>
 
-            <!-- 5. Logic Test -->
             <a href="logic-test.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🧠</div>
                 <h3>Logic Test</h3>
                 <p>Latihan operator logika (AND, OR, NOT, XOR).</p>
             </a>
 
-            <!-- 6. Data Test -->
             <a href="data-test.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">📦</div>
                 <h3>Data Test</h3>
                 <p>Latihan tipe data PHP.</p>
             </a>
 
-            <!-- 7. Bitwise Test -->
             <a href="bitwise-test.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🔢</div>
                 <h3>Bitwise Test</h3>
                 <p>Latihan operator bitwise PHP.</p>
             </a>
 
-            <!-- 8. Procedure Test -->
             <a href="procedure-test.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">⚙️</div>
                 <h3>Procedure Test</h3>
                 <p>Latihan fungsi dan prosedur di PHP.</p>
             </a>
 
-            <!-- 9. Test Functions -->
             <a href="test-functions.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🧰</div>
                 <h3>Test Functions</h3>
                 <p>Uji fungsi helper (formatRupiah, formatTanggal, dll).</p>
             </a>
 
-            <!-- 10. Text Matrix -->
             <a href="text-matrix.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">📊</div>
                 <h3>Text Matrix</h3>
                 <p>Latihan array multidimensi.</p>
             </a>
 
-            <!-- 11. Type Data Test -->
             <a href="type-data-test.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🧬</div>
                 <h3>Type Data Test</h3>
                 <p>Uji tipe data lanjutan (gettype, var_export).</p>
             </a>
 
-            <!-- 12. Server Time -->
             <a href="server-time.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🕒</div>
                 <h3>Server Time</h3>
                 <p>Menampilkan waktu server (Asia/Jakarta).</p>
             </a>
 
-            <!-- 13. Hello World -->
             <a href="hello.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">👋</div>
                 <h3>Hello World</h3>
                 <p>Latihan dasar PHP pertama.</p>
             </a>
 
-            <!-- 14. GET Demo -->
             <a href="get-demo.php?nama=Peserta&umur=20" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🔗</div>
                 <h3>GET Demo</h3>
                 <p>Demo pengiriman data via URL (metode GET).</p>
             </a>
 
-            <!-- 15. Process Demo -->
             <a href="process.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">📨</div>
                 <h3>Process Demo</h3>
                 <p>Demo pemrosesan form sederhana.</p>
             </a>
 
-            <!-- 16. Fee Calculator (BARU) -->
             <a href="fee-calculator.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🧮</div>
                 <h3>Fee Calculator</h3>
                 <p>Kalkulator estimasi biaya kursus (diskon + admin).</p>
             </a>
 
-            <!-- 17. Registration (BARU) -->
             <a href="registration.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">📝</div>
                 <h3>Registration Form</h3>
                 <p>Formulir pendaftaran kursus dengan validasi.</p>
             </a>
 
-            <!-- 18. Tes Debug (BARU) -->
             <a href="tes.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🐛</div>
                 <h3>Tes Debug</h3>
                 <p>Halaman debugging untuk cek fungsi helper.</p>
             </a>
 
-            <!-- 19. Register (BARU) -->
             <a href="register.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🆕</div>
                 <h3>Register</h3>
                 <p>Alias form pendaftaran (redirect).</p>
             </a>
 
-            <!-- 20. Fee Tests (BARU) -->
             <a href="fee-tests.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">💵</div>
                 <h3>Fee Tests</h3>
