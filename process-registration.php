@@ -1,4 +1,15 @@
 <?php
+
+// ⬇️ DEBUG SEMENTARA — HAPUS SETELAH SELESAI
+echo "<pre style='background:#111;color:#0f0;padding:20px;font-size:14px;'>";
+echo "<h3>DEBUG — Data yang Dikirim Form:</h3>";
+print_r($_POST);
+echo "</pre>";
+die();
+// ⬆️ HAPUS SETELAH SELESAI
+
+require_once __DIR__ . '/data.php';
+// ... sisa kode
 // ============================================================
 //  process-registration.php — Proses Pendaftaran (FINAL)
 // ============================================================
