@@ -1,500 +1,311 @@
-:root {
-    --teal-900: #134e4a;
-    --teal-800: #115e59;
-    --teal-700: #0f766e;
-    --teal-100: #ccfbf1;
-    --teal-50: #f0fdfa;
-    --slate-950: #0f172a;
-    --slate-800: #1e293b;
-    --slate-700: #334155;
-    --slate-600: #475569;
-    --slate-200: #e2e8f0;
-    --slate-100: #f1f5f9;
-    --white: #ffffff;
-    --red-700: #b91c1c;
-    --red-50: #fef2f2;
-    --green-700: #15803d;
-    --green-50: #f0fdf4;
-    --shadow: 0 20px 50px rgba(15, 118, 110, 0.08);
-}
-
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--slate-800);
-    background: var(--white);
-    line-height: 1.6;
-}
-a { color: var(--teal-700); }
-img, video { max-width: 100%; }
-code { font-family: Consolas, Monaco, monospace; }
-.container { width: min(1120px, 90%); margin: 0 auto; }
-
-.site-header {
-    background: linear-gradient(135deg, var(--teal-800), var(--teal-700));
-    color: var(--white);
-    padding: 22px 0;
-}
-.header-inner, .footer-inner, .utility-topline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-}
-.brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--white);
-    text-decoration: none;
-}
-.brand-mark {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: rgba(255,255,255,.16);
-    font-size: 23px;
-    font-weight: 800;
-}
-.brand strong { display: block; font-size: 24px; line-height: 1.15; }
-.brand small { color: #d5fffa; }
-.milestone {
-    border: 1px solid rgba(255,255,255,.35);
-    border-radius: 999px;
-    padding: 6px 12px;
-    font-size: 13px;
-}
-
-.navbar {
-    background: var(--teal-900);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 8px 18px rgba(15, 23, 42, .08);
-}
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    min-height: 54px;
-}
-.navbar a {
-    color: var(--white);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 700;
-}
-.navbar a:hover { color: #99f6e4; }
-.navbar .nav-cta {
-    margin-left: auto;
-    background: var(--white);
-    color: var(--teal-900);
-    padding: 8px 12px;
-    border-radius: 9px;
-}
-
-.hero {
-    background: radial-gradient(circle at 85% 15%, #ccfbf1 0, transparent 35%), var(--teal-50);
-    padding: 72px 0;
-}
-.hero-content {
-    display: grid;
-    grid-template-columns: 1.05fr .95fr;
-    gap: 48px;
-    align-items: center;
-}
-.eyebrow {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: .12em;
-    color: var(--teal-700);
-    margin-bottom: 10px;
-}
-.hero h1 {
-    margin: 0;
-    max-width: 720px;
-    font-size: clamp(40px, 6vw, 66px);
-    line-height: 1.02;
-    color: var(--slate-950);
-    letter-spacing: -.03em;
-}
-.lead { font-size: 19px; color: var(--slate-600); max-width: 650px; }
-.hero-visual { position: relative; }
-.hero-image {
-    display: block;
-    width: 100%;
-    height: 430px;
-    object-fit: cover;
-    border-radius: 24px;
-    box-shadow: var(--shadow);
-    border: 8px solid rgba(255,255,255,.9);
-}
-.button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
-.button {
-    display: inline-block;
-    padding: 12px 18px;
-    border-radius: 10px;
-    background: var(--teal-700);
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 800;
-    border: 1px solid var(--teal-700);
-}
-.button:hover { background: var(--teal-800); }
-.button-secondary { background: transparent; color: var(--teal-800); }
-.button-secondary:hover { background: var(--teal-100); }
-.hero-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.hero-meta span { background: var(--white); padding: 9px 12px; border-radius: 10px; box-shadow: 0 8px 20px rgba(15, 118, 110, .06); font-size: 13px; }
-
-.section { padding: 72px 0; }
-.section-light { background: #f8fafc; }
-.section-heading { margin-bottom: 30px; }
-.section-heading h2, .contact-card h2 {
-    margin: 0;
-    font-size: clamp(30px, 4vw, 42px);
-    line-height: 1.1;
-    color: var(--slate-950);
-}
-.section-heading p { color: var(--slate-600); margin-bottom: 0; }
-.section-heading-row { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
-.text-link { font-weight: 800; text-decoration: none; white-space: nowrap; }
-
-.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.feature-card {
-    border: 1px solid var(--slate-200);
-    border-radius: 18px;
-    padding: 26px;
-    background: var(--white);
-    box-shadow: 0 14px 35px rgba(15, 23, 42, .04);
-}
-.feature-card h3 { margin: 6px 0 8px; font-size: 21px; }
-.feature-card p { color: var(--slate-600); margin: 0; }
-.feature-number { color: var(--teal-700); font-weight: 900; font-size: 13px; }
-
-.table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--slate-200); background: var(--white); }
-.course-table { width: 100%; border-collapse: collapse; min-width: 760px; }
-.course-table th, .course-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--slate-200); }
-.course-table th { background: #ecfdf5; color: var(--teal-900); font-size: 13px; text-transform: uppercase; letter-spacing: .05em; }
-.course-table tbody tr:hover { background: #fafafa; }
-.course-table tbody tr:last-child td, .course-table tbody tr:last-child th { border-bottom: 0; }
-.badge { display: inline-block; padding: 5px 9px; border-radius: 999px; font-weight: 800; font-size: 12px; }
-.badge-available { background: var(--green-50); color: var(--green-700); }
-.badge-full { background: var(--red-50); color: var(--red-700); }
-.table-note { color: var(--slate-600); font-size: 14px; margin-bottom: 0; }
-
-.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.steps li { border-top: 3px solid var(--teal-700); background: var(--white); padding: 20px; box-shadow: 0 12px 32px rgba(15, 23, 42, .04); border-radius: 0 0 14px 14px; }
-.steps li > span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--teal-50); color: var(--teal-800); font-weight: 900; margin-bottom: 14px; }
-.steps p { color: var(--slate-600); margin: 6px 0 0; font-size: 14px; }
-
-.media-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 42px; align-items: center; }
-.media-card { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.media-card img, .media-card video { width: 100%; height: 290px; object-fit: cover; border-radius: 16px; background: var(--slate-950); }
-.video-block { display: grid; gap: 8px; }
-.video-block small { color: var(--slate-600); font-size: 12px; }
-
-.contact-section { background: var(--white); }
-.contact-card { padding: 34px; border-radius: 22px; background: var(--teal-900); color: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
-.contact-card h2, .contact-card .eyebrow, .contact-card a { color: var(--white); }
-.contact-card p { color: #d7fffb; }
-.contact-list { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-.footer { background: var(--slate-950); color: #cbd5e1; padding: 26px 0; }
-
-.utility-page { min-height: 100vh; background: linear-gradient(180deg, var(--teal-50), var(--slate-100)); padding: 48px 16px; }
-.utility-card { max-width: 760px; margin: 0 auto; background: var(--white); padding: 30px; border-radius: 22px; box-shadow: var(--shadow); }
-.wide-card { max-width: 1120px; }
-.utility-card h1 { color: var(--slate-950); line-height: 1.1; }
-.server-time { font-size: 22px; background: var(--teal-50); padding: 16px; border-radius: 12px; }
-.status-dot { color: var(--green-700); background: var(--green-50); border-radius: 999px; padding: 5px 9px; font-size: 12px; font-weight: 800; }
-.compact-table { min-width: 0; }
-.total-row { background: var(--teal-50); }
-.formula-box { margin-top: 22px; padding: 16px; background: var(--slate-100); border-radius: 12px; display: grid; gap: 6px; }
-.test-list { display: grid; gap: 10px; margin: 24px 0; }
-.test-item { display: grid; grid-template-columns: 75px 150px 1fr 1fr; gap: 12px; align-items: center; border: 1px solid var(--slate-200); padding: 12px; border-radius: 12px; }
-.test-item code { color: var(--slate-600); overflow-wrap: anywhere; }
-pre { white-space: pre-wrap; background: var(--slate-950); color: #d1fae5; padding: 18px; border-radius: 12px; }
-
-@media (max-width: 900px) {
-    .hero-content, .media-grid, .contact-card { grid-template-columns: 1fr; }
-    .feature-grid, .steps { grid-template-columns: repeat(2, 1fr); }
-    .hero-image { height: 360px; }
-    .media-card img, .media-card video { height: 250px; }
-    .test-item { grid-template-columns: 70px 1fr; }
-    .test-item code { grid-column: 2; }
-}
-
-@media (max-width: 680px) {
-    .header-inner, .footer-inner, .section-heading-row { align-items: flex-start; flex-direction: column; }
-    .milestone { display: none; }
-    .navbar { position: static; }
-    .nav-links { flex-wrap: wrap; gap: 12px 18px; padding: 12px 0; }
-    .navbar .nav-cta { margin-left: 0; }
-    .hero { padding: 50px 0; }
-    .hero h1 { font-size: 42px; }
-    .hero-image { height: 280px; }
-    .feature-grid, .steps, .media-card, .contact-list { grid-template-columns: 1fr; }
-    .section { padding: 52px 0; }
-    .utility-page { padding: 18px 10px; }
-    .utility-card { padding: 20px; border-radius: 16px; }
-}
-
-
-/* Pertemuan 5-6: form, result, alert, responsive controls */
-.stack-form { display: grid; gap: 20px; margin-top: 24px; }
-.form-grid, .result-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-}
-.field { display: grid; gap: 8px; margin: 0; }
-.field label, .field legend { font-weight: 800; color: var(--slate-800); }
-.field input[type="text"],
-.field input[type="email"],
-.field input[type="tel"],
-.field select,
-.field textarea {
-    width: 100%;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    padding: 12px 13px;
-    font: inherit;
-    color: var(--slate-800);
-    background: var(--white);
-}
-.field input:focus, .field select:focus, .field textarea:focus {
-    outline: 3px solid #ccfbf1;
-    border-color: var(--teal-700);
-}
-fieldset.field {
-    border: 1px solid var(--slate-200);
-    border-radius: 14px;
-    padding: 16px;
-}
-.choice-row { display: flex; flex-wrap: wrap; gap: 10px 18px; }
-.choice-row label {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-weight: 600;
-}
-button.button { cursor: pointer; font: inherit; }
-.result-grid p {
-    margin: 0;
-    padding: 15px;
-    background: var(--slate-100);
-    border-radius: 12px;
-}
-.alert { padding: 14px 16px; border-radius: 12px; }
-.alert-error { background: var(--red-50); color: var(--red-700); }
-.alert-info { background: var(--teal-50); color: var(--teal-900); }
-.chip-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.chip-list li { background: var(--teal-50); color: var(--teal-900); padding: 7px 10px; border-radius: 999px; font-weight: 700; }
-
-@media (max-width: 680px) {
-    .form-grid, .result-grid { grid-template-columns: 1fr; }
-    .choice-row { flex-direction: column; align-items: flex-start; }
-    .stack-form .button { width: 100%; text-align: center; }
-}
-
-* {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    color: #1f2937;
-    background: #ffffff;
-}
-
-.container {
-    width: 90%;
-    max-width: 1100px;
-    margin: auto;
-}
-
-
-/* HEADER */
-
-.header {
-    background: #0f766e;
-    color: white;
-    padding: 30px 0;
-}
-
-.header h1 {
-    margin: 0;
-    font-size: 36px;
-}
-
-.header p {
-    margin-top: 8px;
-}
-
-
-/* NAVIGATION */
-
-.navbar {
-    background: #134e4a;
-}
-
-.navbar .container {
-    display: flex;
-    gap: 25px;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 15px 0;
-}
-
-.navbar a:hover {
-    color: #99f6e4;
-}
-
-
-/* HERO */
-
-.hero {
-    padding: 70px 0;
-    background: #f0fdfa;
-}
-
-.hero-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-}
-
-.hero h2 {
-    font-size: 40px;
-}
-
-.hero-image {
-    width: 100%;
-    max-width: 600px;         /* Batas lebar maksimal gambar (sesuaikan kebutuhan) */
-    height: 400px;            /* Mengunci tinggi gambar */
-    object-fit: cover;        /* Memotong gambar secara proporsional agar pas dengan ukuran di atas */
-    object-position: center;  /* Memastikan fokus potongan gambar berada di tengah */
-    border-radius: 8px;
-}
-
-
-/* BUTTON */
-
-.button {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 12px 20px;
-
-    background: #0f766e;
-    color: white;
-
-    text-decoration: none;
-
-    border-radius: 8px;
-}
-
-
-/* SECTION */
-
-.section {
-    padding: 60px 0;
-}
-
-.section-light {
-    background: #f8fafc;
-}
-
-.section h2 {
-    font-size: 30px;
-}
-
-
-/* COURSE */
-
-.course-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 20px;
-}
-
-.course-card {
-    padding: 25px;
-
-    border: 1px solid #e5e7eb;
-
-    border-radius: 12px;
-
-    background: white;
-}
-
-
-/* VIDEO */
-
-.video-placeholder {
-    min-height: 300px;
-
-    background: #e2e8f0;
-
-    border-radius: 15px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-}
-
-.video-placeholder span {
-    font-size: 60px;
-}
-
-
-/* FOOTER */
-
-.footer {
-    background: #111827;
-
-    color: white;
-
-    padding: 25px 0;
-
-    text-align: center;
-}
-
-
-/* RESPONSIVE */
-
-@media (max-width: 768px) {
-
-    .hero-content {
-        grid-template-columns: 1fr;
-    }
-
-    .course-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .navbar .container {
-        flex-wrap: wrap;
-    }
-
-}
+<?php
+require_once __DIR__ . '/helpers.php';
+
+$siteName = 'KursusKu';
+$tagline  = 'Belajar, daftar, dan kelola kursus dalam satu tempat.';
+$year     = date('Y');
+
+// Array Data 6 Kursus
+$courses = [
+    [
+        'code'       => 'WEB-01',
+        'name'       => 'Web Dasar',
+        'fee'        => 200000,
+        'quota'      => 30,
+        'registered' => 12,
+        'start_date' => '2026-09-21'
+    ],
+    [
+        'code'       => 'PHP-01',
+        'name'       => 'PHP Dasar',
+        'fee'        => 250000,
+        'quota'      => 30,
+        'registered' => 18,
+        'start_date' => '2026-09-22'
+    ],
+    [
+        'code'       => 'PHP-02',
+        'name'       => 'PHP Lanjutan',
+        'fee'        => 300000,
+        'quota'      => 25,
+        'registered' => 24,
+        'start_date' => '2026-09-24'
+    ],
+    [
+        'code'       => 'LAR-01',
+        'name'       => 'Laravel Fundamental',
+        'fee'        => 350000,
+        'quota'      => 25,
+        'registered' => 25,
+        'start_date' => '2026-09-28'
+    ],
+    [
+        'code'       => 'DB-01',
+        'name'       => 'MySQL Dasar',
+        'fee'        => 275000,
+        'quota'      => 20,
+        'registered' => 0,
+        'start_date' => '2026-10-01'
+    ],
+    [
+        'code'       => 'UI-01',
+        'name'       => 'UI Web Dasar',
+        'fee'        => 225000,
+        'quota'      => 35,
+        'registered' => 9,
+        'start_date' => '2026-10-03'
+    ]
+];
+?>
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= htmlspecialchars($siteName) ?> - Platform Belajar Kursus Online</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS Utama -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- =========================
+     HEADER & NAVIGASI
+========================= -->
+<header class="site-header">
+    <div class="container nav-wrap">
+        <a class="brand" href="index.php">
+            <div class="brand-logo-wrapper">
+                <img src="assets/images/logo.svg" alt="Logo KursusKu" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span class="logo-fallback-icon" style="display:none;">🎓</span>
+            </div>
+            <span class="brand-title"><?= htmlspecialchars($siteName) ?></span>
+        </a>
+
+        <nav aria-label="Navigasi utama">
+            <a href="index.php" class="active">Beranda</a>
+            <a href="#keunggulan">Keunggulan</a>
+            <a href="#katalog">Katalog</a>
+            <a href="#alur">Cara Daftar</a>
+            <a href="fee-calculator.php">Estimasi Biaya</a>
+            <a href="registration.php" class="btn-nav-action">Daftar Kursus</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- =========================
+         HERO SECTION
+    ========================= -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <span class="eyebrow">Selamat Datang di <?= htmlspecialchars($siteName) ?></span>
+            <h1><?= htmlspecialchars($tagline) ?></h1>
+            <p>
+                Temukan kursus teknologi yang relevan dan terstruktur untuk meningkatkan keterampilan pemrograman Anda dari dasar hingga mahir.
+            </p>
+            <div class="hero-buttons">
+                <a href="registration.php" class="btn-primary">Daftar Kursus Sekarang</a>
+                <a href="#katalog" class="btn-secondary">Lihat Katalog</a>
+                <a href="fee-calculator.php" class="btn-outline">Hitung Biaya</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         KEUNGGULAN
+    ========================= -->
+    <section id="keunggulan" class="section-block">
+        <div class="section-header">
+            <h2>Mengapa Memilih KursusKu?</h2>
+            <p>Fasilitas dan metode pembelajaran terarah untuk menunjang karier Anda.</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Materi Terarah</h3>
+                <p>Materi disusun secara bertahap dan terstruktur dari tingkat dasar hingga penerapan praktis.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3>Belajar dengan Proyek</h3>
+                <p>Setiap modul pembelajaran dilengkapi dengan studi kasus nyata untuk portofolio Anda.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🏫</div>
+                <h3>Pendampingan Praktik</h3>
+                <p>Proses belajar dibimbing melalui demonstrasi, latihan terpandu, dan evaluasi berkala.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         BAGIAN MEDIA (GAMBAR & VIDEO)
+    ========================= -->
+    <section id="media" class="section-block">
+        <div class="section-header">
+            <h2>Kenali Program Kami</h2>
+            <p>Lihat suasana belajar dan video pengenalan singkat mengenai kurikulum kami.</p>
+        </div>
+
+        <div class="media-grid">
+            <!-- Kartu Foto Aktivitas -->
+            <div class="media-card">
+                <div class="media-preview-container">
+                    <img src="assets/images/hero-kursus.jpg" alt="Kegiatan Kursus Komputer KursusKu" class="media-image" onerror="this.src='https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80';">
+                </div>
+                <div class="media-body">
+                    <span class="media-badge">Fasilitas Belajar</span>
+                    <h3>Suasana Kelas Interaktif</h3>
+                    <p>Mahasiswa dan peserta umum dapat mengikuti sesi praktikum dengan fasilitas komputer modern dan nyaman.</p>
+                </div>
+            </div>
+
+            <!-- Kartu Video Pengenalan -->
+            <div class="media-card">
+                <div class="media-preview-container">
+                    <video controls class="media-video" poster="assets/images/hero-kursus.jpg">
+                        <source src="assets/video/intro-kursus.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung pemutar video HTML5.
+                    </video>
+                </div>
+                <div class="media-body">
+                    <span class="media-badge">Video Profil</span>
+                    <h3>Video Singkat Kursus</h3>
+                    <p>Saksikan gambaran singkat mengenai alur praktikum, kurikulum, dan testimoni para peserta KursusKu.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         KATALOG KURSUS
+    ========================= -->
+    <section id="katalog" class="section-block">
+        <div class="section-header">
+            <h2>Katalog Kursus & Status Kuota</h2>
+            <p>Pemeriksaan status ketersediaan kursi dan jadwal kelas terupdate:</p>
+        </div>
+
+        <div class="table-container">
+            <table class="cost-table">
+                <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>Nama Kursus</th>
+                        <th>Biaya</th>
+                        <th>Kuota</th>
+                        <th>Terdaftar</th>
+                        <th>Sisa Kursi</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($courses as $course): ?>
+                        <?php
+                            $status      = statusKursus($course['quota'], $course['registered']);
+                            $statusClass = ($status === 'Penuh') ? 'badge-full' : 'badge-available';
+                            $sisa        = sisaKursi($course['quota'], $course['registered']);
+                        ?>
+                        <tr>
+                            <td><strong><?= htmlspecialchars($course['code']) ?></strong></td>
+                            <td><?= htmlspecialchars(trim($course['name'])) ?></td>
+                            <td>Rp <?= number_format($course['fee'], 0, ',', '.') ?></td>
+                            <td><?= $course['quota'] ?></td>
+                            <td><?= $course['registered'] ?></td>
+                            <td><?= $sisa ?> kursi</td>
+                            <td><span class="<?= $statusClass ?>"><?= htmlspecialchars($status) ?></span></td>
+                            <td>
+                                <?php if ($status !== 'Penuh'): ?>
+                                    <a href="registration.php?course=<?= urlencode($course['code']) ?>" class="btn-table-action">Daftar</a>
+                                <?php else: ?>
+                                    <span class="text-muted">Penuh</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- KALKULATOR BIAYA BANNER -->
+        <div class="cta-banner">
+            <div class="cta-text">
+                <h3>Estimasi Biaya Kursus</h3>
+                <p>Hitung estimasi total biaya kursus berdasarkan jumlah peserta, diskon khusus, dan biaya administrasi.</p>
+            </div>
+            <a href="fee-calculator.php" class="btn-primary">Hitung Estimasi Biaya</a>
+        </div>
+    </section>
+
+    <!-- =========================
+         ALUR PENDAFTARAN
+    ========================= -->
+    <section id="alur" class="section-block">
+        <div class="section-header">
+            <h2>Cara Mendaftar</h2>
+            <p>5 langkah mudah untuk memulai kelas pertama Anda di KursusKu:</p>
+        </div>
+
+        <ol class="steps-list">
+            <li>
+                <span class="step-num">1</span>
+                <div class="step-content">
+                    <strong>Pilih Kursus</strong>
+                    <p>Pilih kelas yang diminati pada katalog kursus di atas.</p>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">2</span>
+                <div class="step-content">
+                    <strong>Buka Form Pendaftaran</strong>
+                    <p>Klik tombol <strong>Daftar Kursus</strong> pada menu atau daftar katalog.</p>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">3</span>
+                <div class="step-content">
+                    <strong>Isi Data Diri</strong>
+                    <p>Lengkapi formulir dengan data diri latihan Anda yang valid.</p>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">4</span>
+                <div class="step-content">
+                    <strong>Konfirmasi Data</strong>
+                    <p>Periksa kembali ringkasan data dan program pilihan Anda.</p>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">5</span>
+                <div class="step-content">
+                    <strong>Selesai & Simpan Bukti</strong>
+                    <p>Kirimkan pendaftaran dan simpan konfirmasi bukti pendaftaran Anda.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+</main>
+
+<!-- =========================
+     FOOTER
+========================= -->
+<footer class="site-footer">
+    <div class="container footer-content">
+        <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>
+    </div>
+</footer>
+
+</body>
+</html>
