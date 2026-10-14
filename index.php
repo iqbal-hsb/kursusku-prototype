@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-//  index.php — Beranda Utama KursusKu (FINAL GABUNGAN)
+//  index.php — Beranda Utama KursusKu (FINAL v2)
 // ============================================================
 require_once __DIR__ . '/helpers.php';
 
@@ -169,7 +169,7 @@ foreach ($courses as $c) {
     </section>
 
     <!-- ============================================================
-         KATALOG KURSUS
+         KATALOG KURSUS — dengan formatTanggal()
     ============================================================ -->
     <section id="katalog" class="section-block">
         <div class="section-header">
@@ -200,7 +200,12 @@ foreach ($courses as $c) {
                         ?>
                         <tr>
                             <td><strong><?= htmlspecialchars($course['code']) ?></strong></td>
-                            <td><?= htmlspecialchars($course['name']) ?></td>
+                            <td>
+                                <div class="course-name"><?= htmlspecialchars($course['name']) ?></div>
+                                <div class="course-date">
+                                    📅 Mulai: <?= formatTanggal($course['start_date']) ?>
+                                </div>
+                            </td>
                             <td><?= formatRupiah($course['fee']) ?></td>
                             <td><?= $course['quota'] ?></td>
                             <td><?= $course['registered'] ?></td>
@@ -338,7 +343,7 @@ foreach ($courses as $c) {
             <a href="test-functions.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">🧰</div>
                 <h3>Test Functions</h3>
-                <p>Uji fungsi helper (formatRupiah, dll).</p>
+                <p>Uji fungsi helper (formatRupiah, formatTanggal, dll).</p>
             </a>
 
             <a href="text-matrix.php" class="feature-card" style="text-decoration:none;">

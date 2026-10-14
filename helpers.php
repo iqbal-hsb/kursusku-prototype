@@ -1,8 +1,10 @@
 <?php
-// helpers.php — Kumpulan fungsi bantuan
+// ============================================================
+//  helpers.php — Kumpulan fungsi bantuan proyek KursusKu
+// ============================================================
 
 /**
- * Sanitasi input dari user
+ * Sanitasi input dari user untuk keamanan XSS
  */
 function sanitize($data) {
     return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
@@ -16,7 +18,14 @@ function formatRupiah($angka) {
 }
 
 /**
- * Redirect ke halaman lain
+ * Format tanggal ke format standar (contoh: "2026-09-15" -> "September 15, 2026")
+ */
+function formatTanggal($date) {
+    return date('F j, Y', strtotime($date));
+}
+
+/**
+ * Redirect ke halaman lain dan hentikan eksekusi
  */
 function redirect($url) {
     header("Location: $url");
@@ -31,7 +40,7 @@ function statusKursus($quota, $registered) {
 }
 
 /**
- * Hitung sisa kursi
+ * Hitung sisa kursi yang tersedia
  */
 function sisaKursi($quota, $registered) {
     $sisa = $quota - $registered;
