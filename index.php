@@ -1,61 +1,18 @@
 <?php
-require_once __DIR__ . '/helpers.php';
+// =====================================================
+//  index.php — Beranda Utama KursusKu
+// =====================================================
+require_once __DIR__ . '/data.php';     // Menyediakan: $courses, $siteName, $tagline, $year
+require_once __DIR__ . '/helpers.php';  // Menyediakan: statusKursus(), sisaKursi(), formatRupiah(), dll.
 
-$siteName = 'KursusKu';
-$tagline  = 'Belajar, daftar, dan kelola kursus dalam satu tempat.';
-$year     = date('Y');
-
-// Array Data 6 Kursus
-$courses = [
-    [
-        'code'       => 'WEB-01',
-        'name'       => 'Web Dasar',
-        'fee'        => 200000,
-        'quota'      => 30,
-        'registered' => 12,
-        'start_date' => '2026-09-21'
-    ],
-    [
-        'code'       => 'PHP-01',
-        'name'       => 'PHP Dasar',
-        'fee'        => 250000,
-        'quota'      => 30,
-        'registered' => 18,
-        'start_date' => '2026-09-22'
-    ],
-    [
-        'code'       => 'PHP-02',
-        'name'       => 'PHP Lanjutan',
-        'fee'        => 300000,
-        'quota'      => 25,
-        'registered' => 24,
-        'start_date' => '2026-09-24'
-    ],
-    [
-        'code'       => 'LAR-01',
-        'name'       => 'Laravel Fundamental',
-        'fee'        => 350000,
-        'quota'      => 25,
-        'registered' => 25,
-        'start_date' => '2026-09-28'
-    ],
-    [
-        'code'       => 'DB-01',
-        'name'       => 'MySQL Dasar',
-        'fee'        => 275000,
-        'quota'      => 20,
-        'registered' => 0,
-        'start_date' => '2026-10-01'
-    ],
-    [
-        'code'       => 'UI-01',
-        'name'       => 'UI Web Dasar',
-        'fee'        => 225000,
-        'quota'      => 35,
-        'registered' => 9,
-        'start_date' => '2026-10-03'
-    ]
-];
+// Hitung total kursus untuk statistik hero
+$totalCourses    = count($courses);
+$totalTersedia   = 0;
+foreach ($courses as $c) {
+    if (statusKursus($c['quota'], $c['registered']) === 'Tersedia') {
+        $totalTersedia++;
+    }
+}
 ?>
 <!doctype html>
 <html lang="id">
@@ -81,7 +38,8 @@ $courses = [
     <div class="container nav-wrap">
         <a class="brand" href="index.php">
             <div class="brand-logo-wrapper">
-                <img src="assets/images/logo.svg" alt="Logo KursusKu" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img src="assets/images/logo.svg" alt="Logo <?= htmlspecialchars($siteName) ?>" class="brand-logo"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <span class="logo-fallback-icon" style="display:none;">🎓</span>
             </div>
             <span class="brand-title"><?= htmlspecialchars($siteName) ?></span>
@@ -108,12 +66,20 @@ $courses = [
             <span class="eyebrow">Selamat Datang di <?= htmlspecialchars($siteName) ?></span>
             <h1><?= htmlspecialchars($tagline) ?></h1>
             <p>
-                Temukan kursus teknologi yang relevan dan terstruktur untuk meningkatkan keterampilan pemrograman Anda dari dasar hingga mahir.
+                Temukan kursus teknologi yang relevan dan terstruktur untuk meningkatkan keterampilan
+                pemrograman Anda dari dasar hingga mahir.
             </p>
+
             <div class="hero-buttons">
                 <a href="registration.php" class="btn-primary">Daftar Kursus Sekarang</a>
                 <a href="#katalog" class="btn-secondary">Lihat Katalog</a>
                 <a href="fee-calculator.php" class="btn-outline">Hitung Biaya</a>
+            </div>
+
+            <div class="hero-meta" style="display:flex; gap:12px; margin-top:28px; justify-content:center; flex-wrap:wrap;">
+                <span>📚 <?= $totalCourses ?> Kursus Tersedia</span>
+                <span>✅ <?= $totalTersedia ?> Kelas Masih Terbuka</span>
+                <span>🎯 Kurikulum Praktikum</span>
             </div>
         </div>
     </section>
@@ -123,7 +89,7 @@ $courses = [
     ========================= -->
     <section id="keunggulan" class="section-block">
         <div class="section-header">
-            <h2>Mengapa Memilih KursusKu?</h2>
+            <h2>Mengapa Memilih <?= htmlspecialchars($siteName) ?>?</h2>
             <p>Fasilitas dan metode pembelajaran terarah untuk menunjang karier Anda.</p>
         </div>
 
@@ -161,7 +127,10 @@ $courses = [
             <!-- Kartu Foto Aktivitas -->
             <div class="media-card">
                 <div class="media-preview-container">
-                    <img src="assets/images/hero-kursus.jpg" alt="Kegiatan Kursus Komputer KursusKu" class="media-image" onerror="this.src='https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80';">
+                    <img src="assets/images/hero-kursus.jpg"
+                         alt="Kegiatan Kursus Komputer <?= htmlspecialchars($siteName) ?>"
+                         class="media-image"
+                         onerror="this.src='https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80';">
                 </div>
                 <div class="media-body">
                     <span class="media-badge">Fasilitas Belajar</span>
@@ -181,7 +150,7 @@ $courses = [
                 <div class="media-body">
                     <span class="media-badge">Video Profil</span>
                     <h3>Video Singkat Kursus</h3>
-                    <p>Saksikan gambaran singkat mengenai alur praktikum, kurikulum, dan testimoni para peserta KursusKu.</p>
+                    <p>Saksikan gambaran singkat mengenai alur praktikum, kurikulum, dan testimoni para peserta <?= htmlspecialchars($siteName) ?>.</p>
                 </div>
             </div>
         </div>
@@ -219,15 +188,16 @@ $courses = [
                         ?>
                         <tr>
                             <td><strong><?= htmlspecialchars($course['code']) ?></strong></td>
-                            <td><?= htmlspecialchars(trim($course['name'])) ?></td>
-                            <td>Rp <?= number_format($course['fee'], 0, ',', '.') ?></td>
+                            <td><?= htmlspecialchars($course['name']) ?></td>
+                            <td><?= formatRupiah($course['fee']) ?></td>
                             <td><?= $course['quota'] ?></td>
                             <td><?= $course['registered'] ?></td>
                             <td><?= $sisa ?> kursi</td>
                             <td><span class="<?= $statusClass ?>"><?= htmlspecialchars($status) ?></span></td>
                             <td>
                                 <?php if ($status !== 'Penuh'): ?>
-                                    <a href="registration.php?course=<?= urlencode($course['code']) ?>" class="btn-table-action">Daftar</a>
+                                    <a href="registration.php?course=<?= urlencode($course['code']) ?>"
+                                       class="btn-table-action">Daftar</a>
                                 <?php else: ?>
                                     <span class="text-muted">Penuh</span>
                                 <?php endif; ?>
@@ -254,7 +224,7 @@ $courses = [
     <section id="alur" class="section-block">
         <div class="section-header">
             <h2>Cara Mendaftar</h2>
-            <p>5 langkah mudah untuk memulai kelas pertama Anda di KursusKu:</p>
+            <p>5 langkah mudah untuk memulai kelas pertama Anda di <?= htmlspecialchars($siteName) ?>:</p>
         </div>
 
         <ol class="steps-list">
