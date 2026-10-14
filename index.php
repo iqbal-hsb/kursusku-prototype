@@ -1,7 +1,7 @@
 <?php
 // ============================================================
-//  index.php — Beranda Utama KursusKu (FINAL v3)
-//  Kompatibel dengan data.php versi baru (code => [title, fee, ...])
+//  index.php — Beranda Utama KursusKu (FINAL FIX)
+//  Kompatibel dengan data.php format: KODE => [title, fee, ...]
 // ============================================================
 require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/helpers.php';
@@ -13,8 +13,11 @@ $year     = date('Y');
 $totalCourses  = count($courses);
 $totalTersedia = 0;
 $totalPeserta  = 0;
+
 foreach ($courses as $code => $c) {
-    if (statusKursus($c['quota'], $c['registered']) === 'Tersedia') $totalTersedia++;
+    if (statusKursus($c['quota'], $c['registered']) === 'Tersedia') {
+        $totalTersedia++;
+    }
     $totalPeserta += $c['registered'];
 }
 ?>
@@ -160,7 +163,7 @@ foreach ($courses as $code => $c) {
     </section>
 
     <!-- ============================================================
-         KATALOG KURSUS — Kompatibel dengan data.php baru
+         KATALOG KURSUS — Sudah pakai $code => $course
     ============================================================ -->
     <section id="katalog" class="section-block">
         <div class="section-header">
@@ -216,7 +219,6 @@ foreach ($courses as $code => $c) {
             </table>
         </div>
 
-        <!-- CTA Banner -->
         <div class="cta-banner">
             <div class="cta-text">
                 <h3>Estimasi Biaya Kursus</h3>
