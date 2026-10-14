@@ -1,13 +1,12 @@
 /* =========================================================================
-   KURSUSKU — MASTER STYLESHEET (FINAL UPDATE v2)
-   Modern · Clean · Responsive · Konsisten · Auto Background
+   KURSUSKU — MASTER STYLESHEET (FINAL v3)
+   Modern · Clean · Responsive · Auto Background · Result-Grid Support
    ========================================================================= */
 
 /* =========================================================
    1. ROOT VARIABLES
    ========================================================= */
 :root {
-    /* Teal */
     --teal-900: #134e4a;
     --teal-800: #115e59;
     --teal-700: #0f766e;
@@ -16,7 +15,6 @@
     --teal-100: #ccfbf1;
     --teal-50:  #f0fdfa;
 
-    /* Slate */
     --slate-950: #0f172a;
     --slate-900: #0f172a;
     --slate-800: #1e293b;
@@ -29,38 +27,29 @@
     --slate-100: #f1f5f9;
     --slate-50:  #f8fafc;
 
-    /* Base */
     --white: #ffffff;
 
-    /* Status */
     --red-700:   #b91c1c;
-    --red-500:   #ef4444;
     --red-50:    #fef2f2;
     --green-700: #15803d;
-    --green-500: #22c55e;
     --green-50:  #f0fdf4;
     --amber-700: #b45309;
     --amber-50:  #fffbeb;
 
-    /* Efek */
     --shadow-xs: 0 1px 3px rgba(15, 23, 42, 0.06);
     --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
     --shadow:    0 12px 32px rgba(15, 118, 110, 0.08);
     --shadow-md: 0 16px 40px rgba(15, 118, 110, 0.12);
     --shadow-lg: 0 24px 60px rgba(15, 118, 110, 0.15);
 
-    /* Radius */
     --radius-xs: 6px;
     --radius-sm: 10px;
     --radius:    16px;
     --radius-lg: 22px;
-    --radius-xl: 28px;
 
-    /* Transition */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.15s ease;
 
-    /* Gradient */
     --gradient-teal: linear-gradient(135deg, var(--teal-700), var(--teal-600));
     --gradient-hero: linear-gradient(180deg, var(--teal-50), #f8fffe);
 }
@@ -94,14 +83,11 @@ body {
     flex-direction: column;
 }
 
-/* === AUTO BACKGROUND untuk halaman utility === */
 body:has(.utility-page) {
     background: linear-gradient(180deg, var(--teal-50), var(--slate-100));
 }
 
-main {
-    flex: 1;
-}
+main { flex: 1; }
 
 a {
     color: var(--teal-700);
@@ -109,9 +95,7 @@ a {
     transition: var(--transition-fast);
 }
 
-a:hover {
-    color: var(--teal-900);
-}
+a:hover { color: var(--teal-900); }
 
 img, video {
     max-width: 100%;
@@ -119,9 +103,7 @@ img, video {
     display: block;
 }
 
-ul, ol {
-    list-style-position: inside;
-}
+ul, ol { list-style-position: inside; }
 
 code {
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
@@ -161,7 +143,7 @@ hr {
 }
 
 /* =========================================================
-   4. HEADER & NAVIGASI
+   4. HEADER
    ========================================================= */
 .site-header {
     background: linear-gradient(135deg, var(--teal-900) 0%, var(--teal-700) 100%);
@@ -258,14 +240,10 @@ hr {
 }
 
 .site-header nav a:hover,
-.site-header nav a.active {
-    color: var(--white);
-}
+.site-header nav a.active { color: var(--white); }
 
 .site-header nav a:hover::after,
-.site-header nav a.active::after {
-    width: 100%;
-}
+.site-header nav a.active::after { width: 100%; }
 
 .btn-nav-action {
     background: var(--white) !important;
@@ -274,7 +252,6 @@ hr {
     border-radius: var(--radius-sm);
     font-weight: 700;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: var(--transition) !important;
 }
 
 .btn-nav-action::after { display: none !important; }
@@ -500,9 +477,7 @@ a.feature-card {
     text-decoration: none;
 }
 
-a.feature-card:hover {
-    color: var(--slate-800);
-}
+a.feature-card:hover { color: var(--slate-800); }
 
 .feature-card::before {
     content: '';
@@ -523,9 +498,7 @@ a.feature-card:hover {
     border-color: var(--teal-100);
 }
 
-.feature-card:hover::before {
-    transform: scaleX(1);
-}
+.feature-card:hover::before { transform: scaleX(1); }
 
 .feature-icon {
     font-size: 42px;
@@ -591,9 +564,7 @@ a.feature-card:hover {
     transition: transform 0.6s ease;
 }
 
-.media-card:hover .media-image {
-    transform: scale(1.08);
-}
+.media-card:hover .media-image { transform: scale(1.08); }
 
 .media-body {
     padding: 24px;
@@ -663,25 +634,12 @@ a.feature-card:hover {
     white-space: nowrap;
 }
 
-.cost-table tbody tr {
-    transition: background 0.2s ease;
-}
+.cost-table tbody tr { transition: background 0.2s ease; }
+.cost-table tbody tr:nth-child(even) { background: rgba(240, 253, 250, 0.4); }
+.cost-table tbody tr:hover { background: var(--teal-50); }
+.cost-table tbody tr:last-child td { border-bottom: none; }
 
-.cost-table tbody tr:nth-child(even) {
-    background: rgba(240, 253, 250, 0.4);
-}
-
-.cost-table tbody tr:hover {
-    background: var(--teal-50);
-}
-
-.cost-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.compact-table {
-    min-width: 0;
-}
+.compact-table { min-width: 0; }
 
 .total-row {
     background: var(--teal-50) !important;
@@ -931,9 +889,7 @@ a.feature-card:hover {
     border-radius: 0 0 4px 4px;
 }
 
-.wide-card {
-    max-width: 1120px;
-}
+.wide-card { max-width: 1120px; }
 
 .utility-card h1 {
     color: var(--slate-950);
@@ -1004,8 +960,8 @@ a.feature-card:hover {
 .form-grid,
 .result-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
 }
 
 .field {
@@ -1042,9 +998,7 @@ a.feature-card:hover {
 
 .field input:hover,
 .field select:hover,
-.field textarea:hover {
-    border-color: var(--slate-300);
-}
+.field textarea:hover { border-color: var(--slate-300); }
 
 .field input:focus,
 .field select:focus,
@@ -1082,29 +1036,47 @@ fieldset.field {
     padding: 4px 0;
 }
 
-.choice-row input[type="radio"] {
+.choice-row input[type="radio"],
+.choice-row input[type="checkbox"] {
     accent-color: var(--teal-700);
     width: 16px;
     height: 16px;
 }
 
+/* =========================================================
+   16. RESULT GRID — KHUSUS HALAMAN HASIL
+   ========================================================= */
+.result-grid {
+    margin-top: 24px;
+}
+
 .result-grid p {
     margin: 0;
-    padding: 16px;
-    background: var(--slate-100);
+    padding: 18px 20px;
+    background: var(--slate-50);
     border-radius: var(--radius-sm);
     font-size: 14px;
-    border-left: 3px solid var(--teal-500);
-    transition: var(--transition-fast);
+    border: 1px solid var(--slate-200);
+    border-left: 4px solid var(--teal-500);
+    transition: var(--transition);
+    line-height: 1.55;
 }
 
 .result-grid p:hover {
     background: var(--teal-50);
     border-left-color: var(--teal-700);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xs);
+}
+
+.result-grid p strong {
+    color: var(--slate-950);
+    font-weight: 700;
+    display: inline;
 }
 
 /* =========================================================
-   16. ALERT
+   17. ALERT
    ========================================================= */
 .alert {
     padding: 16px 20px;
@@ -1138,7 +1110,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   17. CHIP LIST
+   18. CHIP LIST
    ========================================================= */
 .chip-list {
     list-style: none;
@@ -1167,7 +1139,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   18. FORMULA BOX
+   19. FORMULA BOX
    ========================================================= */
 .formula-box {
     margin-top: 24px;
@@ -1192,7 +1164,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   19. TEST LIST
+   20. TEST LIST
    ========================================================= */
 .test-list {
     display: grid;
@@ -1228,7 +1200,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   20. CARD GENERIC
+   21. CARD GENERIC
    ========================================================= */
 .card {
     background: var(--white);
@@ -1241,7 +1213,7 @@ fieldset.field {
 .card + .card { margin-top: 16px; }
 
 /* =========================================================
-   21. UTILITY CLASSES
+   22. UTILITY CLASSES
    ========================================================= */
 .text-center { text-align: center; }
 .text-left   { text-align: left; }
@@ -1264,7 +1236,7 @@ fieldset.field {
 .grid   { display: grid; }
 
 /* =========================================================
-   22. RESPONSIVE — TABLET (≤ 900px)
+   23. RESPONSIVE — TABLET (≤ 900px)
    ========================================================= */
 @media (max-width: 900px) {
     .feature-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1276,7 +1248,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   23. RESPONSIVE — MOBILE (≤ 680px)
+   24. RESPONSIVE — MOBILE (≤ 680px)
    ========================================================= */
 @media (max-width: 680px) {
     body { font-size: 15px; }
@@ -1377,10 +1349,15 @@ fieldset.field {
         font-size: 12px;
         padding: 6px 12px;
     }
+
+    /* Result grid di mobile jadi 1 kolom */
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* =========================================================
-   24. ANIMASI
+   25. ANIMASI
    ========================================================= */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -1405,7 +1382,7 @@ fieldset.field {
 .feature-card:nth-child(9) { animation-delay: 0.45s; }
 
 /* =========================================================
-   25. SCROLLBAR CUSTOM
+   26. SCROLLBAR
    ========================================================= */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--slate-100); }
@@ -1417,7 +1394,7 @@ fieldset.field {
 ::-webkit-scrollbar-thumb:hover { background: var(--teal-900); }
 
 /* =========================================================
-   26. PRINT FRIENDLY
+   27. PRINT FRIENDLY
    ========================================================= */
 @media print {
     .site-header,
@@ -1435,15 +1412,9 @@ fieldset.field {
     }
 
     .utility-card,
-    .feature-card {
+    .feature-card,
+    .result-grid p {
         box-shadow: none;
         border: 1px solid var(--slate-200);
     }
-}
-
-/* =========================================================
-   27. DARK MODE (Opsional)
-   ========================================================= */
-@media (prefers-color-scheme: dark) {
-    /* Biarkan default terang agar tidak mengganggu tampilan praktikum */
 }

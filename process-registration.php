@@ -1,49 +1,134 @@
 <?php
-$name           = trim($_POST['name'] ?? '');
-$email          = trim($_POST['email'] ?? '');
-$phone          = trim($_POST['phone'] ?? '');
-$studyProgram   = trim($_POST['study_program'] ?? '');
-$course         = $_POST['course'] ?? '';
-$participantType= $_POST['participant_type'] ?? '';
-$interests      = $_POST['interests'] ?? [];
-$note           = trim($_POST['note'] ?? '');
-$source         = $_POST['source'] ?? '';
-$interestText   = implode(', ', $interests);
+// ============================================================
+//  process-registration.php — Proses & Hasil Pendaftaran
+// ============================================================
+require_once __DIR__ . '/helpers.php';
 
-function e($value): string
-{
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+$siteName = 'KursusKu';
+$year     = date('Y');
+
+// Cek metode POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    redirect('registration.php');
 }
+
+// Ambil & sanitasi data dari form
+$nama         = sanitize($_POST['nama'] ?? '');
+$email        = sanitize($_POST['email'] ?? '');
+$whatsapp     = sanitize($_POST['whatsapp'] ?? $_POST['hp'] ?? '');
+$prodi        = sanitize($_POST['prodi'] ?? '');
+$course_code  = sanitize($_POST['course'] ?? '');
+$jenis        = sanitize($_POST['jenis_peserta'] ?? 'umum');
+$minat        = $_POST['minat'] ?? [];        // array (checkbox)
+$catatan      = sanitize($_POST['catatan'] ?? '');
+$sumber       = sanitize($_POST['sumber'] ?? '');
+
+// Validasi
+$errors = [];
+if (empty($nama))         $errors[] = "Nama wajib diisi.";
+if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Email tidak valid.";
+if (empty($whatsapp))     $errors[] = "Nomor HP/WhatsApp wajib diisi.";
+if (empty($course_code))  $errors[] = "Kursus wajib dipilih.";
+if (empty($sumber))       $errors[] = "Sumber informasi wajib dipilih.";
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hasil Pendaftaran KursusKu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Pendaftaran <?= htmlspecialchars($siteName) ?></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <main class="container result-page">
-        <section class="alert-success">
-            <h1>Pendaftaran Diterima untuk Diproses</h1>
-            <p>Periksa kembali data latihan berikut.</p>
-        </section>
 
-        <section class="summary-card">
-            <dl class="summary-list">
-                <dt>Nama</dt><dd><?= e($name) ?></dd>
-                <dt>Email</dt><dd><?= e($email) ?></dd>
-                <dt>Nomor HP</dt><dd><?= e($phone) ?></dd>
-                <dt>Program Studi</dt><dd><?= e($studyProgram) ?></dd>
-                <dt>Kursus</dt><dd><?= e($course) ?></dd>
-                <dt>Jenis Peserta</dt><dd><?= e($participantType) ?></dd>
-                <dt>Minat</dt><dd><?= e($interestText) ?></dd>
-                <dt>Catatan</dt><dd><?= e($note) ?></dd>
-                <dt>Sumber</dt><dd><?= e($source) ?></dd>
-            </dl>
-            <a class="btn-link" href="registration.php">Kembali ke Form</a>
-        </section>
-    </main>
+<!-- =========================
+     HEADER
+========================= -->
+<header class="site-header">
+    <div class="container nav-wrap">
+        <a class="brand" href="index.php">
+            <div class="brand-logo-wrapper">
+                <img src="assets/images/logo.svg" alt="Logo" class="brand-logo"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span class="logo-fallback-icon" style="display:none;">🎓</span>
+            </div>
+            <span class="brand-title"><?= htmlspecialchars($siteName) ?></span>
+        </a>
+
+        <nav aria-label="Navigasi utama">
+            <a href="index.php">Beranda</a>
+            <a href="registration.php">Daftar</a>
+            <a href="loop-lab.php">Loop Lab</a>
+            <a href="history.php">History</a>
+        </nav>
+    </div>
+</header>
+
+<!-- =========================
+     KONTEN HASIL
+========================= -->
+<main class="utility-page">
+    <div class="utility-card wide-card">
+
+        <?php if (!empty($errors)): ?>
+            <!-- ====== TAMPILAN JIKA ADA ERROR ====== -->
+            <h1>⚠️ Terjadi Kesalahan</h1>
+            <div class="alert alert-error">
+                <strong>Mohon periksa kembali data Anda:</strong>
+                <ul>
+                    <?php foreach ($errors as $e): ?>
+                        <li><?= htmlspecialchars($e) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            <p style="margin-top:24px;">
+                <a href="registration.php" class="btn-primary">← Kembali ke Formulir</a>
+            </p>
+
+        <?php else: ?>
+            <!-- ====== TAMPILAN JIKA BERHASIL ====== -->
+            <h1>✅ Pendaftaran Diterima untuk Diproses</h1>
+            <p>Periksa kembali data latihan berikut.</p>
+
+            <div class="result-grid" style="margin-top:24px;">
+                <p><strong>Nama:</strong><br><?= htmlspecialchars($nama) ?></p>
+                <p><strong>Email:</strong><br><?= htmlspecialchars($email) ?></p>
+                <p><strong>Nomor HP:</strong><br><?= htmlspecialchars($whatsapp) ?></p>
+                <p><strong>Program Studi:</strong><br><?= htmlspecialchars($prodi ?: '-') ?></p>
+                <p><strong>Kursus:</strong><br><?= htmlspecialchars($course_code) ?></p>
+                <p><strong>Jenis Peserta:</strong><br><?= htmlspecialchars($jenis) ?></p>
+                <p><strong>Minat:</strong><br><?= htmlspecialchars(is_array($minat) ? implode(', ', $minat) : ($minat ?: '-')) ?></p>
+                <p><strong>Catatan:</strong><br><?= htmlspecialchars($catatan ?: '-') ?></p>
+                <p><strong>Sumber:</strong><br><?= htmlspecialchars($sumber) ?></p>
+            </div>
+
+            <div class="alert alert-info" style="margin-top:24px;">
+                <strong>Simpan bukti pendaftaran ini</strong> sebagai konfirmasi Anda.
+            </div>
+
+            <p style="margin-top:32px;">
+                <a href="index.php" class="btn-primary">← Kembali ke Beranda</a>
+                <a href="registration.php" class="btn-secondary" style="margin-left:8px;">Daftar Lagi</a>
+            </p>
+        <?php endif; ?>
+
+    </div>
+</main>
+
+<!-- =========================
+     FOOTER
+========================= -->
+<footer class="site-footer">
+    <div class="container footer-content">
+        <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>
+    </div>
+</footer>
+
 </body>
 </html>
