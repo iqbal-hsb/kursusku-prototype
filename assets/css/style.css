@@ -1218,4 +1218,206 @@ fieldset.field {
     box-shadow: var(--shadow-xs);
 }
 
-.card + .card { margin
+.card + .card { margin-top: 16px; }
+
+/* =========================================================
+   22. UTILITY CLASSES
+   ========================================================= */
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mt-4 { margin-top: 32px; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+.mb-4 { margin-bottom: 32px; }
+
+.hidden { display: none; }
+.flex   { display: flex; }
+.grid   { display: grid; }
+
+/* =========================================================
+   23. RESPONSIVE — TABLET (≤ 900px)
+   ========================================================= */
+@media (max-width: 900px) {
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps-list   { grid-template-columns: repeat(2, 1fr); }
+    .media-grid   { grid-template-columns: 1fr; }
+    .media-preview-container { height: 280px; }
+    .section-block { padding: 60px 0; }
+    .hero-section { padding: 70px 0 80px; }
+}
+
+/* =========================================================
+   24. RESPONSIVE — MOBILE (≤ 680px)
+   ========================================================= */
+@media (max-width: 680px) {
+    body { font-size: 15px; }
+
+    .site-header {
+        padding: 12px 0;
+        position: static;
+    }
+
+    .nav-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .site-header nav {
+        gap: 14px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .site-header nav a { font-size: 13px; }
+
+    .btn-nav-action {
+        padding: 8px 14px !important;
+        font-size: 13px !important;
+    }
+
+    .brand-title { font-size: 20px; }
+    .brand-logo-wrapper { width: 40px; height: 40px; }
+
+    .hero-section { padding: 50px 0 60px; }
+    .hero-section h1 { font-size: 30px; }
+    .hero-section p { font-size: 15px; }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-buttons a { width: 100%; }
+
+    .section-block { padding: 48px 0; }
+    .section-header { margin-bottom: 32px; }
+
+    .feature-grid,
+    .steps-list,
+    .form-grid,
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-banner {
+        padding: 28px 24px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cta-banner .btn-primary { width: 100%; }
+
+    .media-preview-container { height: 220px; }
+
+    .utility-page { padding: 24px 12px; }
+
+    .utility-card {
+        padding: 28px 22px;
+        border-radius: var(--radius);
+    }
+
+    .utility-card::before {
+        left: 22px;
+        right: 22px;
+    }
+
+    .utility-card h1 { font-size: 24px; }
+
+    .test-item { grid-template-columns: 70px 1fr; }
+    .test-item code { grid-column: 2; }
+
+    .choice-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .stack-form .button,
+    .stack-form .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cost-table th,
+    .cost-table td {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+
+    .chip-list li {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+/* =========================================================
+   25. ANIMASI
+   ========================================================= */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-block,
+.hero-content,
+.utility-card {
+    animation: fadeInUp 0.5s ease-out both;
+}
+
+.feature-card { animation: fadeInUp 0.5s ease-out both; }
+.feature-card:nth-child(1) { animation-delay: 0.05s; }
+.feature-card:nth-child(2) { animation-delay: 0.1s; }
+.feature-card:nth-child(3) { animation-delay: 0.15s; }
+.feature-card:nth-child(4) { animation-delay: 0.2s; }
+.feature-card:nth-child(5) { animation-delay: 0.25s; }
+.feature-card:nth-child(6) { animation-delay: 0.3s; }
+.feature-card:nth-child(7) { animation-delay: 0.35s; }
+.feature-card:nth-child(8) { animation-delay: 0.4s; }
+.feature-card:nth-child(9) { animation-delay: 0.45s; }
+
+/* =========================================================
+   26. SCROLLBAR
+   ========================================================= */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--slate-100); }
+::-webkit-scrollbar-thumb {
+    background: var(--teal-700);
+    border-radius: 999px;
+    transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--teal-900); }
+
+/* =========================================================
+   27. PRINT FRIENDLY
+   ========================================================= */
+@media print {
+    .site-header,
+    .site-footer,
+    .btn-primary,
+    .btn-secondary,
+    .btn-outline,
+    .btn-nav-action {
+        display: none !important;
+    }
+
+    body {
+        background: var(--white);
+        color: var(--slate-950);
+    }
+
+    .utility-card,
+    .feature-card,
+    .result-grid p {
+        box-shadow: none;
+        border: 1px solid var(--slate-200);
+    }
+}
