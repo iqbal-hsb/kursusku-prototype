@@ -1,55 +1,77 @@
 <?php
-require_once __DIR__ . '/helpers.php';
-$siteName = 'KursusKu';
-$year     = date('Y');
-$text     = "KursusKu Platform Belajar";
+// string-test.php
+// Latihan fungsi string di PHP untuk project KursusKu
+
+$namaLengkap = "  budi santoso  ";
+$email       = "Budi.Santoso@Gmail.com";
+$kursus      = "Pemrograman Web Dasar dengan PHP";
+$noHp        = "0812-3456-7890";
+
+// 1. Membersihkan & mengubah huruf
+$namaBersih  = trim($namaLengkap);
+$namaRapi    = ucwords($namaBersih);
+$emailKecil  = strtolower($email);
+$kursusBesar = strtoupper($kursus);
+
+// 2. Panjang & posisi
+$panjangNama = strlen($namaBersih);
+$posisiPHP   = strpos($kursus, 'PHP');
+
+// 3. Mengambil sebagian string
+$kataPertama = substr($namaRapi, 0, 4);
+$domainEmail = substr(strrchr($emailKecil, '@'), 1);
+
+// 4. Mengganti & memecah string
+$noHpBersih = str_replace('-', '', $noHp);
+$katakata   = explode(' ', $kursus);
+$slug       = strtolower(str_replace(' ', '-', $kursus));
+
+// 5. Menggabungkan & mengulang
+$gabung = implode(' | ', $katakata);
+$garis  = str_repeat('=', 20);
+
+// 6. Cek isi string
+$adaPHP     = strpos($kursus, 'PHP') !== false;
+$emailValid = filter_var($emailKecil, FILTER_VALIDATE_EMAIL) !== false;
+$awalan08   = substr($noHpBersih, 0, 2) === '08';
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>String Test - <?= htmlspecialchars($siteName) ?></title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>String Test</title>
 </head>
 <body>
-<header class="site-header">
-    <div class="container nav-wrap">
-        <a class="brand" href="index.php"><span class="brand-title"><?= htmlspecialchars($siteName) ?></span></a>
-        <nav>
-            <a href="index.php">Beranda</a>
-            <a href="loop-lab.php">Loop Lab</a>
-            <a href="history.php">History</a>
-            <a href="registration.php" class="btn-nav-action">Daftar</a>
-        </nav>
-    </div>
-</header>
+    <h1>Tes Fungsi String</h1>
 
-<main class="utility-page">
-    <div class="utility-card">
-        <h1>🔤 String Test</h1>
-        <p>Latihan manipulasi string di PHP.</p>
+    <h2>1. Mengubah Huruf</h2>
+    <p>Nama asli: "<?= $namaLengkap ?>"</p>
+    <p>trim(): "<?= $namaBersih ?>"</p>
+    <p>ucwords(): <?= $namaRapi ?></p>
+    <p>strtolower() email: <?= $emailKecil ?></p>
+    <p>strtoupper() kursus: <?= $kursusBesar ?></p>
 
-        <h2>Text: <?= htmlspecialchars($text) ?></h2>
-        <ul class="chip-list">
-            <li>Panjang: <?= strlen($text) ?></li>
-            <li>Huruf Besar: <?= strtoupper($text) ?></li>
-            <li>Huruf Kecil: <?= strtolower($text) ?></li>
-            <li>Jumlah Kata: <?= str_word_count($text) ?></li>
-            <li>Reverse: <?= strrev($text) ?></li>
-            <li>Replace: <?= str_replace('KursusKu', 'Kami', $text) ?></li>
-        </ul>
+    <h2>2. Panjang &amp; Posisi</h2>
+    <p>Panjang nama: <?= $panjangNama ?> karakter</p>
+    <p>Posisi "PHP" di judul kursus: <?= $posisiPHP ?></p>
 
-        <p style="margin-top:32px;">
-            <a href="index.php" class="btn-primary">← Kembali ke Beranda</a>
-        </p>
-    </div>
-</main>
+    <h2>3. Mengambil Sebagian String</h2>
+    <p>4 huruf pertama nama: <?= $kataPertama ?></p>
+    <p>Domain email: <?= $domainEmail ?></p>
 
-<footer class="site-footer">
-    <div class="container footer-content">
-        <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>
-    </div>
-</footer>
+    <h2>4. Mengganti &amp; Memecah</h2>
+    <p>No HP asli: <?= $noHp ?></p>
+    <p>No HP bersih: <?= $noHpBersih ?></p>
+    <p>Jumlah kata di judul kursus: <?= count($katakata) ?></p>
+    <p>Slug URL: <?= $slug ?></p>
+
+    <h2>5. Menggabungkan</h2>
+    <p><?= $gabung ?></p>
+    <p><?= $garis ?></p>
+
+    <h2>6. Pengecekan</h2>
+    <p>Mengandung "PHP"? <?= $adaPHP ? 'Ya' : 'Tidak' ?></p>
+    <p>Email valid? <?= $emailValid ? 'Ya' : 'Tidak' ?></p>
+    <p>No HP diawali "08"? <?= $awalan08 ? 'Ya' : 'Tidak' ?></p>
 </body>
 </html>
