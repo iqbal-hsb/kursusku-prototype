@@ -60,7 +60,7 @@ $courses = [
     ]
 ];
 
-// Hitung statistik
+// Hitung statistik untuk hero
 $totalCourses  = count($courses);
 $totalTersedia = 0;
 $totalPeserta  = 0;
@@ -88,9 +88,9 @@ foreach ($courses as $c) {
 </head>
 <body>
 
-<!-- =========================
+<!-- ============================================================
      HEADER & NAVIGASI
-========================= -->
+============================================================ -->
 <header class="site-header">
     <div class="container nav-wrap">
         <a class="brand" href="index.php">
@@ -107,6 +107,8 @@ foreach ($courses as $c) {
             <a href="#keunggulan">Keunggulan</a>
             <a href="#katalog">Katalog</a>
             <a href="#alur">Cara Daftar</a>
+            <a href="loop-lab.php">Loop Lab</a>
+            <a href="history.php">History</a>
             <a href="fee-calculator.php">Estimasi Biaya</a>
             <a href="registration.php" class="btn-nav-action">Daftar Kursus</a>
         </nav>
@@ -115,9 +117,9 @@ foreach ($courses as $c) {
 
 <main class="container">
 
-    <!-- =========================
+    <!-- ============================================================
          HERO SECTION
-    ========================= -->
+    ============================================================ -->
     <section id="hero" class="hero-section">
         <div class="hero-content">
             <span class="eyebrow">Selamat Datang di <?= htmlspecialchars($siteName) ?></span>
@@ -126,11 +128,13 @@ foreach ($courses as $c) {
                 Temukan kursus teknologi yang relevan dan terstruktur untuk meningkatkan keterampilan
                 pemrograman Anda dari dasar hingga mahir.
             </p>
+
             <div class="hero-buttons">
                 <a href="registration.php" class="btn-primary">Daftar Kursus Sekarang</a>
                 <a href="#katalog" class="btn-secondary">Lihat Katalog</a>
                 <a href="fee-calculator.php" class="btn-outline">Hitung Biaya</a>
             </div>
+
             <div class="hero-meta">
                 <span>📚 <?= $totalCourses ?> Kursus Tersedia</span>
                 <span>✅ <?= $totalTersedia ?> Kelas Masih Terbuka</span>
@@ -139,9 +143,9 @@ foreach ($courses as $c) {
         </div>
     </section>
 
-    <!-- =========================
+    <!-- ============================================================
          KEUNGGULAN
-    ========================= -->
+    ============================================================ -->
     <section id="keunggulan" class="section-block">
         <div class="section-header">
             <h2>Mengapa Memilih <?= htmlspecialchars($siteName) ?>?</h2>
@@ -169,9 +173,9 @@ foreach ($courses as $c) {
         </div>
     </section>
 
-    <!-- =========================
-         BAGIAN MEDIA (GAMBAR & VIDEO)
-    ========================= -->
+    <!-- ============================================================
+         MEDIA — GAMBAR & VIDEO
+    ============================================================ -->
     <section id="media" class="section-block">
         <div class="section-header">
             <h2>Kenali Program Kami</h2>
@@ -211,9 +215,9 @@ foreach ($courses as $c) {
         </div>
     </section>
 
-    <!-- =========================
+    <!-- ============================================================
          KATALOG KURSUS
-    ========================= -->
+    ============================================================ -->
     <section id="katalog" class="section-block">
         <div class="section-header">
             <h2>Katalog Kursus & Status Kuota</h2>
@@ -273,9 +277,9 @@ foreach ($courses as $c) {
         </div>
     </section>
 
-    <!-- =========================
+    <!-- ============================================================
          ALUR PENDAFTARAN
-    ========================= -->
+    ============================================================ -->
     <section id="alur" class="section-block">
         <div class="section-header">
             <h2>Cara Mendaftar</h2>
@@ -321,11 +325,113 @@ foreach ($courses as $c) {
         </ol>
     </section>
 
+    <!-- ============================================================
+         LATIHAN PRAKTIKUM PHP
+    ============================================================ -->
+    <section id="latihan" class="section-block">
+        <div class="section-header">
+            <h2>🧪 Latihan Praktikum PHP</h2>
+            <p>Kumpulan file latihan untuk memperdalam materi PHP.</p>
+        </div>
+
+        <div class="feature-grid">
+            <a href="loop-lab.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">🔁</div>
+                <h3>Loop Lab</h3>
+                <p>Latihan for, while, do-while, foreach, break, continue.</p>
+            </a>
+
+            <a href="history.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">📜</div>
+                <h3>History</h3>
+                <p>Riwayat pendaftaran peserta kursus.</p>
+            </a>
+
+            <a href="operator-test.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">➕</div>
+                <h3>Operator Test</h3>
+                <p>Latihan operator aritmatika PHP.</p>
+            </a>
+
+            <a href="string-test.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">🔤</div>
+                <h3>String Test</h3>
+                <p>Latihan manipulasi string di PHP.</p>
+            </a>
+
+            <a href="logic-test.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">🧠</div>
+                <h3>Logic Test</h3>
+                <p>Latihan operator logika (AND, OR, NOT, XOR).</p>
+            </a>
+
+            <a href="data-test.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">📦</div>
+                <h3>Data Test</h3>
+                <p>Latihan tipe data PHP.</p>
+            </a>
+
+            <a href="bitwise-test.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">🔢</div>
+                <h3>Bitwise Test</h3>
+                <p>Latihan operator bitwise PHP.</p>
+            </a>
+
+            <a href="procedure-test.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">⚙️</div>
+                <h3>Procedure Test</h3>
+                <p>Latihan fungsi dan prosedur di PHP.</p>
+            </a>
+
+            <a href="test-functions.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">🧰</div>
+                <h3>Test Functions</h3>
+                <p>Uji fungsi helper (formatRupiah, dll).</p>
+            </a>
+
+            <a href="text-matrix.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">📊</div>
+                <h3>Text Matrix</h3>
+                <p>Latihan array multidimensi.</p>
+            </a>
+
+            <a href="type-data-test.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">🧬</div>
+                <h3>Type Data Test</h3>
+                <p>Uji tipe data lanjutan (gettype, var_export).</p>
+            </a>
+
+            <a href="server-time.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">🕒</div>
+                <h3>Server Time</h3>
+                <p>Menampilkan waktu server (Asia/Jakarta).</p>
+            </a>
+
+            <a href="hello.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">👋</div>
+                <h3>Hello World</h3>
+                <p>Latihan dasar PHP pertama.</p>
+            </a>
+
+            <a href="get-demo.php?nama=Peserta&umur=20" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">🔗</div>
+                <h3>GET Demo</h3>
+                <p>Demo pengiriman data via URL (metode GET).</p>
+            </a>
+
+            <a href="process.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">📨</div>
+                <h3>Process Demo</h3>
+                <p>Demo pemrosesan form sederhana.</p>
+            </a>
+        </div>
+    </section>
+
 </main>
 
-<!-- =========================
+<!-- ============================================================
      FOOTER
-========================= -->
+============================================================ -->
 <footer class="site-footer">
     <div class="container footer-content">
         <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>
