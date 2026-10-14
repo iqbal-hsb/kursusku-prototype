@@ -1,15 +1,13 @@
 /* =========================================================================
-   KURSUSKU — MASTER STYLESHEET
-   Modern, Clean, Responsive
-   Mencakup: index, loop-lab, registration, fee-calculator, history,
-             test-*, demo-*, hello, server-time, process, dll.
+   KURSUSKU — MASTER STYLESHEET (FINAL)
+   Modern · Clean · Responsive · Konsisten untuk semua halaman
    ========================================================================= */
 
 /* =========================================================
-   1. ROOT VARIABLES (Warna, Radius, Shadow, Transition)
+   1. ROOT VARIABLES
    ========================================================= */
 :root {
-    /* Teal (Primary) */
+    /* Teal */
     --teal-900: #134e4a;
     --teal-800: #115e59;
     --teal-700: #0f766e;
@@ -18,7 +16,7 @@
     --teal-100: #ccfbf1;
     --teal-50:  #f0fdfa;
 
-    /* Slate (Netral) */
+    /* Slate */
     --slate-950: #0f172a;
     --slate-900: #0f172a;
     --slate-800: #1e293b;
@@ -32,24 +30,18 @@
     --slate-50:  #f8fafc;
 
     /* Base */
-    --white:   #ffffff;
-    --black:   #000000;
+    --white: #ffffff;
 
     /* Status */
     --red-700:   #b91c1c;
-    --red-500:   #ef4444;
     --red-50:    #fef2f2;
     --green-700: #15803d;
-    --green-500: #22c55e;
     --green-50:  #f0fdf4;
-    --amber-700: #b45309;
-    --amber-50:  #fffbeb;
 
     /* Efek */
     --shadow-xs: 0 1px 3px rgba(15, 23, 42, 0.06);
     --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
     --shadow:    0 12px 32px rgba(15, 118, 110, 0.08);
-    --shadow-md: 0 16px 40px rgba(15, 118, 110, 0.12);
     --shadow-lg: 0 24px 60px rgba(15, 118, 110, 0.15);
 
     /* Radius */
@@ -57,7 +49,6 @@
     --radius-sm: 10px;
     --radius:    16px;
     --radius-lg: 22px;
-    --radius-xl: 28px;
 
     /* Transition */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -90,6 +81,13 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* === BACKGROUND SEMUA HALAMAN UTILITY === */
+/* Ciri: halaman yang punya .utility-page atau body tanpa section hero */
+body:has(.utility-page) {
+    background: linear-gradient(180deg, var(--teal-50), var(--slate-100));
+    min-height: 100vh;
+}
+
 a {
     color: var(--teal-700);
     text-decoration: none;
@@ -100,8 +98,7 @@ a:hover {
     color: var(--teal-900);
 }
 
-img,
-video {
+img, video {
     max-width: 100%;
     height: auto;
     display: block;
@@ -141,7 +138,7 @@ hr {
 }
 
 /* =========================================================
-   3. LAYOUT CONTAINER
+   3. LAYOUT
    ========================================================= */
 .container {
     width: min(1120px, 90%);
@@ -177,9 +174,7 @@ hr {
     font-weight: 800;
 }
 
-.brand:hover {
-    color: var(--teal-100);
-}
+.brand:hover { color: var(--teal-100); }
 
 .brand-logo-wrapper {
     display: grid;
@@ -259,9 +254,7 @@ hr {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.btn-nav-action::after {
-    display: none;
-}
+.btn-nav-action::after { display: none; }
 
 .btn-nav-action:hover {
     background: var(--teal-100) !important;
@@ -270,7 +263,7 @@ hr {
 }
 
 /* =========================================================
-   5. HERO SECTION
+   5. HERO
    ========================================================= */
 .hero-section {
     background:
@@ -405,7 +398,7 @@ button.btn-primary {
 }
 
 /* =========================================================
-   7. SECTION BLOCK
+   7. SECTION
    ========================================================= */
 .section-block {
     padding: 72px 0;
@@ -432,7 +425,7 @@ button.btn-primary {
 }
 
 /* =========================================================
-   8. FEATURE GRID (Keunggulan)
+   8. FEATURE GRID
    ========================================================= */
 .feature-grid {
     display: grid;
@@ -448,7 +441,10 @@ button.btn-primary {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    color: var(--slate-800);
 }
+
+a.feature-card { display: block; }
 
 .feature-card::before {
     content: '';
@@ -493,7 +489,7 @@ button.btn-primary {
 }
 
 /* =========================================================
-   9. MEDIA SECTION (Gambar & Video)
+   9. MEDIA
    ========================================================= */
 .media-grid {
     display: grid;
@@ -568,7 +564,7 @@ button.btn-primary {
 }
 
 /* =========================================================
-   10. TABLE (Katalog, Cost, Compact)
+   10. TABEL
    ========================================================= */
 .table-container {
     overflow-x: auto;
@@ -623,7 +619,6 @@ button.btn-primary {
     font-weight: 700;
 }
 
-/* Badge Status */
 .badge-available,
 .badge-full {
     display: inline-block;
@@ -631,7 +626,6 @@ button.btn-primary {
     border-radius: 999px;
     font-weight: 800;
     font-size: 12px;
-    letter-spacing: 0.02em;
 }
 
 .badge-available {
@@ -726,7 +720,7 @@ button.btn-primary {
 }
 
 /* =========================================================
-   12. STEPS LIST (Alur Pendaftaran)
+   12. STEPS
    ========================================================= */
 .steps-list {
     list-style: none;
@@ -743,7 +737,6 @@ button.btn-primary {
     border-radius: 0 0 var(--radius) var(--radius);
     padding: 26px 20px;
     transition: var(--transition);
-    position: relative;
 }
 
 .steps-list li:hover {
@@ -799,20 +792,17 @@ button.btn-primary {
     gap: 12px;
 }
 
-.site-footer p {
-    font-size: 14px;
-}
-
-.site-footer strong {
-    color: var(--white);
-}
+.site-footer p { font-size: 14px; }
+.site-footer strong { color: var(--white); }
 
 /* =========================================================
-   14. UTILITY PAGES (Form, Result, Demo, Test)
+   14. UTILITY PAGES (Semua halaman selain index)
    ========================================================= */
 .utility-page {
     min-height: 100vh;
-    background: linear-gradient(180deg, var(--teal-50), var(--slate-100));
+    background:
+        radial-gradient(circle at 90% 10%, rgba(204, 251, 241, 0.5) 0%, transparent 40%),
+        linear-gradient(180deg, var(--teal-50), var(--slate-100));
     padding: 48px 16px;
 }
 
@@ -823,6 +813,7 @@ button.btn-primary {
     padding: 36px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
+    border: 1px solid var(--slate-200);
 }
 
 .wide-card {
@@ -874,7 +865,6 @@ button.btn-primary {
     margin: 16px 0;
 }
 
-/* Status Dot */
 .status-dot {
     display: inline-block;
     color: var(--green-700);
@@ -887,7 +877,7 @@ button.btn-primary {
 }
 
 /* =========================================================
-   15. FORM STYLING
+   15. FORM
    ========================================================= */
 .stack-form {
     display: grid;
@@ -969,7 +959,6 @@ fieldset.field {
     font-size: 14px;
 }
 
-/* Result Grid */
 .result-grid p {
     margin: 0;
     padding: 16px;
@@ -979,7 +968,9 @@ fieldset.field {
     border-left: 3px solid var(--teal-500);
 }
 
-/* Alert */
+/* =========================================================
+   16. ALERT
+   ========================================================= */
 .alert {
     padding: 15px 18px;
     border-radius: var(--radius-sm);
@@ -1006,7 +997,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   16. CHIP LIST (Badge Kecil)
+   17. CHIP LIST
    ========================================================= */
 .chip-list {
     list-style: none;
@@ -1034,7 +1025,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   17. FORMULA BOX (Kalkulator)
+   18. FORMULA BOX
    ========================================================= */
 .formula-box {
     margin-top: 22px;
@@ -1058,7 +1049,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   18. TEST LIST (Untuk test-functions.php, dll)
+   19. TEST LIST
    ========================================================= */
 .test-list {
     display: grid;
@@ -1088,7 +1079,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   19. CARD GENERIC (Bonus)
+   20. CARD GENERIC
    ========================================================= */
 .card {
     background: var(--white);
@@ -1098,42 +1089,47 @@ fieldset.field {
     box-shadow: var(--shadow-xs);
 }
 
-.card + .card {
-    margin-top: 16px;
-}
+.card + .card { margin-top: 16px; }
 
 /* =========================================================
-   20. RESPONSIVE — TABLET (≤ 900px)
+   21. UTILITY CLASSES
+   ========================================================= */
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mt-4 { margin-top: 32px; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+.mb-4 { margin-bottom: 32px; }
+
+.hidden { display: none; }
+.flex   { display: flex; }
+.grid   { display: grid; }
+
+/* =========================================================
+   22. RESPONSIVE — TABLET (≤ 900px)
    ========================================================= */
 @media (max-width: 900px) {
-    .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .steps-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .media-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .media-preview-container {
-        height: 280px;
-    }
-
-    .section-block {
-        padding: 56px 0;
-    }
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps-list   { grid-template-columns: repeat(2, 1fr); }
+    .media-grid   { grid-template-columns: 1fr; }
+    .media-preview-container { height: 280px; }
+    .section-block { padding: 56px 0; }
 }
 
 /* =========================================================
-   21. RESPONSIVE — MOBILE (≤ 680px)
+   23. RESPONSIVE — MOBILE (≤ 680px)
    ========================================================= */
 @media (max-width: 680px) {
-    body {
-        font-size: 15px;
-    }
+    body { font-size: 15px; }
 
     .site-header {
         padding: 14px 0;
@@ -1152,52 +1148,29 @@ fieldset.field {
         flex-wrap: wrap;
     }
 
-    .site-header nav a {
-        font-size: 13px;
-    }
+    .site-header nav a { font-size: 13px; }
 
     .btn-nav-action {
         padding: 8px 14px !important;
         font-size: 13px !important;
     }
 
-    .brand-title {
-        font-size: 20px;
-    }
+    .brand-title { font-size: 20px; }
+    .brand-logo-wrapper { width: 40px; height: 40px; }
 
-    .brand-logo-wrapper {
-        width: 40px;
-        height: 40px;
-    }
-
-    .hero-section {
-        padding: 50px 0 60px;
-    }
-
-    .hero-section h1 {
-        font-size: 30px;
-    }
-
-    .hero-section p {
-        font-size: 15px;
-    }
+    .hero-section { padding: 50px 0 60px; }
+    .hero-section h1 { font-size: 30px; }
+    .hero-section p { font-size: 15px; }
 
     .hero-buttons {
         flex-direction: column;
         width: 100%;
     }
 
-    .hero-buttons a {
-        width: 100%;
-    }
+    .hero-buttons a { width: 100%; }
 
-    .section-block {
-        padding: 44px 0;
-    }
-
-    .section-header {
-        margin-bottom: 30px;
-    }
+    .section-block { padding: 44px 0; }
+    .section-header { margin-bottom: 30px; }
 
     .feature-grid,
     .steps-list,
@@ -1212,30 +1185,21 @@ fieldset.field {
         text-align: center;
     }
 
-    .cta-banner .btn-primary {
-        width: 100%;
-    }
+    .cta-banner .btn-primary { width: 100%; }
 
-    .media-preview-container {
-        height: 220px;
-    }
+    .media-preview-container { height: 220px; }
+
+    .utility-page { padding: 24px 12px; }
 
     .utility-card {
         padding: 24px 20px;
         border-radius: var(--radius);
     }
 
-    .utility-card h1 {
-        font-size: 24px;
-    }
+    .utility-card h1 { font-size: 24px; }
 
-    .test-item {
-        grid-template-columns: 70px 1fr;
-    }
-
-    .test-item code {
-        grid-column: 2;
-    }
+    .test-item { grid-template-columns: 70px 1fr; }
+    .test-item code { grid-column: 2; }
 
     .choice-row {
         flex-direction: column;
@@ -1261,7 +1225,7 @@ fieldset.field {
 }
 
 /* =========================================================
-   22. ANIMASI MASUK
+   24. ANIMASI
    ========================================================= */
 @keyframes fadeInUp {
     from {
@@ -1281,45 +1245,12 @@ fieldset.field {
 }
 
 /* =========================================================
-   23. SCROLLBAR CUSTOM (Opsional, biar cantik)
+   25. SCROLLBAR CUSTOM
    ========================================================= */
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--slate-100);
-}
-
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--slate-100); }
 ::-webkit-scrollbar-thumb {
     background: var(--teal-700);
     border-radius: 999px;
 }
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--teal-900);
-}
-
-/* =========================================================
-   24. UTILITY CLASSES
-   ========================================================= */
-.text-center { text-align: center; }
-.text-left   { text-align: left; }
-.text-right  { text-align: right; }
-
-.mt-0 { margin-top: 0; }
-.mt-1 { margin-top: 8px; }
-.mt-2 { margin-top: 16px; }
-.mt-3 { margin-top: 24px; }
-.mt-4 { margin-top: 32px; }
-
-.mb-0 { margin-bottom: 0; }
-.mb-1 { margin-bottom: 8px; }
-.mb-2 { margin-bottom: 16px; }
-.mb-3 { margin-bottom: 24px; }
-.mb-4 { margin-bottom: 32px; }
-
-.hidden { display: none; }
-.flex   { display: flex; }
-.grid   { display: grid; }
+::-webkit-scrollbar-thumb:hover { background: var(--teal-900); }
