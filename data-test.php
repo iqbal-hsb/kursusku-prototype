@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-//  data.php — Sumber Data Kursus & Minat
+//  data.php — Sumber Data Kursus & Minat (FINAL)
 // ============================================================
 
 $siteName = 'KursusKu';
@@ -56,7 +56,7 @@ $courses = [
 ];
 
 // ============================================================
-// OPSI MINAT TAMBAHAN — untuk checkbox interests[]
+// OPSI MINAT TAMBAHAN
 // ============================================================
 $interestOptions = [
     'frontend' => 'Frontend Development',
@@ -73,11 +73,10 @@ $interestOptions = [
 
 /**
  * Cari kursus berdasarkan kode.
- * @param  string  $code
- * @return array|null  ['code' => ..., 'title' => ..., 'fee' => ...]
  */
 function getCourseByCode($code) {
     global $courses;
+    $code = trim((string) $code);
     if (isset($courses[$code])) {
         return array_merge(['code' => $code], $courses[$code]);
     }

@@ -1,7 +1,6 @@
 <?php
 // ============================================================
-//  registration.php — Formulir Pendaftaran Kursus
-//  Milestone 5 / UTS — Praktikum Pemrograman Web III
+//  registration.php — Formulir Pendaftaran Kursus (FINAL)
 // ============================================================
 require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/helpers.php';
@@ -12,16 +11,6 @@ $year     = date('Y');
 // Ambil kode kursus dari URL (opsional: ?course=WEB-01)
 $selected_code   = isset($_GET['course']) ? sanitize($_GET['course']) : '';
 $selected_course = $selected_code ? getCourseByCode($selected_code) : null;
-
-// Fallback kalau $interestOptions belum ada di data.php
-if (!isset($interestOptions) || !is_array($interestOptions)) {
-    $interestOptions = [
-        'frontend' => 'Frontend Development',
-        'backend'  => 'Backend Development',
-        'mobile'   => 'Mobile Apps',
-        'uiux'     => 'UI/UX Design',
-    ];
-}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -38,9 +27,6 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
 </head>
 <body>
 
-<!-- ============================================================
-     HEADER — Tersambung ke index.php
-============================================================ -->
 <header class="site-header">
     <div class="container nav-wrap">
         <a class="brand" href="index.php">
@@ -51,7 +37,6 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
             </div>
             <span class="brand-title"><?= htmlspecialchars($siteName) ?></span>
         </a>
-
         <nav aria-label="Navigasi utama">
             <a href="index.php">Beranda</a>
             <a href="registration.php" class="active">Daftar</a>
@@ -63,9 +48,6 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
     </div>
 </header>
 
-<!-- ============================================================
-     FORMULIR PENDAFTARAN
-============================================================ -->
 <main class="utility-page">
     <div class="utility-card wide-card">
 
@@ -74,46 +56,33 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
 
         <form action="process-registration.php" method="POST" class="stack-form">
 
-            <!-- No. 29: Hidden input sumber -->
             <input type="hidden" name="source" value="week-05">
 
-            <!-- ============================================
-                 No. 24: Pasangan label (for) + input (id & name)
-            ============================================= -->
+            <!-- Nama & Email -->
             <div class="form-grid">
                 <div class="field">
                     <label for="fullName">Nama Lengkap <span style="color:var(--red-700)">*</span></label>
-                    <input type="text" id="fullName" name="fullName"
-                           placeholder="Masukkan nama lengkap" required>
+                    <input type="text" id="fullName" name="fullName" placeholder="Masukkan nama lengkap" required>
                 </div>
-
                 <div class="field">
                     <label for="email">Alamat Email <span style="color:var(--red-700)">*</span></label>
-                    <input type="email" id="email" name="email"
-                           placeholder="nama@domain.com" required>
+                    <input type="email" id="email" name="email" placeholder="nama@domain.com" required>
                 </div>
             </div>
 
-            <!-- ============================================
-                 WhatsApp & Prodi
-            ============================================= -->
+            <!-- WhatsApp & Prodi -->
             <div class="form-grid">
                 <div class="field">
                     <label for="whatsapp">Nomor HP / WhatsApp <span style="color:var(--red-700)">*</span></label>
-                    <input type="tel" id="whatsapp" name="whatsapp"
-                           placeholder="08xxxxxxxxxx" required>
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="08xxxxxxxxxx" required>
                 </div>
-
                 <div class="field">
                     <label for="prodi">Program Studi</label>
-                    <input type="text" id="prodi" name="prodi"
-                           placeholder="Contoh: Teknik Informatika">
+                    <input type="text" id="prodi" name="prodi" placeholder="Contoh: Teknik Informatika">
                 </div>
             </div>
 
-            <!-- ============================================
-                 No. 23 & 30: Pilihan Kursus Dinamis dari data.php
-            ============================================= -->
+            <!-- Kursus & Kategori -->
             <div class="form-grid">
                 <div class="field">
                     <label for="courseCode">Pilihan Kursus <span style="color:var(--red-700)">*</span></label>
@@ -127,8 +96,6 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
                         <?php endforeach; ?>
                     </select>
                 </div>
-
-                <!-- No. 19: Kategori peserta (diskon) -->
                 <div class="field">
                     <label for="category">Kategori Peserta <span style="color:var(--red-700)">*</span></label>
                     <select id="category" name="category" required>
@@ -139,9 +106,7 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
                 </div>
             </div>
 
-            <!-- ============================================
-                 No. 20: Mode Pembelajaran
-            ============================================= -->
+            <!-- Mode & Paket -->
             <div class="form-grid">
                 <div class="field">
                     <label for="learningMode">Mode Pembelajaran <span style="color:var(--red-700)">*</span></label>
@@ -151,8 +116,6 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
                         <option value="hybrid">Hybrid</option>
                     </select>
                 </div>
-
-                <!-- No. 26: Loop for 1-3 paket -->
                 <div class="field">
                     <label for="packageCount">Jumlah Paket</label>
                     <select id="packageCount" name="packageCount">
@@ -163,27 +126,20 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
                 </div>
             </div>
 
-            <!-- ============================================
-                 No. 16 & 23: Minat Tambahan (checkbox array)
-                 name="interests[]" => $_POST['interests'] = array
-            ============================================= -->
+            <!-- Minat (Checkbox Array) -->
             <fieldset class="field">
                 <legend>Minat Tambahan (bisa pilih lebih dari satu)</legend>
                 <div class="choice-row">
                     <?php foreach ($interestOptions as $key => $label): ?>
                         <label>
-                            <input type="checkbox"
-                                   name="interests[]"
-                                   value="<?= htmlspecialchars($key) ?>">
+                            <input type="checkbox" name="interests[]" value="<?= htmlspecialchars($key) ?>">
                             <?= htmlspecialchars($label) ?>
                         </label>
                     <?php endforeach; ?>
                 </div>
             </fieldset>
 
-            <!-- ============================================
-                 Sumber Informasi & Catatan
-            ============================================= -->
+            <!-- Sumber & Catatan -->
             <div class="form-grid">
                 <div class="field">
                     <label for="sumber">Sumber Informasi <span style="color:var(--red-700)">*</span></label>
@@ -196,17 +152,13 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
                         <option value="week-05">week-05</option>
                     </select>
                 </div>
-
                 <div class="field">
                     <label for="catatan">Catatan Tambahan</label>
-                    <textarea id="catatan" name="catatan" rows="3"
-                              placeholder="Opsional..."></textarea>
+                    <textarea id="catatan" name="catatan" rows="3" placeholder="Opsional..."></textarea>
                 </div>
             </div>
 
-            <!-- ============================================
-                 TOMBOL AKSI
-            ============================================= -->
+            <!-- Tombol -->
             <div style="display:flex; gap:12px; flex-wrap:wrap;">
                 <button type="submit" class="btn-primary">📨 Kirim Pendaftaran</button>
                 <a href="index.php" class="btn-outline">← Batal, Kembali ke Beranda</a>
@@ -216,9 +168,6 @@ if (!isset($interestOptions) || !is_array($interestOptions)) {
     </div>
 </main>
 
-<!-- ============================================================
-     FOOTER
-============================================================ -->
 <footer class="site-footer">
     <div class="container footer-content">
         <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>

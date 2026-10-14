@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-//  process-registration.php — Proses & Hasil Pendaftaran
+//  process-registration.php — Proses Pendaftaran (FINAL)
 // ============================================================
 require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/helpers.php';
@@ -8,13 +8,12 @@ require_once __DIR__ . '/helpers.php';
 $siteName = 'KursusKu';
 $year     = date('Y');
 
-// Cek metode POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect('registration.php');
 }
 
 // ============================================================
-// AMBIL DATA DARI FORM (sesuai name="" di registration.php)
+// AMBIL DATA DARI FORM
 // ============================================================
 $fullName      = sanitize($_POST['fullName']     ?? '');
 $email         = sanitize($_POST['email']        ?? '');
@@ -28,45 +27,43 @@ $sumber        = sanitize($_POST['sumber']       ?? '');
 $catatan       = sanitize($_POST['catatan']      ?? '');
 $sourceInfo    = sanitize($_POST['source']       ?? '');
 
-// ============================================================
-// HANDLE ARRAY interests[] (checkbox multi-pilih)
-// ============================================================
+// Handle array interests[]
 $interests = $_POST['interests'] ?? [];
-if (!is_array($interests)) {
-    $interests = [$interests]; // jaga-jaga kalau bukan array
-}
-$interests = array_map('sanitize', $interests);  // sanitasi tiap item
-$interests = array_filter($interests);           // buang yang kosong
+if (!is_array($interests)) $interests = [$interests];
+$interests = array_map('sanitize', $interests);
+$interests = array_filter($interests);
 
 // ============================================================
 // VALIDASI
 // ============================================================
 $errors = [];
-if (empty($fullName))     $errors[] = "Nama lengkap wajib diisi.";
+if (empty($fullName))  $errors[] = "Nama lengkap wajib diisi.";
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errors[] = "Email tidak valid.";
 }
-if (empty($whatsapp))     $errors[] = "Nomor HP/WhatsApp wajib diisi.";
-if (empty($courseCode))   $errors[] = "Kursus wajib dipilih.";
-if (empty($sumber))       $errors[] = "Sumber informasi wajib dipilih.";
-
-// Cek kursus ada di data.php
-$course = getCourseByCode($courseCode);
-if (!$course) {
-    $errors[] = "Kursus dengan kode '$courseCode' tidak ditemukan.";
+if (empty($whatsapp))  $errors[] = "Nomor HP/WhatsApp wajib diisi.";
+if (empty($courseCode)) {
+    $errors[] = "Kursus wajib dipilih.";
+} else {
+    $course = getCourseByCode($courseCode);
+    if (!$course) {
+        $errors[] = "Kursus dengan kode '" . htmlspecialchars($courseCode) . "' tidak ditemukan.";
+    }
 }
+if (empty($sumber))    $errors[] = "Sumber informasi wajib dipilih.";
 
 // ============================================================
-// HITUNG DISKON berdasarkan kategori
+// HITUNG DISKON
 // ============================================================
+$course = $course ?? null;
 $diskonPersen = 0;
 if ($category === 'mahasiswa') $diskonPersen = 20;
 if ($category === 'alumni')    $diskonPersen = 15;
 
-$hargaAsli   = $course['fee'] ?? 0;
-$subtotal    = $hargaAsli * $packageCount;
-$potongan    = $subtotal * ($diskonPersen / 100);
-$totalBayar  = $subtotal - $potongan;
+$hargaAsli  = $course['fee'] ?? 0;
+$subtotal   = $hargaAsli * $packageCount;
+$potongan   = $subtotal * ($diskonPersen / 100);
+$totalBayar = $subtotal - $potongan;
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -74,16 +71,13 @@ $totalBayar  = $subtotal - $potongan;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Pendaftaran - <?= htmlspecialchars($siteName) ?></title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="site-header">
     <div class="container nav-wrap">
         <a class="brand" href="index.php">
@@ -102,18 +96,17 @@ $totalBayar  = $subtotal - $potongan;
     </div>
 </header>
 
-<!-- KONTEN -->
 <main class="utility-page">
     <div class="utility-card wide-card">
 
         <?php if (!empty($errors)): ?>
-            <!-- ===== TAMPILAN ERROR ===== -->
+            <!-- ERROR -->
             <h1>⚠️ Terjadi Kesalahan</h1>
             <div class="alert alert-error">
                 <strong>Mohon periksa kembali data Anda:</strong>
                 <ul>
                     <?php foreach ($errors as $e): ?>
-                        <li><?= htmlspecialchars($e) ?></li>
+                        <li><?= $e ?></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -121,7 +114,7 @@ $totalBayar  = $subtotal - $potongan;
                 <a href="registration.php" class="btn-primary">← Kembali ke Formulir</a>
             </p>
         <?php else: ?>
-            <!-- ===== TAMPILAN BERHASIL ===== -->
+            <!-- BERHASIL -->
             <h1>✅ Pendaftaran Diterima untuk Diproses</h1>
             <p>Terima kasih, <strong><?= htmlspecialchars($fullName) ?></strong>. Berikut ringkasan pendaftaran Anda:</p>
 
@@ -170,10 +163,6 @@ $totalBayar  = $subtotal - $potongan;
                 <div class="alert alert-info"><?= htmlspecialchars($catatan) ?></div>
             <?php endif; ?>
 
-            <?php if ($sourceInfo): ?>
-                <p style="margin-top:16px;"><small>Sumber formulir: <code><?= htmlspecialchars($sourceInfo) ?></code></small></p>
-            <?php endif; ?>
-
             <p style="margin-top:32px; display:flex; gap:12px; flex-wrap:wrap;">
                 <a href="index.php" class="btn-primary">← Kembali ke Beranda</a>
                 <a href="registration.php" class="btn-secondary">Daftar Lagi</a>
@@ -183,7 +172,6 @@ $totalBayar  = $subtotal - $potongan;
     </div>
 </main>
 
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="container footer-content">
         <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>
