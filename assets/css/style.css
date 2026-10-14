@@ -1,46 +1,75 @@
-/* =========================================================
-   KURSUSKU - STYLE UTAMA
-   Modern, Clean, & Responsive
-   ========================================================= */
+/* =========================================================================
+   KURSUSKU — MASTER STYLESHEET
+   Modern, Clean, Responsive
+   Mencakup: index, loop-lab, registration, fee-calculator, history,
+             test-*, demo-*, hello, server-time, process, dll.
+   ========================================================================= */
 
-/* ====== 1. ROOT VARIABLES ====== */
+/* =========================================================
+   1. ROOT VARIABLES (Warna, Radius, Shadow, Transition)
+   ========================================================= */
 :root {
-    /* Warna Teal (Primary) */
+    /* Teal (Primary) */
     --teal-900: #134e4a;
     --teal-800: #115e59;
     --teal-700: #0f766e;
     --teal-600: #0d9488;
+    --teal-500: #14b8a6;
     --teal-100: #ccfbf1;
     --teal-50:  #f0fdfa;
 
-    /* Warna Slate (Netral) */
+    /* Slate (Netral) */
     --slate-950: #0f172a;
+    --slate-900: #0f172a;
     --slate-800: #1e293b;
     --slate-700: #334155;
     --slate-600: #475569;
+    --slate-500: #64748b;
     --slate-400: #94a3b8;
+    --slate-300: #cbd5e1;
     --slate-200: #e2e8f0;
     --slate-100: #f1f5f9;
+    --slate-50:  #f8fafc;
 
-    /* Warna Dasar */
-    --white: #ffffff;
-    --red-700: #b91c1c;
-    --red-50:  #fef2f2;
+    /* Base */
+    --white:   #ffffff;
+    --black:   #000000;
+
+    /* Status */
+    --red-700:   #b91c1c;
+    --red-500:   #ef4444;
+    --red-50:    #fef2f2;
     --green-700: #15803d;
+    --green-500: #22c55e;
     --green-50:  #f0fdf4;
+    --amber-700: #b45309;
+    --amber-50:  #fffbeb;
 
     /* Efek */
+    --shadow-xs: 0 1px 3px rgba(15, 23, 42, 0.06);
     --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
-    --shadow:    0 20px 50px rgba(15, 118, 110, 0.08);
+    --shadow:    0 12px 32px rgba(15, 118, 110, 0.08);
+    --shadow-md: 0 16px 40px rgba(15, 118, 110, 0.12);
     --shadow-lg: 0 24px 60px rgba(15, 118, 110, 0.15);
+
+    /* Radius */
+    --radius-xs: 6px;
     --radius-sm: 10px;
     --radius:    16px;
-    --radius-lg: 24px;
+    --radius-lg: 22px;
+    --radius-xl: 28px;
+
+    /* Transition */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease;
 }
 
-/* ====== 2. RESET & BASE ====== */
-* {
+/* =========================================================
+   2. RESET & BASE
+   ========================================================= */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -52,47 +81,80 @@ html {
 }
 
 body {
-    font-family: 'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
     color: var(--slate-800);
     background: var(--white);
-    line-height: 1.65;
-    font-size: 16px;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
     color: var(--teal-700);
     text-decoration: none;
-    transition: var(--transition);
+    transition: var(--transition-fast);
 }
 
 a:hover {
     color: var(--teal-900);
 }
 
-img, video {
+img,
+video {
     max-width: 100%;
+    height: auto;
     display: block;
 }
 
+ul, ol {
+    list-style-position: inside;
+}
+
 code {
-    font-family: 'Consolas', 'Monaco', monospace;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     background: var(--slate-100);
-    padding: 2px 6px;
-    border-radius: 4px;
+    color: var(--teal-900);
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
     font-size: 0.9em;
 }
 
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: var(--slate-950);
+    color: #d1fae5;
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 16px 0;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--slate-200);
+    margin: 16px 0;
+}
+
+/* =========================================================
+   3. LAYOUT CONTAINER
+   ========================================================= */
 .container {
     width: min(1120px, 90%);
     margin: 0 auto;
 }
 
-/* ====== 3. HEADER & NAVIGASI ====== */
+/* =========================================================
+   4. HEADER & NAVIGASI
+   ========================================================= */
 .site-header {
     background: linear-gradient(135deg, var(--teal-900) 0%, var(--teal-700) 100%);
     color: var(--white);
-    padding: 20px 0;
+    padding: 18px 0;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -128,11 +190,13 @@ code {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
 }
 
 .brand-logo {
     width: 28px;
     height: 28px;
+    object-fit: contain;
 }
 
 .logo-fallback-icon {
@@ -145,7 +209,8 @@ code {
 }
 
 .brand-title {
-    font-size: 24px;
+    font-size: 22px;
+    font-weight: 800;
     letter-spacing: -0.5px;
 }
 
@@ -188,8 +253,8 @@ code {
 .btn-nav-action {
     background: var(--white) !important;
     color: var(--teal-900) !important;
-    padding: 10px 18px !important;
-    border-radius: 10px;
+    padding: 9px 16px !important;
+    border-radius: var(--radius-sm);
     font-weight: 700;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -204,7 +269,9 @@ code {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* ====== 4. HERO SECTION ====== */
+/* =========================================================
+   5. HERO SECTION
+   ========================================================= */
 .hero-section {
     background:
         radial-gradient(circle at 85% 15%, rgba(204, 251, 241, 0.6) 0%, transparent 40%),
@@ -234,8 +301,8 @@ code {
 }
 
 .hero-section h1 {
-    font-size: clamp(36px, 5.5vw, 60px);
-    line-height: 1.05;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.08;
     font-weight: 800;
     color: var(--slate-950);
     letter-spacing: -0.03em;
@@ -257,19 +324,40 @@ code {
     margin-top: 32px;
 }
 
-/* ====== 5. TOMBOL / BUTTONS ====== */
+.hero-meta {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-meta span {
+    background: var(--white);
+    padding: 9px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--slate-700);
+    box-shadow: var(--shadow-xs);
+}
+
+/* =========================================================
+   6. BUTTONS
+   ========================================================= */
 .btn-primary,
 .btn-secondary,
 .btn-outline {
     display: inline-block;
-    padding: 14px 26px;
-    border-radius: 12px;
+    padding: 13px 24px;
+    border-radius: var(--radius-sm);
     font-weight: 700;
     font-size: 15px;
     cursor: pointer;
     transition: var(--transition);
     border: 2px solid transparent;
     text-align: center;
+    font-family: inherit;
 }
 
 .btn-primary {
@@ -293,12 +381,13 @@ code {
 .btn-secondary:hover {
     background: var(--teal-50);
     transform: translateY(-3px);
+    color: var(--teal-900);
 }
 
 .btn-outline {
     background: transparent;
     color: var(--slate-700);
-    border-color: var(--slate-200);
+    border-color: var(--slate-300);
 }
 
 .btn-outline:hover {
@@ -307,7 +396,17 @@ code {
     background: var(--white);
 }
 
-/* ====== 6. SECTION BASE ====== */
+button.button,
+button.btn-primary {
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+}
+
+/* =========================================================
+   7. SECTION BLOCK
+   ========================================================= */
 .section-block {
     padding: 72px 0;
 }
@@ -318,7 +417,7 @@ code {
 }
 
 .section-header h2 {
-    font-size: clamp(28px, 4vw, 40px);
+    font-size: clamp(26px, 4vw, 38px);
     font-weight: 800;
     color: var(--slate-950);
     letter-spacing: -0.02em;
@@ -332,7 +431,9 @@ code {
     margin: 0 auto;
 }
 
-/* ====== 7. KEUNGGULAN / FEATURE ====== */
+/* =========================================================
+   8. FEATURE GRID (Keunggulan)
+   ========================================================= */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -391,7 +492,9 @@ code {
     line-height: 1.6;
 }
 
-/* ====== 8. MEDIA SECTION (Gambar & Video) ====== */
+/* =========================================================
+   9. MEDIA SECTION (Gambar & Video)
+   ========================================================= */
 .media-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -464,7 +567,9 @@ code {
     font-size: 15px;
 }
 
-/* ====== 9. KATALOG / TABEL KURSUS ====== */
+/* =========================================================
+   10. TABLE (Katalog, Cost, Compact)
+   ========================================================= */
 .table-container {
     overflow-x: auto;
     border-radius: var(--radius);
@@ -509,6 +614,16 @@ code {
     border-bottom: none;
 }
 
+.compact-table {
+    min-width: 0;
+}
+
+.total-row {
+    background: var(--teal-50);
+    font-weight: 700;
+}
+
+/* Badge Status */
 .badge-available,
 .badge-full {
     display: inline-block;
@@ -536,7 +651,7 @@ code {
     background: var(--teal-700);
     color: var(--white);
     padding: 8px 16px;
-    border-radius: 8px;
+    border-radius: var(--radius-xs);
     font-size: 13px;
     font-weight: 700;
     transition: var(--transition);
@@ -554,7 +669,9 @@ code {
     font-style: italic;
 }
 
-/* ====== 10. CTA BANNER (Estimasi Biaya) ====== */
+/* =========================================================
+   11. CTA BANNER
+   ========================================================= */
 .cta-banner {
     margin-top: 36px;
     padding: 36px 40px;
@@ -580,6 +697,7 @@ code {
     height: 220px;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 50%;
+    pointer-events: none;
 }
 
 .cta-text h3 {
@@ -607,13 +725,15 @@ code {
     color: var(--teal-900);
 }
 
-/* ====== 11. STEPS / ALUR PENDAFTARAN ====== */
+/* =========================================================
+   12. STEPS LIST (Alur Pendaftaran)
+   ========================================================= */
 .steps-list {
     list-style: none;
+    padding: 0;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 18px;
-    counter-reset: step;
 }
 
 .steps-list li {
@@ -660,7 +780,9 @@ code {
     line-height: 1.55;
 }
 
-/* ====== 12. FOOTER ====== */
+/* =========================================================
+   13. FOOTER
+   ========================================================= */
 .site-footer {
     background: var(--slate-950);
     color: var(--slate-400);
@@ -673,6 +795,8 @@ code {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .site-footer p {
@@ -683,7 +807,9 @@ code {
     color: var(--white);
 }
 
-/* ====== 13. UTILITY PAGES (Form, Result, Alert) ====== */
+/* =========================================================
+   14. UTILITY PAGES (Form, Result, Demo, Test)
+   ========================================================= */
 .utility-page {
     min-height: 100vh;
     background: linear-gradient(180deg, var(--teal-50), var(--slate-100));
@@ -706,28 +832,63 @@ code {
 .utility-card h1 {
     color: var(--slate-950);
     line-height: 1.15;
-    font-size: clamp(28px, 4vw, 38px);
+    font-size: clamp(26px, 4vw, 36px);
+    margin-bottom: 12px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.utility-card h2 {
+    color: var(--slate-950);
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--teal-100);
+}
+
+.utility-card h3 {
+    color: var(--slate-800);
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.utility-card p {
+    color: var(--slate-600);
     margin-bottom: 12px;
 }
 
+/* Server Time */
 .server-time {
     font-size: 22px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-weight: 700;
     background: var(--teal-50);
-    padding: 18px;
+    color: var(--teal-900);
+    padding: 18px 20px;
     border-radius: var(--radius-sm);
-    border-left: 4px solid var(--teal-700);
+    border-left: 5px solid var(--teal-700);
+    margin: 16px 0;
 }
 
+/* Status Dot */
 .status-dot {
+    display: inline-block;
     color: var(--green-700);
     background: var(--green-50);
     border-radius: 999px;
     padding: 5px 12px;
     font-size: 12px;
     font-weight: 800;
+    border: 1px solid rgba(21, 128, 61, 0.2);
 }
 
-/* ====== 14. FORM STYLING ====== */
+/* =========================================================
+   15. FORM STYLING
+   ========================================================= */
 .stack-form {
     display: grid;
     gap: 22px;
@@ -758,6 +919,8 @@ code {
 .field input[type="email"],
 .field input[type="tel"],
 .field input[type="number"],
+.field input[type="password"],
+.field input[type="date"],
 .field select,
 .field textarea {
     width: 100%;
@@ -777,6 +940,11 @@ code {
     outline: none;
     border-color: var(--teal-700);
     box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1);
+}
+
+.field textarea {
+    resize: vertical;
+    min-height: 80px;
 }
 
 fieldset.field {
@@ -801,19 +969,17 @@ fieldset.field {
     font-size: 14px;
 }
 
-button.button {
-    cursor: pointer;
-    font: inherit;
-}
-
+/* Result Grid */
 .result-grid p {
     margin: 0;
     padding: 16px;
     background: var(--slate-100);
     border-radius: var(--radius-sm);
     font-size: 14px;
+    border-left: 3px solid var(--teal-500);
 }
 
+/* Alert */
 .alert {
     padding: 15px 18px;
     border-radius: var(--radius-sm);
@@ -834,43 +1000,66 @@ button.button {
     border-left: 4px solid var(--teal-700);
 }
 
+.alert-error ul {
+    margin-top: 8px;
+    padding-left: 20px;
+}
+
+/* =========================================================
+   16. CHIP LIST (Badge Kecil)
+   ========================================================= */
 .chip-list {
     list-style: none;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 12px;
+    margin: 12px 0;
 }
 
 .chip-list li {
     background: var(--teal-50);
     color: var(--teal-900);
-    padding: 7px 14px;
+    padding: 8px 14px;
     border-radius: 999px;
     font-weight: 700;
     font-size: 13px;
+    border: 1px solid var(--teal-100);
+    transition: var(--transition-fast);
 }
 
-.compact-table {
-    min-width: 0;
+.chip-list li:hover {
+    background: var(--teal-100);
+    transform: translateY(-2px);
 }
 
-.total-row {
-    background: var(--teal-50);
-    font-weight: 700;
-}
-
+/* =========================================================
+   17. FORMULA BOX (Kalkulator)
+   ========================================================= */
 .formula-box {
     margin-top: 22px;
-    padding: 18px;
+    padding: 20px;
     background: var(--slate-100);
     border-radius: var(--radius-sm);
     display: grid;
-    gap: 6px;
+    gap: 8px;
     font-size: 14px;
+    border-left: 4px solid var(--teal-700);
 }
 
+.formula-box p {
+    margin: 0;
+    color: var(--slate-700);
+}
+
+.formula-box hr {
+    border-top: 1px dashed var(--slate-300);
+    margin: 8px 0;
+}
+
+/* =========================================================
+   18. TEST LIST (Untuk test-functions.php, dll)
+   ========================================================= */
 .test-list {
     display: grid;
     gap: 12px;
@@ -886,26 +1075,36 @@ button.button {
     padding: 14px;
     border-radius: var(--radius-sm);
     font-size: 14px;
+    background: var(--white);
 }
 
 .test-item code {
     color: var(--slate-600);
     overflow-wrap: anywhere;
     font-size: 12px;
+    background: var(--slate-100);
+    padding: 3px 8px;
+    border-radius: var(--radius-xs);
 }
 
-pre {
-    white-space: pre-wrap;
-    background: var(--slate-950);
-    color: #d1fae5;
-    padding: 20px;
-    border-radius: var(--radius-sm);
-    overflow-x: auto;
-    font-size: 13px;
-    line-height: 1.6;
+/* =========================================================
+   19. CARD GENERIC (Bonus)
+   ========================================================= */
+.card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-xs);
 }
 
-/* ====== 15. RESPONSIVE - TABLET (max 900px) ====== */
+.card + .card {
+    margin-top: 16px;
+}
+
+/* =========================================================
+   20. RESPONSIVE — TABLET (≤ 900px)
+   ========================================================= */
 @media (max-width: 900px) {
     .feature-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -922,9 +1121,15 @@ pre {
     .media-preview-container {
         height: 280px;
     }
+
+    .section-block {
+        padding: 56px 0;
+    }
 }
 
-/* ====== 16. RESPONSIVE - MOBILE (max 680px) ====== */
+/* =========================================================
+   21. RESPONSIVE — MOBILE (≤ 680px)
+   ========================================================= */
 @media (max-width: 680px) {
     body {
         font-size: 15px;
@@ -944,6 +1149,7 @@ pre {
     .site-header nav {
         gap: 14px;
         width: 100%;
+        flex-wrap: wrap;
     }
 
     .site-header nav a {
@@ -969,11 +1175,11 @@ pre {
     }
 
     .hero-section h1 {
-        font-size: 32px;
+        font-size: 30px;
     }
 
     .hero-section p {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .hero-buttons {
@@ -986,7 +1192,7 @@ pre {
     }
 
     .section-block {
-        padding: 50px 0;
+        padding: 44px 0;
     }
 
     .section-header {
@@ -1019,6 +1225,10 @@ pre {
         border-radius: var(--radius);
     }
 
+    .utility-card h1 {
+        font-size: 24px;
+    }
+
     .test-item {
         grid-template-columns: 70px 1fr;
     }
@@ -1032,7 +1242,8 @@ pre {
         align-items: flex-start;
     }
 
-    .stack-form .button {
+    .stack-form .button,
+    .stack-form .btn-primary {
         width: 100%;
         text-align: center;
     }
@@ -1042,9 +1253,16 @@ pre {
         padding: 12px 14px;
         font-size: 13px;
     }
+
+    .chip-list li {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 }
 
-/* ====== 17. ANIMASI MASUK (Opsional) ====== */
+/* =========================================================
+   22. ANIMASI MASUK
+   ========================================================= */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -1057,6 +1275,51 @@ pre {
 }
 
 .section-block,
-.hero-content {
-    animation: fadeInUp 0.6s ease-out;
+.hero-content,
+.utility-card {
+    animation: fadeInUp 0.5s ease-out;
 }
+
+/* =========================================================
+   23. SCROLLBAR CUSTOM (Opsional, biar cantik)
+   ========================================================= */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--slate-100);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--teal-700);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--teal-900);
+}
+
+/* =========================================================
+   24. UTILITY CLASSES
+   ========================================================= */
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mt-4 { margin-top: 32px; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+.mb-4 { margin-bottom: 32px; }
+
+.hidden { display: none; }
+.flex   { display: flex; }
+.grid   { display: grid; }
