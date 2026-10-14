@@ -1,70 +1,68 @@
 <?php
-// data.php — Sumber data kursus
-
+// data.php — FINAL
 $siteName = 'KursusKu';
 $tagline  = 'Belajar, daftar, dan kelola kursus dalam satu tempat.';
 $year     = date('Y');
 
 $courses = [
-    [
-        'code'       => 'WEB-01',
-        'name'       => 'Web Dasar',
+    'WEB-01' => [
+        'title'      => 'Web Dasar',
         'fee'        => 200000,
         'quota'      => 30,
         'registered' => 12,
-        'start_date' => '2026-09-21'
+        'start_date' => '2026-09-21',
     ],
-    [
-        'code'       => 'PHP-01',
-        'name'       => 'PHP Dasar',
+    'PHP-01' => [
+        'title'      => 'PHP Dasar',
         'fee'        => 250000,
         'quota'      => 30,
         'registered' => 18,
-        'start_date' => '2026-09-22'
+        'start_date' => '2026-09-22',
     ],
-    [
-        'code'       => 'PHP-02',
-        'name'       => 'PHP Lanjutan',
+    'PHP-02' => [
+        'title'      => 'PHP Lanjutan',
         'fee'        => 300000,
         'quota'      => 25,
         'registered' => 24,
-        'start_date' => '2026-09-24'
+        'start_date' => '2026-09-24',
     ],
-    [
-        'code'       => 'LAR-01',
-        'name'       => 'Laravel Fundamental',
+    'LAR-01' => [
+        'title'      => 'Laravel Fundamental',
         'fee'        => 350000,
         'quota'      => 25,
         'registered' => 25,
-        'start_date' => '2026-09-28'
+        'start_date' => '2026-09-28',
     ],
-    [
-        'code'       => 'DB-01',
-        'name'       => 'MySQL Dasar',
+    'DB-01' => [
+        'title'      => 'MySQL Dasar',
         'fee'        => 275000,
         'quota'      => 20,
         'registered' => 0,
-        'start_date' => '2026-10-01'
+        'start_date' => '2026-10-01',
     ],
-    [
-        'code'       => 'UI-01',
-        'name'       => 'UI Web Dasar',
+    'UI-01' => [
+        'title'      => 'UI Web Dasar',
         'fee'        => 225000,
         'quota'      => 35,
         'registered' => 9,
-        'start_date' => '2026-10-03'
-    ]
+        'start_date' => '2026-10-03',
+    ],
 ];
 
-/**
- * Cari kursus berdasarkan kode
- */
+$interestOptions = [
+    'frontend' => 'Frontend Development',
+    'backend'  => 'Backend Development',
+    'mobile'   => 'Mobile Apps',
+    'uiux'     => 'UI/UX Design',
+    'data'     => 'Data Science',
+    'devops'   => 'DevOps & Cloud',
+];
+
 function getCourseByCode($code) {
     global $courses;
-    foreach ($courses as $course) {
-        if ($course['code'] === $code) {
-            return $course;
-        }
+    $code = trim((string) $code);
+    if (isset($courses[$code])) {
+        return array_merge(['code' => $code], $courses[$code]);
     }
     return null;
 }

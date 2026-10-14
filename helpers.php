@@ -1,47 +1,54 @@
 <?php
-// helpers.php — Kumpulan fungsi bantuan
+// ============================================================
+//  helpers.php — Kumpulan Fungsi Bantuan KursusKu
+// ============================================================
 
-/**
- * Sanitasi input dari user
- */
 function sanitize($data) {
-    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars(trim((string) $data), ENT_QUOTES, 'UTF-8');
 }
 
-/**
- * Format angka ke Rupiah
- */
 function formatRupiah($angka) {
-    return "Rp " . number_format($angka, 0, ',', '.');
+    return "Rp " . number_format((float) $angka, 0, ',', '.');
 }
 
-/**
- * Redirect ke halaman lain
- */
+function formatTanggal($date) {
+    $timestamp = strtotime($date);
+    if ($timestamp === false) {
+        return $date;
+    }
+    return date('F j, Y', $timestamp);
+}
+
 function redirect($url) {
-    header("Location: $url");
+    if (!headers_sent()) {
+        header("Location: $url");
+    } else {
+        echo "<script>window.location.href='$url';</script>";
+    }
     exit;
 }
 
-/**
- * Cek status kursus (Tersedia / Penuh)
- */
 function statusKursus($quota, $registered) {
-    return ($registered >= $quota) ? 'Penuh' : 'Tersedia';
+    return ((int) $registered >= (int) $quota) ? 'Penuh' : 'Tersedia';
 }
 
-/**
- * Hitung sisa kursi
- */
 function sisaKursi($quota, $registered) {
-    $sisa = $quota - $registered;
+    $sisa = (int) $quota - (int) $registered;
     return ($sisa < 0) ? 0 : $sisa;
 }
 
-/**
- * Cek apakah user sudah login (simulasi)
- */
 function isLoggedIn() {
+    if (session_status() === PHP_SESSION_NONE) {
+        return false;
+    }
     return isset($_SESSION['user']);
+}
+
+function post($key, $default = '') {
+    return isset($_POST[$key]) ? $_POST[$key] : $default;
+}
+
+function get($key, $default = '') {
+    return isset($_GET[$key]) ? $_GET[$key] : $default;
 }
 ?>
