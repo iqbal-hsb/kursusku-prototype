@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-//  data.php — Sumber Data Kursus & Minat (FINAL)
+//  data.php — Sumber Data Kursus (FINAL — Format code => [])
 // ============================================================
 
 $siteName = 'KursusKu';
@@ -8,7 +8,7 @@ $tagline  = 'Belajar, daftar, dan kelola kursus dalam satu tempat.';
 $year     = date('Y');
 
 // ============================================================
-// DATA KURSUS — Format: code => [title, fee, quota, registered, start_date]
+// DATA KURSUS — Format: KODE => [title, fee, quota, ...]
 // ============================================================
 $courses = [
     'WEB-01' => [
