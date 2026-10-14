@@ -10,64 +10,20 @@ $year     = date('Y');
 
 // Array Data 6 Kursus
 $courses = [
-    [
-        'code'       => 'WEB-01',
-        'name'       => 'Web Dasar',
-        'fee'        => 200000,
-        'quota'      => 30,
-        'registered' => 12,
-        'start_date' => '2026-09-21'
-    ],
-    [
-        'code'       => 'PHP-01',
-        'name'       => 'PHP Dasar',
-        'fee'        => 250000,
-        'quota'      => 30,
-        'registered' => 18,
-        'start_date' => '2026-09-22'
-    ],
-    [
-        'code'       => 'PHP-02',
-        'name'       => 'PHP Lanjutan',
-        'fee'        => 300000,
-        'quota'      => 25,
-        'registered' => 24,
-        'start_date' => '2026-09-24'
-    ],
-    [
-        'code'       => 'LAR-01',
-        'name'       => 'Laravel Fundamental',
-        'fee'        => 350000,
-        'quota'      => 25,
-        'registered' => 25,
-        'start_date' => '2026-09-28'
-    ],
-    [
-        'code'       => 'DB-01',
-        'name'       => 'MySQL Dasar',
-        'fee'        => 275000,
-        'quota'      => 20,
-        'registered' => 0,
-        'start_date' => '2026-10-01'
-    ],
-    [
-        'code'       => 'UI-01',
-        'name'       => 'UI Web Dasar',
-        'fee'        => 225000,
-        'quota'      => 35,
-        'registered' => 9,
-        'start_date' => '2026-10-03'
-    ]
+    ['code' => 'WEB-01', 'name' => 'Web Dasar',           'fee' => 200000, 'quota' => 30, 'registered' => 12, 'start_date' => '2026-09-21'],
+    ['code' => 'PHP-01', 'name' => 'PHP Dasar',           'fee' => 250000, 'quota' => 30, 'registered' => 18, 'start_date' => '2026-09-22'],
+    ['code' => 'PHP-02', 'name' => 'PHP Lanjutan',        'fee' => 300000, 'quota' => 25, 'registered' => 24, 'start_date' => '2026-09-24'],
+    ['code' => 'LAR-01', 'name' => 'Laravel Fundamental', 'fee' => 350000, 'quota' => 25, 'registered' => 25, 'start_date' => '2026-09-28'],
+    ['code' => 'DB-01',  'name' => 'MySQL Dasar',         'fee' => 275000, 'quota' => 20, 'registered' => 0,  'start_date' => '2026-10-01'],
+    ['code' => 'UI-01',  'name' => 'UI Web Dasar',        'fee' => 225000, 'quota' => 35, 'registered' => 9,  'start_date' => '2026-10-03'],
 ];
 
-// Hitung statistik untuk hero
+// Statistik Hero
 $totalCourses  = count($courses);
 $totalTersedia = 0;
 $totalPeserta  = 0;
 foreach ($courses as $c) {
-    if (statusKursus($c['quota'], $c['registered']) === 'Tersedia') {
-        $totalTersedia++;
-    }
+    if (statusKursus($c['quota'], $c['registered']) === 'Tersedia') $totalTersedia++;
     $totalPeserta += $c['registered'];
 }
 ?>
@@ -78,12 +34,10 @@ foreach ($courses as $c) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars($siteName) ?> - Platform Belajar Kursus Online</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- CSS Utama -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -95,7 +49,7 @@ foreach ($courses as $c) {
     <div class="container nav-wrap">
         <a class="brand" href="index.php">
             <div class="brand-logo-wrapper">
-                <img src="assets/images/logo.svg" alt="Logo <?= htmlspecialchars($siteName) ?>" class="brand-logo"
+                <img src="assets/images/logo.svg" alt="Logo" class="brand-logo"
                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 <span class="logo-fallback-icon" style="display:none;">🎓</span>
             </div>
@@ -109,6 +63,7 @@ foreach ($courses as $c) {
             <a href="#alur">Cara Daftar</a>
             <a href="loop-lab.php">Loop Lab</a>
             <a href="history.php">History</a>
+            <a href="string-test.php">String Test</a>
             <a href="fee-calculator.php">Estimasi Biaya</a>
             <a href="registration.php" class="btn-nav-action">Daftar Kursus</a>
         </nav>
@@ -183,7 +138,6 @@ foreach ($courses as $c) {
         </div>
 
         <div class="media-grid">
-            <!-- Kartu Foto Aktivitas -->
             <div class="media-card">
                 <div class="media-preview-container">
                     <img src="assets/images/hero-kursus.jpg"
@@ -198,7 +152,6 @@ foreach ($courses as $c) {
                 </div>
             </div>
 
-            <!-- Kartu Video Pengenalan -->
             <div class="media-card">
                 <div class="media-preview-container">
                     <video controls class="media-video" poster="assets/images/hero-kursus.jpg">
@@ -267,7 +220,6 @@ foreach ($courses as $c) {
             </table>
         </div>
 
-        <!-- KALKULATOR BIAYA BANNER -->
         <div class="cta-banner">
             <div class="cta-text">
                 <h3>Estimasi Biaya Kursus</h3>
@@ -347,16 +299,16 @@ foreach ($courses as $c) {
                 <p>Riwayat pendaftaran peserta kursus.</p>
             </a>
 
+            <a href="string-test.php" class="feature-card" style="text-decoration:none;">
+                <div class="feature-icon">🔤</div>
+                <h3>String Test</h3>
+                <p>Latihan manipulasi string di PHP (trim, ucwords, explode, dll).</p>
+            </a>
+
             <a href="operator-test.php" class="feature-card" style="text-decoration:none;">
                 <div class="feature-icon">➕</div>
                 <h3>Operator Test</h3>
                 <p>Latihan operator aritmatika PHP.</p>
-            </a>
-
-            <a href="string-test.php" class="feature-card" style="text-decoration:none;">
-                <div class="feature-icon">🔤</div>
-                <h3>String Test</h3>
-                <p>Latihan manipulasi string di PHP.</p>
             </a>
 
             <a href="logic-test.php" class="feature-card" style="text-decoration:none;">
