@@ -1,60 +1,62 @@
 <?php
+
+declare(strict_types=1);
+
 require_once __DIR__ . '/helpers.php';
 
 $siteName = 'KursusKu';
-$tagline  = 'Belajar, daftar, dan kelola kursus dalam satu tempat.';
-$year     = date('Y');
+$tagline = 'Belajar Teknologi, Bangun Masa Depan';
+$year = date('Y');
 
-// Array Data 6 Kursus
 $courses = [
     [
-        'code'       => 'WEB-01',
-        'name'       => 'Web Dasar',
-        'fee'        => 200000,
-        'quota'      => 30,
+        'code' => 'WEB-01',
+        'name' => ' Web Dasar ',
+        'fee' => 200000,
+        'quota' => 30,
         'registered' => 12,
-        'start_date' => '2026-09-21'
+        'start_date' => '2026-09-21',
     ],
     [
-        'code'       => 'PHP-01',
-        'name'       => 'PHP Dasar',
-        'fee'        => 250000,
-        'quota'      => 30,
+        'code' => 'PHP-01',
+        'name' => 'PHP Dasar',
+        'fee' => 250000,
+        'quota' => 30,
         'registered' => 18,
-        'start_date' => '2026-09-22'
+        'start_date' => '2026-09-22',
     ],
     [
-        'code'       => 'PHP-02',
-        'name'       => 'PHP Lanjutan',
-        'fee'        => 300000,
-        'quota'      => 25,
+        'code' => 'PHP-02',
+        'name' => 'PHP Lanjutan',
+        'fee' => 300000,
+        'quota' => 25,
         'registered' => 24,
-        'start_date' => '2026-09-24'
+        'start_date' => '2026-09-24',
     ],
     [
-        'code'       => 'LAR-01',
-        'name'       => 'Laravel Fundamental',
-        'fee'        => 350000,
-        'quota'      => 25,
+        'code' => 'LAR-01',
+        'name' => 'Laravel Fundamental',
+        'fee' => 350000,
+        'quota' => 25,
         'registered' => 25,
-        'start_date' => '2026-09-28'
+        'start_date' => '2026-09-28',
     ],
     [
-        'code'       => 'DB-01',
-        'name'       => 'MySQL Dasar',
-        'fee'        => 275000,
-        'quota'      => 20,
+        'code' => 'DB-01',
+        'name' => 'MySQL Dasar',
+        'fee' => 275000,
+        'quota' => 20,
         'registered' => 0,
-        'start_date' => '2026-10-01'
+        'start_date' => '2026-10-01',
     ],
     [
-        'code'       => 'UI-01',
-        'name'       => 'UI Web Dasar',
-        'fee'        => 225000,
-        'quota'      => 35,
+        'code' => 'UI-01',
+        'name' => 'UI Web Dasar',
+        'fee' => 225000,
+        'quota' => 35,
         'registered' => 9,
-        'start_date' => '2026-10-03'
-    ]
+        'start_date' => '2026-10-03',
+    ],
 ];
 ?>
 <!doctype html>
@@ -62,250 +64,190 @@ $courses = [
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= htmlspecialchars($siteName) ?> - Platform Belajar Kursus Online</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- CSS Utama -->
+    <meta name="description" content="Prototype KursusKu untuk praktikum Pemrograman Web III: PHP, HTML, array, function, dan tabel dinamis.">
+    <title><?= htmlspecialchars($siteName) ?> | Pemrograman Web III</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-
-<!-- =========================
-     HEADER & NAVIGASI
-========================= -->
 <header class="site-header">
-    <div class="container nav-wrap">
-        <a class="brand" href="index.php">
-            <div class="brand-logo-wrapper">
-                <img src="assets/images/logo.svg" alt="Logo KursusKu" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <span class="logo-fallback-icon" style="display:none;">🎓</span>
-            </div>
-            <span class="brand-title"><?= htmlspecialchars($siteName) ?></span>
+    <div class="container header-inner">
+        <a class="brand" href="index.php" aria-label="Kembali ke beranda KursusKu">
+            <span class="brand-mark" aria-hidden="true">K</span>
+            <span>
+                <strong><?= htmlspecialchars($siteName) ?></strong>
+                <small>Pemrograman Web III</small>
+            </span>
         </a>
-
-        <nav aria-label="Navigasi utama">
-            <a href="index.php" class="active">Beranda</a>
-            <a href="#keunggulan">Keunggulan</a>
-            <a href="#katalog">Katalog</a>
-            <a href="#alur">Cara Daftar</a>
-            <a href="fee-calculator.php">Estimasi Biaya</a>
-            <a href="registration.php" class="btn-nav-action">Daftar Kursus</a>
-        </nav>
+        <span class="milestone">Milestone 6</span>
     </div>
 </header>
 
-<main class="container">
+<nav class="navbar" aria-label="Navigasi utama">
+    <div class="container nav-links">
+        <a href="#beranda">Beranda</a>
+        <a href="#keunggulan">Keunggulan</a>
+        <a href="#katalog">Katalog</a>
+        <a href="#alur">Cara Daftar</a>
+        <a href="#media">Media</a>
+        <a href="#kontak">Kontak</a>
+        <a href="registration.php">Form P5</a>
+        <a href="register.php">Daftar P6</a>
+        <a href="history.php">History</a>
+        <a class="nav-cta" href="fee-calculator.php">Estimasi Biaya</a>
+    </div>
+</nav>
 
-    <!-- =========================
-         HERO SECTION
-    ========================= -->
-    <section id="hero" class="hero-section">
-        <div class="hero-content">
-            <span class="eyebrow">Selamat Datang di <?= htmlspecialchars($siteName) ?></span>
-            <h1><?= htmlspecialchars($tagline) ?></h1>
-            <p>
-                Temukan kursus teknologi yang relevan dan terstruktur untuk meningkatkan keterampilan pemrograman Anda dari dasar hingga mahir.
-            </p>
-            <div class="hero-buttons">
-                <a href="registration.php" class="btn-primary">Daftar Kursus Sekarang</a>
-                <a href="#katalog" class="btn-secondary">Lihat Katalog</a>
-                <a href="fee-calculator.php" class="btn-outline">Hitung Biaya</a>
+<main>
+    <section id="beranda" class="hero">
+        <div class="container hero-content">
+            <div>
+                <span class="eyebrow">LANDING PAGE KURSUSKU</span>
+                <h1><?= htmlspecialchars($tagline) ?></h1>
+                <p class="lead">Temukan kursus teknologi yang relevan untuk meningkatkan keterampilan melalui pembelajaran bertahap, latihan terarah, dan proyek nyata.</p>
+                <div class="button-row">
+                    <a href="#katalog" class="button">Lihat Katalog Kursus</a>
+                    <a href="register.php" class="button">Daftar Sekarang</a>
+                    <a href="fee-calculator.php" class="button button-secondary">Hitung Estimasi Biaya</a>
+                </div>
+                <div class="hero-meta" aria-label="Ringkasan proyek">
+                    <span><strong>6</strong> kursus</span>
+                    <span><strong>4</strong> function reusable</span>
+                    <span><strong>PHP</strong> server-side</span>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="assets/images/hero-kursus.jpg" alt="Ilustrasi mahasiswa sedang mengikuti kegiatan kursus komputer" class="hero-image">
             </div>
         </div>
     </section>
 
-    <!-- =========================
-         KEUNGGULAN
-    ========================= -->
-    <section id="keunggulan" class="section-block">
-        <div class="section-header">
-            <h2>Mengapa Memilih KursusKu?</h2>
-            <p>Fasilitas dan metode pembelajaran terarah untuk menunjang karier Anda.</p>
-        </div>
-
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📚</div>
-                <h3>Materi Terarah</h3>
-                <p>Materi disusun secara bertahap dan terstruktur dari tingkat dasar hingga penerapan praktis.</p>
+    <section id="keunggulan" class="section">
+        <div class="container">
+            <div class="section-heading">
+                <span class="eyebrow">MENGAPA KURSUSKU?</span>
+                <h2>Belajar terarah dari konsep hingga proyek</h2>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">💻</div>
-                <h3>Belajar dengan Proyek</h3>
-                <p>Setiap modul pembelajaran dilengkapi dengan studi kasus nyata untuk portofolio Anda.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">👨‍🏫</div>
-                <h3>Pendampingan Praktik</h3>
-                <p>Proses belajar dibimbing melalui demonstrasi, latihan terpandu, dan evaluasi berkala.</p>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <span class="feature-number">01</span>
+                    <h3>Materi Terarah</h3>
+                    <p>Materi disusun bertahap dari dasar HTML dan PHP sampai logika aplikasi.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="feature-number">02</span>
+                    <h3>Belajar dengan Proyek</h3>
+                    <p>Setiap pertemuan menambah bagian nyata dari satu proyek KursusKu yang sama.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="feature-number">03</span>
+                    <h3>Pendampingan Praktik</h3>
+                    <p>Proses belajar mencakup demonstrasi, testing, debugging, evidence, dan refleksi.</p>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- =========================
-         BAGIAN MEDIA (GAMBAR & VIDEO)
-    ========================= -->
-    <section id="media" class="section-block">
-        <div class="section-header">
-            <h2>Kenali Program Kami</h2>
-            <p>Lihat suasana belajar dan video pengenalan singkat mengenai kurikulum kami.</p>
-        </div>
-
-        <div class="media-grid">
-            <!-- Kartu Foto Aktivitas -->
-            <div class="media-card">
-                <div class="media-preview-container">
-                    <img src="assets/images/hero-kursus.jpg" alt="Kegiatan Kursus Komputer KursusKu" class="media-image" onerror="this.src='https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80';">
+    <section id="katalog" class="section section-light">
+        <div class="container">
+            <div class="section-heading section-heading-row">
+                <div>
+                    <span class="eyebrow">KATALOG DATA-DRIVEN</span>
+                    <h2>Katalog Kursus</h2>
+                    <p>Data berasal dari array PHP dan dirender menggunakan <code>foreach</code>.</p>
                 </div>
-                <div class="media-body">
-                    <span class="media-badge">Fasilitas Belajar</span>
-                    <h3>Suasana Kelas Interaktif</h3>
-                    <p>Mahasiswa dan peserta umum dapat mengikuti sesi praktikum dengan fasilitas komputer modern dan nyaman.</p>
-                </div>
+                <a href="test-functions.php" class="text-link">Lihat 6 test function &rarr;</a>
             </div>
 
-            <!-- Kartu Video Pengenalan -->
-            <div class="media-card">
-                <div class="media-preview-container">
-                    <video controls class="media-video" poster="assets/images/hero-kursus.jpg">
-                        <source src="assets/video/intro-kursus.mp4" type="video/mp4">
-                        Browser Anda tidak mendukung pemutar video HTML5.
-                    </video>
-                </div>
-                <div class="media-body">
-                    <span class="media-badge">Video Profil</span>
-                    <h3>Video Singkat Kursus</h3>
-                    <p>Saksikan gambaran singkat mengenai alur praktikum, kurikulum, dan testimoni para peserta KursusKu.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========================
-         KATALOG KURSUS
-    ========================= -->
-    <section id="katalog" class="section-block">
-        <div class="section-header">
-            <h2>Katalog Kursus & Status Kuota</h2>
-            <p>Pemeriksaan status ketersediaan kursi dan jadwal kelas terupdate:</p>
-        </div>
-
-        <div class="table-container">
-            <table class="cost-table">
-                <thead>
+            <div class="table-wrap">
+                <table class="course-table">
+                    <thead>
                     <tr>
                         <th>Kode</th>
                         <th>Nama Kursus</th>
                         <th>Biaya</th>
-                        <th>Kuota</th>
-                        <th>Terdaftar</th>
+                        <th>Mulai</th>
                         <th>Sisa Kursi</th>
                         <th>Status</th>
-                        <th>Aksi</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <?php foreach ($courses as $course): ?>
                         <?php
-                            $status      = statusKursus($course['quota'], $course['registered']);
-                            $statusClass = ($status === 'Penuh') ? 'badge-full' : 'badge-available';
-                            $sisa        = sisaKursi($course['quota'], $course['registered']);
+                        $status = statusKursus($course['quota'], $course['registered']);
+                        $statusClass = $status === 'Penuh' ? 'badge-full' : 'badge-available';
                         ?>
                         <tr>
-                            <td><strong><?= htmlspecialchars($course['code']) ?></strong></td>
+                            <td><code><?= htmlspecialchars($course['code']) ?></code></td>
                             <td><?= htmlspecialchars(trim($course['name'])) ?></td>
-                            <td>Rp <?= number_format($course['fee'], 0, ',', '.') ?></td>
-                            <td><?= $course['quota'] ?></td>
-                            <td><?= $course['registered'] ?></td>
-                            <td><?= $sisa ?> kursi</td>
-                            <td><span class="<?= $statusClass ?>"><?= htmlspecialchars($status) ?></span></td>
-                            <td>
-                                <?php if ($status !== 'Penuh'): ?>
-                                    <a href="registration.php?course=<?= urlencode($course['code']) ?>" class="btn-table-action">Daftar</a>
-                                <?php else: ?>
-                                    <span class="text-muted">Penuh</span>
-                                <?php endif; ?>
-                            </td>
+                            <td><?= rupiah($course['fee']) ?></td>
+                            <td><?= formatTanggal($course['start_date']) ?></td>
+                            <td><?= sisaKursi($course['quota'], $course['registered']) ?></td>
+                            <td><span class="badge <?= $statusClass ?>"><?= htmlspecialchars($status) ?></span></td>
                         </tr>
                     <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- KALKULATOR BIAYA BANNER -->
-        <div class="cta-banner">
-            <div class="cta-text">
-                <h3>Estimasi Biaya Kursus</h3>
-                <p>Hitung estimasi total biaya kursus berdasarkan jumlah peserta, diskon khusus, dan biaya administrasi.</p>
+                    </tbody>
+                </table>
             </div>
-            <a href="fee-calculator.php" class="btn-primary">Hitung Estimasi Biaya</a>
+            <p class="table-note">Contoh kondisi: <strong>Laravel Fundamental</strong> penuh, <strong>PHP Lanjutan</strong> tersisa 1 kursi, dan <strong>MySQL Dasar</strong> belum memiliki pendaftar.</p>
         </div>
     </section>
 
-    <!-- =========================
-         ALUR PENDAFTARAN
-    ========================= -->
-    <section id="alur" class="section-block">
-        <div class="section-header">
-            <h2>Cara Mendaftar</h2>
-            <p>5 langkah mudah untuk memulai kelas pertama Anda di KursusKu:</p>
+    <section id="alur" class="section">
+        <div class="container">
+            <div class="section-heading">
+                <span class="eyebrow">ALUR PENDAFTARAN</span>
+                <h2>Cara Mendaftar</h2>
+            </div>
+            <ol class="steps">
+                <li><span>1</span><div><strong>Pilih kursus</strong><p>Tentukan program yang paling sesuai dengan kebutuhan belajar.</p></div></li>
+                <li><span>2</span><div><strong>Isi form pendaftaran</strong><p>Isi form pendaftaran pada Milestone 5-6 dan lanjutkan ke proses PHP.</p></div></li>
+                <li><span>3</span><div><strong>Periksa data</strong><p>Pastikan data dan pilihan kursus sudah benar sebelum dikirim.</p></div></li>
+                <li><span>4</span><div><strong>Tunggu konfirmasi</strong><p>Pendaftaran akan diproses setelah data diterima sistem.</p></div></li>
+            </ol>
         </div>
-
-        <ol class="steps-list">
-            <li>
-                <span class="step-num">1</span>
-                <div class="step-content">
-                    <strong>Pilih Kursus</strong>
-                    <p>Pilih kelas yang diminati pada katalog kursus di atas.</p>
-                </div>
-            </li>
-            <li>
-                <span class="step-num">2</span>
-                <div class="step-content">
-                    <strong>Buka Form Pendaftaran</strong>
-                    <p>Klik tombol <strong>Daftar Kursus</strong> pada menu atau daftar katalog.</p>
-                </div>
-            </li>
-            <li>
-                <span class="step-num">3</span>
-                <div class="step-content">
-                    <strong>Isi Data Diri</strong>
-                    <p>Lengkapi formulir dengan data diri latihan Anda yang valid.</p>
-                </div>
-            </li>
-            <li>
-                <span class="step-num">4</span>
-                <div class="step-content">
-                    <strong>Konfirmasi Data</strong>
-                    <p>Periksa kembali ringkasan data dan program pilihan Anda.</p>
-                </div>
-            </li>
-            <li>
-                <span class="step-num">5</span>
-                <div class="step-content">
-                    <strong>Selesai & Simpan Bukti</strong>
-                    <p>Kirimkan pendaftaran dan simpan konfirmasi bukti pendaftaran Anda.</p>
-                </div>
-            </li>
-        </ol>
     </section>
 
+    <section id="media" class="section section-light">
+        <div class="container media-grid">
+            <div>
+                <span class="eyebrow">MEDIA PEMBELAJARAN</span>
+                <h2>Kenali Program Kami</h2>
+                <p>Gambar dan video disimpan di folder aset agar struktur proyek tetap rapi.</p>
+                <p>Pelajari juga <a href="https://www.php.net/" target="_blank" rel="noopener">dokumentasi resmi PHP</a> untuk referensi sintaks dan fungsi.</p>
+            </div>
+            <div class="media-card">
+                <img src="assets/images/hero-kursus.jpg" alt="Ilustrasi kegiatan belajar pemrograman di KursusKu" loading="lazy">
+                <div class="video-block">
+                    <video controls preload="metadata" poster="assets/img/image1.png">
+                        <source src="assets/video/intro-kursus.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung video HTML5.
+                    </video>
+                    <small>Video lokal: <code>assets/video/intro-kursus.mp4</code></small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontak" class="section contact-section">
+        <div class="container contact-card">
+            <div>
+                <span class="eyebrow">KONTAK</span>
+                <h2>Informasi KursusKu</h2>
+                <p>Prototype pembelajaran untuk Mata Kuliah Pemrograman Web III.</p>
+            </div>
+            <div class="contact-list">
+                <p><strong>Email</strong><br><a href="mailto:kursusku@example.test">kursusku@example.test</a></p>
+                <p><strong>Lokasi latihan</strong><br>Laboratorium Komputer</p>
+            </div>
+        </div>
+    </section>
 </main>
 
-<!-- =========================
-     FOOTER
-========================= -->
-<footer class="site-footer">
-    <div class="container footer-content">
-        <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>
+<footer class="footer">
+    <div class="container footer-inner">
+        <small>&copy; <?= htmlspecialchars($year) ?> <?= htmlspecialchars($siteName) ?>. Pemrograman Web III.</small>
+        <small>PHP &middot; HTML &middot; Function &middot; Array &middot; Testing</small>
     </div>
 </footer>
-
 </body>
 </html>
