@@ -1,9 +1,29 @@
 <?php
-$fee = 350000;
-$participants = 2;
-$subtotal = $fee * $participants;
-$comparisonPositive = $fee > 0;
-$comparisonStrict = $fee === 350000;
-$message = 'Biaya: Rp ' . $fee;
+$a = 10;
+$b = 3;
 ?>
-<!doctype html><html lang="id"><head><meta charset="utf-8"><title>Operator Test</title><link rel="stylesheet" href="assets/css/style.css"></head><body class="utility-page"><main class="utility-card"><h1>Operator PHP</h1><ul><li>Perkalian: <?= $subtotal ?></li><li>Comparison &gt; 0: <?= $comparisonPositive ? 'true' : 'false' ?></li><li>Strict ===: <?= $comparisonStrict ? 'true' : 'false' ?></li><li>Concatenation: <?= htmlspecialchars($message) ?></li></ul><a href="fee-calculator.php">Kembali ke Kalkulator</a></main></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Operator Test</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<main class="utility-page">
+    <div class="utility-card">
+        <h1>Latihan Operator Aritmatika</h1>
+        <p>a = <?= $a ?>, b = <?= $b ?></p>
+        <ul class="chip-list">
+            <li>+ = <?= $a + $b ?></li>
+            <li>- = <?= $a - $b ?></li>
+            <li>* = <?= $a * $b ?></li>
+            <li>/ = <?= $a / $b ?></li>
+            <li>% = <?= $a % $b ?></li>
+            <li>** = <?= $a ** $b ?></li>
+        </ul>
+        <a href="index.php" class="btn-primary">Kembali</a>
+    </div>
+</main>
+</body>
+</html>

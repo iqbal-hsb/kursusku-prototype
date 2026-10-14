@@ -1,51 +1,41 @@
 <?php
+require_once 'data.php';
+require_once 'helpers.php';
 
-declare(strict_types=1);
-
-require __DIR__ . '/helpers.php';
-
-$registrations = [
-    ['name' => 'Alya Putri', 'course' => 'Web Dasar', 'total' => 240000],
-    ['name' => 'Bima Saputra', 'course' => 'PHP Dasar', 'total' => 340000],
-    ['name' => 'Citra Rahma', 'course' => 'Laravel Dasar', 'total' => 500000],
-    ['name' => 'Dani Akbar', 'course' => 'Web Dasar', 'total' => 480000],
+// Simulasi data riwayat (biasanya dari database)
+$history = [
+    ['tanggal' => '2026-10-10', 'kursus' => 'PHP Dasar', 'status' => 'Selesai'],
+    ['tanggal' => '2026-10-12', 'kursus' => 'Web Dasar', 'status' => 'Aktif'],
 ];
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>History Dummy - KursusKu</title>
+    <meta charset="UTF-8">
+    <title>Riwayat Pendaftaran</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="utility-page">
-<main class="utility-card wide-card">
-    <span class="eyebrow">MILESTONE 6 · FOREACH</span>
-    <h1>History Pendaftaran Dummy</h1>
-    <p>Data ini adalah latihan array + looping, bukan database dan bukan CRUD.</p>
-
-    <div class="table-wrap">
-        <table class="course-table compact-table">
-            <thead>
-            <tr><th>No.</th><th>Nama</th><th>Kursus</th><th>Total</th></tr>
-            </thead>
-            <tbody>
-            <?php foreach ($registrations as $index => $item): ?>
-                <tr>
-                    <td><?= $index + 1 ?></td>
-                    <td><?= e($item['name']) ?></td>
-                    <td><?= e($item['course']) ?></td>
-                    <td><?= formatRupiah($item['total']) ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="button-row">
-        <a class="button" href="register.php">Daftar Kursus</a>
-        <a class="button button-secondary" href="index.php">Beranda</a>
+<body>
+<main class="utility-page">
+    <div class="utility-card wide-card">
+        <h1>Riwayat Pendaftaran</h1>
+        <div class="table-container">
+            <table class="cost-table compact-table">
+                <thead>
+                    <tr><th>Tanggal</th><th>Kursus</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($history as $h): ?>
+                        <tr>
+                            <td><?= $h['tanggal'] ?></td>
+                            <td><?= htmlspecialchars($h['kursus']) ?></td>
+                            <td><span class="badge-available"><?= $h['status'] ?></span></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top:20px;"><a href="index.php" class="btn-primary">Kembali ke Beranda</a></p>
     </div>
 </main>
 </body>

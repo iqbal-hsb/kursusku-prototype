@@ -1,7 +1,38 @@
 <?php
-function tampilkanPesan(string $message): void
-{
-    echo '<p>' . htmlspecialchars($message) . '</p>';
+function sapa($nama) {
+    return "Halo, $nama!";
+}
+
+function hitungLuasPersegi($sisi) {
+    return $sisi * $sisi;
+}
+
+function tampilkanList($array) {
+    $html = "<ul class='chip-list'>";
+    foreach ($array as $item) {
+        $html .= "<li>$item</li>";
+    }
+    $html .= "</ul>";
+    return $html;
 }
 ?>
-<!doctype html><html lang="id"><head><meta charset="utf-8"><title>Procedure Style Test</title><link rel="stylesheet" href="assets/css/style.css"></head><body class="utility-page"><main class="utility-card"><h1>Function vs Procedure-style</h1><?php tampilkanPesan('Pesan ini dicetak langsung oleh function bertipe void.'); ?><p>Untuk perhitungan utama KursusKu tetap diprioritaskan function yang mengembalikan nilai.</p><a href="index.php">Kembali</a></main></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Procedure Test</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<main class="utility-page">
+    <div class="utility-card">
+        <h1>Latihan Prosedur & Fungsi</h1>
+        <p><?= sapa('Peserta Kursus') ?></p>
+        <p>Luas persegi (sisi=5): <strong><?= hitungLuasPersegi(5) ?></strong></p>
+        <h3>Daftar Kursus:</h3>
+        <?= tampilkanList(['PHP Dasar', 'Web Dasar', 'Laravel']) ?>
+        <a href="index.php" class="btn-primary">Kembali</a>
+    </div>
+</main>
+</body>
+</html>
