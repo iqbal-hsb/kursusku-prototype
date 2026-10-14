@@ -2,6 +2,7 @@
 // ============================================================
 //  process-registration.php — Proses & Hasil Pendaftaran
 // ============================================================
+require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/helpers.php';
 
 $siteName = 'KursusKu';
@@ -12,31 +13,67 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect('registration.php');
 }
 
-// Ambil & sanitasi data dari form
-$nama         = sanitize($_POST['nama'] ?? '');
-$email        = sanitize($_POST['email'] ?? '');
-$whatsapp     = sanitize($_POST['whatsapp'] ?? $_POST['hp'] ?? '');
-$prodi        = sanitize($_POST['prodi'] ?? '');
-$course_code  = sanitize($_POST['course'] ?? '');
-$jenis        = sanitize($_POST['jenis_peserta'] ?? 'umum');
-$minat        = $_POST['minat'] ?? [];        // array (checkbox)
-$catatan      = sanitize($_POST['catatan'] ?? '');
-$sumber       = sanitize($_POST['sumber'] ?? '');
+// ============================================================
+// AMBIL DATA DARI FORM (sesuai name="" di registration.php)
+// ============================================================
+$fullName      = sanitize($_POST['fullName']     ?? '');
+$email         = sanitize($_POST['email']        ?? '');
+$whatsapp      = sanitize($_POST['whatsapp']     ?? '');
+$prodi         = sanitize($_POST['prodi']        ?? '');
+$courseCode    = sanitize($_POST['courseCode']   ?? '');
+$category      = sanitize($_POST['category']     ?? 'umum');
+$learningMode  = sanitize($_POST['learningMode'] ?? 'online');
+$packageCount  = (int)   ($_POST['packageCount'] ?? 1);
+$sumber        = sanitize($_POST['sumber']       ?? '');
+$catatan       = sanitize($_POST['catatan']      ?? '');
+$sourceInfo    = sanitize($_POST['source']       ?? '');
 
-// Validasi
+// ============================================================
+// HANDLE ARRAY interests[] (checkbox multi-pilih)
+// ============================================================
+$interests = $_POST['interests'] ?? [];
+if (!is_array($interests)) {
+    $interests = [$interests]; // jaga-jaga kalau bukan array
+}
+$interests = array_map('sanitize', $interests);  // sanitasi tiap item
+$interests = array_filter($interests);           // buang yang kosong
+
+// ============================================================
+// VALIDASI
+// ============================================================
 $errors = [];
-if (empty($nama))         $errors[] = "Nama wajib diisi.";
-if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Email tidak valid.";
+if (empty($fullName))     $errors[] = "Nama lengkap wajib diisi.";
+if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors[] = "Email tidak valid.";
+}
 if (empty($whatsapp))     $errors[] = "Nomor HP/WhatsApp wajib diisi.";
-if (empty($course_code))  $errors[] = "Kursus wajib dipilih.";
+if (empty($courseCode))   $errors[] = "Kursus wajib dipilih.";
 if (empty($sumber))       $errors[] = "Sumber informasi wajib dipilih.";
+
+// Cek kursus ada di data.php
+$course = getCourseByCode($courseCode);
+if (!$course) {
+    $errors[] = "Kursus dengan kode '$courseCode' tidak ditemukan.";
+}
+
+// ============================================================
+// HITUNG DISKON berdasarkan kategori
+// ============================================================
+$diskonPersen = 0;
+if ($category === 'mahasiswa') $diskonPersen = 20;
+if ($category === 'alumni')    $diskonPersen = 15;
+
+$hargaAsli   = $course['fee'] ?? 0;
+$subtotal    = $hargaAsli * $packageCount;
+$potongan    = $subtotal * ($diskonPersen / 100);
+$totalBayar  = $subtotal - $potongan;
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Pendaftaran <?= htmlspecialchars($siteName) ?></title>
+    <title>Hasil Pendaftaran - <?= htmlspecialchars($siteName) ?></title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,9 +83,7 @@ if (empty($sumber))       $errors[] = "Sumber informasi wajib dipilih.";
 </head>
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
+<!-- HEADER -->
 <header class="site-header">
     <div class="container nav-wrap">
         <a class="brand" href="index.php">
@@ -59,24 +94,20 @@ if (empty($sumber))       $errors[] = "Sumber informasi wajib dipilih.";
             </div>
             <span class="brand-title"><?= htmlspecialchars($siteName) ?></span>
         </a>
-
-        <nav aria-label="Navigasi utama">
+        <nav>
             <a href="index.php">Beranda</a>
             <a href="registration.php">Daftar</a>
-            <a href="loop-lab.php">Loop Lab</a>
             <a href="history.php">History</a>
         </nav>
     </div>
 </header>
 
-<!-- =========================
-     KONTEN HASIL
-========================= -->
+<!-- KONTEN -->
 <main class="utility-page">
     <div class="utility-card wide-card">
 
         <?php if (!empty($errors)): ?>
-            <!-- ====== TAMPILAN JIKA ADA ERROR ====== -->
+            <!-- ===== TAMPILAN ERROR ===== -->
             <h1>⚠️ Terjadi Kesalahan</h1>
             <div class="alert alert-error">
                 <strong>Mohon periksa kembali data Anda:</strong>
@@ -86,44 +117,73 @@ if (empty($sumber))       $errors[] = "Sumber informasi wajib dipilih.";
                     <?php endforeach; ?>
                 </ul>
             </div>
-
             <p style="margin-top:24px;">
                 <a href="registration.php" class="btn-primary">← Kembali ke Formulir</a>
             </p>
-
         <?php else: ?>
-            <!-- ====== TAMPILAN JIKA BERHASIL ====== -->
+            <!-- ===== TAMPILAN BERHASIL ===== -->
             <h1>✅ Pendaftaran Diterima untuk Diproses</h1>
-            <p>Periksa kembali data latihan berikut.</p>
+            <p>Terima kasih, <strong><?= htmlspecialchars($fullName) ?></strong>. Berikut ringkasan pendaftaran Anda:</p>
 
-            <div class="result-grid" style="margin-top:24px;">
-                <p><strong>Nama:</strong><br><?= htmlspecialchars($nama) ?></p>
+            <h2>Data Peserta</h2>
+            <div class="result-grid">
+                <p><strong>Nama:</strong><br><?= htmlspecialchars($fullName) ?></p>
                 <p><strong>Email:</strong><br><?= htmlspecialchars($email) ?></p>
-                <p><strong>Nomor HP:</strong><br><?= htmlspecialchars($whatsapp) ?></p>
+                <p><strong>WhatsApp:</strong><br><?= htmlspecialchars($whatsapp) ?></p>
                 <p><strong>Program Studi:</strong><br><?= htmlspecialchars($prodi ?: '-') ?></p>
-                <p><strong>Kursus:</strong><br><?= htmlspecialchars($course_code) ?></p>
-                <p><strong>Jenis Peserta:</strong><br><?= htmlspecialchars($jenis) ?></p>
-                <p><strong>Minat:</strong><br><?= htmlspecialchars(is_array($minat) ? implode(', ', $minat) : ($minat ?: '-')) ?></p>
-                <p><strong>Catatan:</strong><br><?= htmlspecialchars($catatan ?: '-') ?></p>
-                <p><strong>Sumber:</strong><br><?= htmlspecialchars($sumber) ?></p>
+                <p><strong>Kategori:</strong><br><?= ucfirst($category) ?></p>
+                <p><strong>Sumber Info:</strong><br><?= htmlspecialchars($sumber) ?></p>
             </div>
 
-            <div class="alert alert-info" style="margin-top:24px;">
-                <strong>Simpan bukti pendaftaran ini</strong> sebagai konfirmasi Anda.
+            <h2>Detail Kursus</h2>
+            <div class="result-grid">
+                <p><strong>Kode Kursus:</strong><br><?= htmlspecialchars($course['code']) ?></p>
+                <p><strong>Nama Kursus:</strong><br><?= htmlspecialchars($course['title']) ?></p>
+                <p><strong>Mode Belajar:</strong><br><?= ucfirst($learningMode) ?></p>
+                <p><strong>Jumlah Paket:</strong><br><?= $packageCount ?> paket</p>
+                <p><strong>Harga Satuan:</strong><br><?= formatRupiah($hargaAsli) ?></p>
+                <p><strong>Subtotal:</strong><br><?= formatRupiah($subtotal) ?></p>
             </div>
 
-            <p style="margin-top:32px;">
+            <h2>Minat Tambahan</h2>
+            <?php if (!empty($interests)): ?>
+                <ul class="chip-list">
+                    <?php foreach ($interests as $item): ?>
+                        <li>🎯 <?= htmlspecialchars($interestOptions[$item] ?? $item) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p class="text-muted">Tidak ada minat tambahan yang dipilih.</p>
+            <?php endif; ?>
+
+            <h2>Ringkasan Biaya</h2>
+            <div class="formula-box">
+                <p><strong>Harga Asli:</strong> <?= formatRupiah($hargaAsli) ?> × <?= $packageCount ?> paket</p>
+                <p><strong>Subtotal:</strong> <?= formatRupiah($subtotal) ?></p>
+                <p><strong>Diskon (<?= $diskonPersen ?>%):</strong> - <?= formatRupiah($potongan) ?></p>
+                <hr>
+                <p class="total-row"><strong>Total Bayar: <?= formatRupiah($totalBayar) ?></strong></p>
+            </div>
+
+            <?php if ($catatan): ?>
+                <h2>Catatan</h2>
+                <div class="alert alert-info"><?= htmlspecialchars($catatan) ?></div>
+            <?php endif; ?>
+
+            <?php if ($sourceInfo): ?>
+                <p style="margin-top:16px;"><small>Sumber formulir: <code><?= htmlspecialchars($sourceInfo) ?></code></small></p>
+            <?php endif; ?>
+
+            <p style="margin-top:32px; display:flex; gap:12px; flex-wrap:wrap;">
                 <a href="index.php" class="btn-primary">← Kembali ke Beranda</a>
-                <a href="registration.php" class="btn-secondary" style="margin-left:8px;">Daftar Lagi</a>
+                <a href="registration.php" class="btn-secondary">Daftar Lagi</a>
             </p>
         <?php endif; ?>
 
     </div>
 </main>
 
-<!-- =========================
-     FOOTER
-========================= -->
+<!-- FOOTER -->
 <footer class="site-footer">
     <div class="container footer-content">
         <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>

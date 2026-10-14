@@ -1,109 +1,229 @@
 <?php
-// registration.php - Proyek KursusKu (Milestone 5 / UTS)
-require_once 'data.php';
-require_once 'helpers.php';
+// ============================================================
+//  registration.php — Formulir Pendaftaran Kursus
+//  Milestone 5 / UTS — Praktikum Pemrograman Web III
+// ============================================================
+require_once __DIR__ . '/data.php';
+require_once __DIR__ . '/helpers.php';
 
-$pageTitle = "Pendaftaran Kursus - KursusKu";
+$siteName = 'KursusKu';
+$year     = date('Y');
+
+// Ambil kode kursus dari URL (opsional: ?course=WEB-01)
+$selected_code   = isset($_GET['course']) ? sanitize($_GET['course']) : '';
+$selected_course = $selected_code ? getCourseByCode($selected_code) : null;
+
+// Fallback kalau $interestOptions belum ada di data.php
+if (!isset($interestOptions) || !is_array($interestOptions)) {
+    $interestOptions = [
+        'frontend' => 'Frontend Development',
+        'backend'  => 'Backend Development',
+        'mobile'   => 'Mobile Apps',
+        'uiux'     => 'UI/UX Design',
+    ];
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle; ?></title>
+    <title>Formulir Pendaftaran - <?= htmlspecialchars($siteName) ?></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .container { max-width: 600px; margin: 30px auto; padding: 20px; font-family: sans-serif; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group select { width: 100%; padding: 8px; box-sizing: border-box; }
-        .checkbox-group label { font-weight: normal; display: inline-block; margin-right: 15px; }
-        .btn-submit { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
-    </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Formulir Pendaftaran Kursus</h2>
-    
-    <!-- No. 15 & 18: Method yang digunakan adalah POST -->
-    <form action="process-registration.php" method="POST">
-        
-        <!-- No. 29: Input tersembunyi name="source" dengan nilai "week-05" -->
-        <input type="hidden" name="source" value="week-05">
+<!-- ============================================================
+     HEADER — Tersambung ke index.php
+============================================================ -->
+<header class="site-header">
+    <div class="container nav-wrap">
+        <a class="brand" href="index.php">
+            <div class="brand-logo-wrapper">
+                <img src="assets/images/logo.svg" alt="Logo" class="brand-logo"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span class="logo-fallback-icon" style="display:none;">🎓</span>
+            </div>
+            <span class="brand-title"><?= htmlspecialchars($siteName) ?></span>
+        </a>
 
-        <!-- No. 24: Pasangan atribut label (for), input (id & name) -->
-        <div class="form-group">
-            <label for="fullName">Nama Lengkap</label>
-            <input type="text" id="fullName" name="fullName" placeholder="Masukkan nama lengkap" required>
-        </div>
+        <nav aria-label="Navigasi utama">
+            <a href="index.php">Beranda</a>
+            <a href="registration.php" class="active">Daftar</a>
+            <a href="loop-lab.php">Loop Lab</a>
+            <a href="history.php">History</a>
+            <a href="string-test.php">String Test</a>
+            <a href="fee-calculator.php">Estimasi Biaya</a>
+        </nav>
+    </div>
+</header>
 
-        <div class="form-group">
-            <label for="email">Alamat Email</label>
-            <input type="email" id="email" name="email" placeholder="nama@domain.com" required>
-        </div>
+<!-- ============================================================
+     FORMULIR PENDAFTARAN
+============================================================ -->
+<main class="utility-page">
+    <div class="utility-card wide-card">
 
-        <!-- No. 23 & 30: Menampilkan daftar kursus dari data.php ($courses) -->
-        <div class="form-group">
-            <label for="courseCode">Pilihan Kursus</label>
-            <select id="courseCode" name="courseCode" required>
-                <option value="">-- Pilih Kursus --</option>
-                <?php foreach ($courses as $code => $course): ?>
-                    <option value="<?php echo htmlspecialchars($code); ?>">
-                        <?php echo htmlspecialchars($course['title']); ?> - Rp<?php echo number_format($course['fee'], 0, ',', '.'); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+        <h1>📝 Formulir Pendaftaran Kursus</h1>
+        <p>Lengkapi data diri Anda di bawah ini. Field bertanda <span style="color:var(--red-700)">*</span> wajib diisi.</p>
 
-        <!-- No. 19: Kategori peserta (mahasiswa diskon 20%) -->
-        <div class="form-group">
-            <label for="category">Kategori Peserta</label>
-            <select id="category" name="category" required>
-                <option value="umum">Umum</option>
-                <option value="mahasiswa">Mahasiswa (Diskon 20%)</option>
-                <option value="alumni">Alumni (Diskon 15%)</option>
-            </select>
-        </div>
+        <form action="process-registration.php" method="POST" class="stack-form">
 
-        <!-- No. 20: Mode Pembelajaran (offline dipetakan menjadi "Tatap Muka") -->
-        <div class="form-group">
-            <label for="learningMode">Mode Pembelajaran</label>
-            <select id="learningMode" name="learningMode" required>
-                <option value="online">Online</option>
-                <option value="offline">Tatap Muka</option>
-                <option value="hybrid">Hybrid</option>
-            </select>
-        </div>
+            <!-- No. 29: Hidden input sumber -->
+            <input type="hidden" name="source" value="week-05">
 
-        <!-- No. 26: Perulangan for ($i = 1; $i <= 3; $i++) untuk 3 pilihan paket -->
-        <div class="form-group">
-            <label for="packageCount">Jumlah Paket</label>
-            <select id="packageCount" name="packageCount">
-                <?php for ($i = 1; $i <= 3; $i++): ?>
-                    <option value="<?php echo $i; ?>"><?php echo $i; ?> Paket</option>
-                <?php endfor; ?>
-            </select>
-        </div>
+            <!-- ============================================
+                 No. 24: Pasangan label (for) + input (id & name)
+            ============================================= -->
+            <div class="form-grid">
+                <div class="field">
+                    <label for="fullName">Nama Lengkap <span style="color:var(--red-700)">*</span></label>
+                    <input type="text" id="fullName" name="fullName"
+                           placeholder="Masukkan nama lengkap" required>
+                </div>
 
-        <!-- No. 16 & 23: Minim/Opsi Minat mengggunakan name="interests[]" (array) dan $interestOptions dari data.php -->
-        <div class="form-group checkbox-group">
-            <label>Minat Tambahan:</label>
-            <?php foreach ($interestOptions as $key => $label): ?>
-                <label>
-                    <input type="checkbox" name="interests[]" value="<?php echo htmlspecialchars($key); ?>">
-                    <?php echo htmlspecialchars($label); ?>
-                </label>
-            <?php endforeach; ?>
-        </div>
+                <div class="field">
+                    <label for="email">Alamat Email <span style="color:var(--red-700)">*</span></label>
+                    <input type="email" id="email" name="email"
+                           placeholder="nama@domain.com" required>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn-submit">Daftar Sekarang</button>
-        </div>
-    </form>
-</div>
+            <!-- ============================================
+                 WhatsApp & Prodi
+            ============================================= -->
+            <div class="form-grid">
+                <div class="field">
+                    <label for="whatsapp">Nomor HP / WhatsApp <span style="color:var(--red-700)">*</span></label>
+                    <input type="tel" id="whatsapp" name="whatsapp"
+                           placeholder="08xxxxxxxxxx" required>
+                </div>
+
+                <div class="field">
+                    <label for="prodi">Program Studi</label>
+                    <input type="text" id="prodi" name="prodi"
+                           placeholder="Contoh: Teknik Informatika">
+                </div>
+            </div>
+
+            <!-- ============================================
+                 No. 23 & 30: Pilihan Kursus Dinamis dari data.php
+            ============================================= -->
+            <div class="form-grid">
+                <div class="field">
+                    <label for="courseCode">Pilihan Kursus <span style="color:var(--red-700)">*</span></label>
+                    <select id="courseCode" name="courseCode" required>
+                        <option value="">-- Pilih Kursus --</option>
+                        <?php foreach ($courses as $code => $course): ?>
+                            <option value="<?= htmlspecialchars($code) ?>"
+                                <?= ($selected_course && $selected_course['code'] === $code) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($course['title']) ?> — <?= formatRupiah($course['fee']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <!-- No. 19: Kategori peserta (diskon) -->
+                <div class="field">
+                    <label for="category">Kategori Peserta <span style="color:var(--red-700)">*</span></label>
+                    <select id="category" name="category" required>
+                        <option value="umum">Umum</option>
+                        <option value="mahasiswa">Mahasiswa (Diskon 20%)</option>
+                        <option value="alumni">Alumni (Diskon 15%)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 No. 20: Mode Pembelajaran
+            ============================================= -->
+            <div class="form-grid">
+                <div class="field">
+                    <label for="learningMode">Mode Pembelajaran <span style="color:var(--red-700)">*</span></label>
+                    <select id="learningMode" name="learningMode" required>
+                        <option value="online">Online</option>
+                        <option value="offline">Tatap Muka</option>
+                        <option value="hybrid">Hybrid</option>
+                    </select>
+                </div>
+
+                <!-- No. 26: Loop for 1-3 paket -->
+                <div class="field">
+                    <label for="packageCount">Jumlah Paket</label>
+                    <select id="packageCount" name="packageCount">
+                        <?php for ($i = 1; $i <= 3; $i++): ?>
+                            <option value="<?= $i ?>"><?= $i ?> Paket</option>
+                        <?php endfor; ?>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 No. 16 & 23: Minat Tambahan (checkbox array)
+                 name="interests[]" => $_POST['interests'] = array
+            ============================================= -->
+            <fieldset class="field">
+                <legend>Minat Tambahan (bisa pilih lebih dari satu)</legend>
+                <div class="choice-row">
+                    <?php foreach ($interestOptions as $key => $label): ?>
+                        <label>
+                            <input type="checkbox"
+                                   name="interests[]"
+                                   value="<?= htmlspecialchars($key) ?>">
+                            <?= htmlspecialchars($label) ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+            </fieldset>
+
+            <!-- ============================================
+                 Sumber Informasi & Catatan
+            ============================================= -->
+            <div class="form-grid">
+                <div class="field">
+                    <label for="sumber">Sumber Informasi <span style="color:var(--red-700)">*</span></label>
+                    <select id="sumber" name="sumber" required>
+                        <option value="">-- Pilih Sumber --</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="teman">Teman / Keluarga</option>
+                        <option value="website">Website Resmi</option>
+                        <option value="week-05">week-05</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="catatan">Catatan Tambahan</label>
+                    <textarea id="catatan" name="catatan" rows="3"
+                              placeholder="Opsional..."></textarea>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 TOMBOL AKSI
+            ============================================= -->
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <button type="submit" class="btn-primary">📨 Kirim Pendaftaran</button>
+                <a href="index.php" class="btn-outline">← Batal, Kembali ke Beranda</a>
+            </div>
+
+        </form>
+    </div>
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer">
+    <div class="container footer-content">
+        <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>
+    </div>
+</footer>
 
 </body>
 </html>

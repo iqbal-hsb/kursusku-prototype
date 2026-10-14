@@ -1,57 +1,86 @@
 <?php
-require_once __DIR__ . '/helpers.php';
+// ============================================================
+//  data.php — Sumber Data Kursus & Minat
+// ============================================================
+
 $siteName = 'KursusKu';
+$tagline  = 'Belajar, daftar, dan kelola kursus dalam satu tempat.';
 $year     = date('Y');
-$string  = "KursusKu";
-$integer = 2026;
-$float   = 3.14;
-$boolean = true;
-$array   = ['PHP', 'MySQL', 'Laravel'];
+
+// ============================================================
+// DATA KURSUS — Format: code => [title, fee, quota, registered, start_date]
+// ============================================================
+$courses = [
+    'WEB-01' => [
+        'title'      => 'Web Dasar',
+        'fee'        => 200000,
+        'quota'      => 30,
+        'registered' => 12,
+        'start_date' => '2026-09-21',
+    ],
+    'PHP-01' => [
+        'title'      => 'PHP Dasar',
+        'fee'        => 250000,
+        'quota'      => 30,
+        'registered' => 18,
+        'start_date' => '2026-09-22',
+    ],
+    'PHP-02' => [
+        'title'      => 'PHP Lanjutan',
+        'fee'        => 300000,
+        'quota'      => 25,
+        'registered' => 24,
+        'start_date' => '2026-09-24',
+    ],
+    'LAR-01' => [
+        'title'      => 'Laravel Fundamental',
+        'fee'        => 350000,
+        'quota'      => 25,
+        'registered' => 25,
+        'start_date' => '2026-09-28',
+    ],
+    'DB-01' => [
+        'title'      => 'MySQL Dasar',
+        'fee'        => 275000,
+        'quota'      => 20,
+        'registered' => 0,
+        'start_date' => '2026-10-01',
+    ],
+    'UI-01' => [
+        'title'      => 'UI Web Dasar',
+        'fee'        => 225000,
+        'quota'      => 35,
+        'registered' => 9,
+        'start_date' => '2026-10-03',
+    ],
+];
+
+// ============================================================
+// OPSI MINAT TAMBAHAN — untuk checkbox interests[]
+// ============================================================
+$interestOptions = [
+    'frontend' => 'Frontend Development',
+    'backend'  => 'Backend Development',
+    'mobile'   => 'Mobile Apps',
+    'uiux'     => 'UI/UX Design',
+    'data'     => 'Data Science',
+    'devops'   => 'DevOps & Cloud',
+];
+
+// ============================================================
+// FUNGSI BANTU
+// ============================================================
+
+/**
+ * Cari kursus berdasarkan kode.
+ * @param  string  $code
+ * @return array|null  ['code' => ..., 'title' => ..., 'fee' => ...]
+ */
+function getCourseByCode($code) {
+    global $courses;
+    if (isset($courses[$code])) {
+        return array_merge(['code' => $code], $courses[$code]);
+    }
+    return null;
+}
 ?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Data Test - <?= htmlspecialchars($siteName) ?></title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-<header class="site-header">
-    <div class="container nav-wrap">
-        <a class="brand" href="index.php"><span class="brand-title"><?= htmlspecialchars($siteName) ?></span></a>
-        <nav>
-            <a href="index.php">Beranda</a>
-            <a href="loop-lab.php">Loop Lab</a>
-            <a href="history.php">History</a>
-            <a href="registration.php" class="btn-nav-action">Daftar</a>
-        </nav>
-    </div>
-</header>
-
-<main class="utility-page">
-    <div class="utility-card">
-        <h1>📦 Data Test</h1>
-        <p>Latihan tipe data PHP.</p>
-
-        <ul class="chip-list">
-            <li>String: <?= $string ?></li>
-            <li>Integer: <?= $integer ?></li>
-            <li>Float: <?= $float ?></li>
-            <li>Boolean: <?= $boolean ? 'true' : 'false' ?></li>
-            <li>Array: <?= implode(', ', $array) ?></li>
-        </ul>
-
-        <p style="margin-top:32px;">
-            <a href="index.php" class="btn-primary">← Kembali ke Beranda</a>
-        </p>
-    </div>
-</main>
-
-<footer class="site-footer">
-    <div class="container footer-content">
-        <p>&copy; <?= $year ?> <strong><?= htmlspecialchars($siteName) ?></strong> - Praktikum Pemrograman Web III.</p>
-    </div>
-</footer>
-</body>
-</html>

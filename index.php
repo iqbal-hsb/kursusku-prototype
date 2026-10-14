@@ -1,28 +1,19 @@
 <?php
 // ============================================================
-//  index.php — Beranda Utama KursusKu (FINAL v2)
+//  index.php — Beranda Utama KursusKu (FINAL v3)
+//  Kompatibel dengan data.php versi baru (code => [title, fee, ...])
 // ============================================================
+require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/helpers.php';
 
 $siteName = 'KursusKu';
-$tagline  = 'Belajar, daftar, dan kelola kursus dalam satu tempat.';
 $year     = date('Y');
-
-// Array Data 6 Kursus
-$courses = [
-    ['code' => 'WEB-01', 'name' => 'Web Dasar',           'fee' => 200000, 'quota' => 30, 'registered' => 12, 'start_date' => '2026-09-21'],
-    ['code' => 'PHP-01', 'name' => 'PHP Dasar',           'fee' => 250000, 'quota' => 30, 'registered' => 18, 'start_date' => '2026-09-22'],
-    ['code' => 'PHP-02', 'name' => 'PHP Lanjutan',        'fee' => 300000, 'quota' => 25, 'registered' => 24, 'start_date' => '2026-09-24'],
-    ['code' => 'LAR-01', 'name' => 'Laravel Fundamental', 'fee' => 350000, 'quota' => 25, 'registered' => 25, 'start_date' => '2026-09-28'],
-    ['code' => 'DB-01',  'name' => 'MySQL Dasar',         'fee' => 275000, 'quota' => 20, 'registered' => 0,  'start_date' => '2026-10-01'],
-    ['code' => 'UI-01',  'name' => 'UI Web Dasar',        'fee' => 225000, 'quota' => 35, 'registered' => 9,  'start_date' => '2026-10-03'],
-];
 
 // Statistik Hero
 $totalCourses  = count($courses);
 $totalTersedia = 0;
 $totalPeserta  = 0;
-foreach ($courses as $c) {
+foreach ($courses as $code => $c) {
     if (statusKursus($c['quota'], $c['registered']) === 'Tersedia') $totalTersedia++;
     $totalPeserta += $c['registered'];
 }
@@ -78,7 +69,7 @@ foreach ($courses as $c) {
     <section id="hero" class="hero-section">
         <div class="hero-content">
             <span class="eyebrow">Selamat Datang di <?= htmlspecialchars($siteName) ?></span>
-            <h1><?= htmlspecialchars($tagline) ?></h1>
+            <h1>Belajar, daftar, dan kelola kursus dalam satu tempat.</h1>
             <p>
                 Temukan kursus teknologi yang relevan dan terstruktur untuk meningkatkan keterampilan
                 pemrograman Anda dari dasar hingga mahir.
@@ -169,7 +160,7 @@ foreach ($courses as $c) {
     </section>
 
     <!-- ============================================================
-         KATALOG KURSUS — dengan formatTanggal()
+         KATALOG KURSUS — Kompatibel dengan data.php baru
     ============================================================ -->
     <section id="katalog" class="section-block">
         <div class="section-header">
@@ -192,16 +183,16 @@ foreach ($courses as $c) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($courses as $course): ?>
+                    <?php foreach ($courses as $code => $course): ?>
                         <?php
                             $status      = statusKursus($course['quota'], $course['registered']);
                             $statusClass = ($status === 'Penuh') ? 'badge-full' : 'badge-available';
                             $sisa        = sisaKursi($course['quota'], $course['registered']);
                         ?>
                         <tr>
-                            <td><strong><?= htmlspecialchars($course['code']) ?></strong></td>
+                            <td><strong><?= htmlspecialchars($code) ?></strong></td>
                             <td>
-                                <div class="course-name"><?= htmlspecialchars($course['name']) ?></div>
+                                <div class="course-name"><?= htmlspecialchars($course['title']) ?></div>
                                 <div class="course-date">
                                     📅 Mulai: <?= formatTanggal($course['start_date']) ?>
                                 </div>
@@ -213,7 +204,7 @@ foreach ($courses as $c) {
                             <td><span class="<?= $statusClass ?>"><?= htmlspecialchars($status) ?></span></td>
                             <td>
                                 <?php if ($status !== 'Penuh'): ?>
-                                    <a href="registration.php?course=<?= urlencode($course['code']) ?>"
+                                    <a href="registration.php?course=<?= urlencode($code) ?>"
                                        class="btn-table-action">Daftar</a>
                                 <?php else: ?>
                                     <span class="text-muted">Penuh</span>
@@ -225,6 +216,7 @@ foreach ($courses as $c) {
             </table>
         </div>
 
+        <!-- CTA Banner -->
         <div class="cta-banner">
             <div class="cta-text">
                 <h3>Estimasi Biaya Kursus</h3>
