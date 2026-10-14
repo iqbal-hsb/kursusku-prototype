@@ -1,17 +1,74 @@
 <?php
-// =====================================================
-//  index.php — Beranda Utama KursusKu
-// =====================================================
-require_once __DIR__ . '/data.php';     // Menyediakan: $courses, $siteName, $tagline, $year
-require_once __DIR__ . '/helpers.php';  // Menyediakan: statusKursus(), sisaKursi(), formatRupiah(), dll.
+// ============================================================
+//  index.php — Beranda Utama KursusKu (FINAL GABUNGAN)
+// ============================================================
+require_once __DIR__ . '/helpers.php';
 
-// Hitung total kursus untuk statistik hero
-$totalCourses    = count($courses);
-$totalTersedia   = 0;
+$siteName = 'KursusKu';
+$tagline  = 'Belajar, daftar, dan kelola kursus dalam satu tempat.';
+$year     = date('Y');
+
+// Array Data 6 Kursus
+$courses = [
+    [
+        'code'       => 'WEB-01',
+        'name'       => 'Web Dasar',
+        'fee'        => 200000,
+        'quota'      => 30,
+        'registered' => 12,
+        'start_date' => '2026-09-21'
+    ],
+    [
+        'code'       => 'PHP-01',
+        'name'       => 'PHP Dasar',
+        'fee'        => 250000,
+        'quota'      => 30,
+        'registered' => 18,
+        'start_date' => '2026-09-22'
+    ],
+    [
+        'code'       => 'PHP-02',
+        'name'       => 'PHP Lanjutan',
+        'fee'        => 300000,
+        'quota'      => 25,
+        'registered' => 24,
+        'start_date' => '2026-09-24'
+    ],
+    [
+        'code'       => 'LAR-01',
+        'name'       => 'Laravel Fundamental',
+        'fee'        => 350000,
+        'quota'      => 25,
+        'registered' => 25,
+        'start_date' => '2026-09-28'
+    ],
+    [
+        'code'       => 'DB-01',
+        'name'       => 'MySQL Dasar',
+        'fee'        => 275000,
+        'quota'      => 20,
+        'registered' => 0,
+        'start_date' => '2026-10-01'
+    ],
+    [
+        'code'       => 'UI-01',
+        'name'       => 'UI Web Dasar',
+        'fee'        => 225000,
+        'quota'      => 35,
+        'registered' => 9,
+        'start_date' => '2026-10-03'
+    ]
+];
+
+// Hitung statistik
+$totalCourses  = count($courses);
+$totalTersedia = 0;
+$totalPeserta  = 0;
 foreach ($courses as $c) {
     if (statusKursus($c['quota'], $c['registered']) === 'Tersedia') {
         $totalTersedia++;
     }
+    $totalPeserta += $c['registered'];
 }
 ?>
 <!doctype html>
@@ -69,17 +126,15 @@ foreach ($courses as $c) {
                 Temukan kursus teknologi yang relevan dan terstruktur untuk meningkatkan keterampilan
                 pemrograman Anda dari dasar hingga mahir.
             </p>
-
             <div class="hero-buttons">
                 <a href="registration.php" class="btn-primary">Daftar Kursus Sekarang</a>
                 <a href="#katalog" class="btn-secondary">Lihat Katalog</a>
                 <a href="fee-calculator.php" class="btn-outline">Hitung Biaya</a>
             </div>
-
-            <div class="hero-meta" style="display:flex; gap:12px; margin-top:28px; justify-content:center; flex-wrap:wrap;">
+            <div class="hero-meta">
                 <span>📚 <?= $totalCourses ?> Kursus Tersedia</span>
                 <span>✅ <?= $totalTersedia ?> Kelas Masih Terbuka</span>
-                <span>🎯 Kurikulum Praktikum</span>
+                <span>👥 <?= $totalPeserta ?> Peserta Terdaftar</span>
             </div>
         </div>
     </section>
